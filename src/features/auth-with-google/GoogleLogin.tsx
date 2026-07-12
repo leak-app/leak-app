@@ -1,0 +1,121 @@
+/* eslint-disable import/default */
+import React, { useEffect, useRef } from 'react';
+
+import { useGoogleOAuth } from './GoogleOAuthProvider';
+import type {
+  CredentialResponse,
+  GoogleCredentialResponse,
+  GsiButtonConfiguration,
+  IdConfiguration,
+  MomentListener,
+} from './types';
+import { extractClientId } from './utils';
+
+const containerHeightMap = { large: 40, medium: 32, small: 20 };
+
+export type GoogleLoginProps = {
+  onSuccess: (credentialResponse: CredentialResponse) => void;
+  onError?: () => void;
+  promptMomentNotification?: MomentListener;
+  useOneTap?: boolean;
+  containerProps?: React.ComponentPropsWithoutRef<'div'>;
+} & Omit<IdConfiguration, 'client_id' | 'callback'> &
+  GsiButtonConfiguration;
+
+export default function GoogleLogin({
+  onSuccess,
+  onError,
+  useOneTap,
+  promptMomentNotification,
+  type = 'standard',
+  theme = 'outline',
+  size = 'large',
+  text,
+  shape,
+  logo_alignment,
+  width,
+  click_listener,
+  state,
+  containerProps,
+  login_hint,
+  ...props
+}: GoogleLoginProps) {
+  const btnContainerRef = useRef<HTMLDivElement>(null);
+  const { clientId, locale, scriptLoadedSuccessfully } = useGoogleOAuth();
+
+  const onSuccessRef = useRef(onSuccess);
+  // eslint-disable-next-line react-hooks/refs
+  onSuccessRef.current = onSuccess;
+
+  const onErrorRef = useRef(onError);
+  // eslint-disable-next-line react-hooks/refs
+  onErrorRef.current = onError;
+
+  const promptMomentNotificationRef = useRef(promptMomentNotification);
+  // eslint-disable-next-line react-hooks/refs
+  promptMomentNotificationRef.current = promptMomentNotification;
+
+  useEffect(() => {
+    if (!scriptLoadedSuccessfully) return;
+
+    window?.google?.accounts?.id?.initialize({
+      client_id: clientId,
+      callback: (credentialResponse: GoogleCredentialResponse) => {
+        if (!credentialResponse?.credential) {
+          return onErrorRef.current?.();
+        }
+
+        const { credential, select_by } = credentialResponse;
+        onSuccessRef.current({
+          credential,
+          clientId: extractClientId(credentialResponse),
+          select_by,
+        });
+      },
+      login_hint,
+      ...props,
+    });
+
+    window?.google?.accounts?.id?.renderButton(btnContainerRef.current!, {
+      type,
+      theme,
+      size,
+      text,
+      shape,
+      logo_alignment,
+      width,
+      locale,
+      click_listener,
+      state,
+    });
+
+    if (useOneTap)
+      window?.google?.accounts?.id?.prompt(promptMomentNotificationRef.current);
+
+    return () => {
+      if (useOneTap) window?.google?.accounts?.id?.cancel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    clientId,
+    scriptLoadedSuccessfully,
+    useOneTap,
+    type,
+    theme,
+    size,
+    text,
+    shape,
+    logo_alignment,
+    width,
+    locale,
+    login_hint,
+  ]);
+
+  return (
+    <div
+      {...containerProps}
+      ref={btnContainerRef}
+      style={{ height: containerHeightMap[size], ...containerProps?.style }}
+    />
+  );
+}

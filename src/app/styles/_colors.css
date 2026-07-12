@@ -1,0 +1,110 @@
+:root {
+  /** Primary - Midnight Emerald Green Scale */
+  --primary-50: #e6fff0;
+  --primary-100: #b3ffd1;
+  --primary-200: #80ffb2;
+  --primary-300: #4dff93;
+  --primary-400: #1aff74;
+  --primary-500: #00ff66; /* Main primary - Spring Green / Neon Mint */
+  --primary-600: #00cc52;
+  --primary-700: #00993d;
+  --primary-800: #006629;
+  --primary-900: #003314;
+  --primary-950: #001a0a;
+
+  /** Secondary - Keep for compatibility, can be repurposed later */
+  --secondary-50: #fdf5fe;
+  --secondary-100: #faebfc;
+  --secondary-200: #f6d5f9;
+  --secondary-300: #eb9fef;
+  --secondary-400: #e788ea;
+  --secondary-500: #d75adb;
+  --secondary-600: #bd3abf;
+  --secondary-700: #9e2d9d;
+  --secondary-800: #81277f;
+  --secondary-900: #6a2566;
+  --secondary-950: #450d43;
+
+  /** Tertiary - Keep for compatibility */
+  --tertiary-50: #faf8f6;
+  --tertiary-100: #f5f0eb;
+  --tertiary-200: #ebe1d6;
+  --tertiary-300: #e5d4c0;
+  --tertiary-400: #d9c4a8;
+  --tertiary-500: #ccb490;
+  --tertiary-600: #b89d78;
+  --tertiary-700: #9d8260;
+  --tertiary-800: #7f684f;
+  --tertiary-900: #5c4a38;
+  --tertiary-950: #3d3124;
+
+  /* Midnight Emerald Brand Colors from DESIGN.md */
+  --background: #0a120b;
+  --on-background: #f0f0f0;
+
+  --surface: #0d1a10;
+  --surface-dim: #09120b;
+  --surface-bright: #15281a;
+  --surface-container-lowest: #040805;
+  --surface-container-low: #0a160c;
+  --surface-container: #0d1d11;
+  --surface-container-high: #122817;
+  --surface-container-highest: #18321e;
+
+  --on-surface: #f0f0f0;
+  --on-surface-variant: #8a9a8b;
+  --inverse-surface: #e6f2e8;
+  --inverse-on-surface: #0a120b;
+
+  --outline: #4f6854;
+  --outline-variant: #2a3d2f;
+  --surface-tint: #00ff66;
+
+  --primary: #00ff66;
+  --on-primary: #003812;
+  --primary-container: #00521e;
+  --on-primary-container: #99ffd4;
+  --inverse-primary: #00a33e;
+
+  --secondary: #00e5ff;
+  --on-secondary: #00363d;
+  --secondary-container: #004d57;
+  --on-secondary-container: #80f2ff;
+
+  --tertiary: #ff8a7a;
+  --on-tertiary: #4a120b;
+  --tertiary-container: #7d1c10;
+  --on-tertiary-container: #ffdad6;
+
+  --error: #ff5449;
+  --on-error: #4e0002;
+  --error-container: #ba1a1a;
+  --on-error-container: #ffdad6;
+
+  --bg-sage: #0a120b;
+  --glass-white: rgba(26, 36, 27, 0.6);
+  --deep-forest: #0a120b;
+  --vibrant-green: #00ff66;
+  --electric-cyan: #00e5ff;
+  --soft-coral: #ff8a7a;
+  --pastel-yellow: #fdf07b;
+}
+
+[data-theme='light'] {
+  --background-card-rgb: 255, 255, 255;
+  --background-default-rgb: 241, 245, 249;
+  --foreground-default-rgb: 30, 41, 59;
+  --foreground-hint-rgb: 148, 163, 184;
+  --foreground-disabled-rgb: 148, 163, 184;
+  --border-default-rgb: 226, 232, 240;
+}
+
+[data-theme='dark'] {
+  /* Midnight Emerald Dark Theme mapping to DESIGN.md colors */
+  --background-card-rgb: 13, 26, 16; /* surface: #0d1a10 */
+  --background-default-rgb: 10, 18, 11; /* background: #0a120b */
+  --foreground-default-rgb: 240, 240, 240; /* on-surface: #f0f0f0 */
+  --foreground-hint-rgb: 138, 154, 139; /* on-surface-variant: #8a9a8b */
+  --foreground-disabled-rgb: 138, 154, 139;
+  --border-default-rgb: 79, 104, 84; /* outline: #4f6854 */
+}

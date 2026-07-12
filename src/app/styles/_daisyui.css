@@ -1,0 +1,77 @@
+@plugin 'daisyui' {
+  themes: false;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'light';
+  default: false;
+  prefersdark: false;
+  color-scheme: 'light';
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f8f8fb;
+  --color-base-300: #f2f2f3;
+  --color-base-content: #353437;
+  --color-primary: var(--primary); /* Use #00ff66 */
+  --color-primary-content: var(--on-primary); /* Black text on bright green */
+  --color-secondary: var(--secondary);
+  --color-secondary-content: var(--on-secondary);
+  --color-accent: #fecee9;
+  --color-accent-content: #ffffff;
+  --color-neutral: #242326;
+  --color-neutral-content: #fafafa;
+  --color-info: #66b6e2;
+  --color-info-content: #f0faff;
+  --color-success: var(--primary);
+  --color-success-content: var(--on-primary);
+  --color-warning: #dea038;
+  --color-warning-content: #fffcf0;
+  --color-error: var(--error);
+  --color-error-content: var(--on-error);
+
+  --radius-selector: var(--radius-md);
+  --radius-field: var(--radius-sm);
+  --radius-box: var(--radius-DEFAULT);
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'dark';
+  default: true; /* Set dark as default for Midnight Emerald */
+  prefersdark: true;
+  color-scheme: 'dark';
+  /* Midnight Emerald Dark Theme mapping to DESIGN.md colors */
+  --color-base-100: var(--background); /* #0a120b */
+  --color-base-200: var(--surface); /* #0d1a10 */
+  --color-base-300: var(--surface-bright); /* #15281a */
+  --color-base-content: var(--on-surface); /* #f0f0f0 */
+  --color-primary: var(--primary); /* #00ff66 */
+  --color-primary-content: var(--on-primary); /* #003812 */
+  --color-secondary: var(--secondary); /* #00e5ff */
+  --color-secondary-content: var(--on-secondary); /* #00363d */
+  --color-accent: var(--primary);
+  --color-accent-content: var(--on-primary);
+  --color-neutral: var(--surface-dim); /* #09120b */
+  --color-neutral-content: var(--on-surface);
+  --color-info: #48cae4;
+  --color-info-content: #ffffff;
+  --color-success: var(--primary);
+  --color-success-content: var(--on-primary);
+  --color-warning: var(--pastel-yellow); /* #fdf07b */
+  --color-warning-content: var(--inverse-on-surface);
+  --color-error: var(--error); /* #ff5449 */
+  --color-error-content: var(--on-error);
+
+  --radius-selector: var(--radius-md); /* 1.5rem (24px) */
+  --radius-field: var(--radius-sm); /* 0.5rem (8px) */
+  --radius-box: var(--radius-DEFAULT); /* 1rem (16px) */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}

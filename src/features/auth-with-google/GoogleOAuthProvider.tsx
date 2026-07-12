@@ -1,0 +1,60 @@
+import { createContext, useContext, useMemo, type ReactNode } from 'react';
+
+import useLoadGsiScript, {
+  type UseLoadGsiScriptOptions,
+} from './hooks/useLoadGsiScript';
+
+interface GoogleOAuthContextProps {
+  clientId?: string;
+  locale?: string;
+  scriptLoadedSuccessfully: boolean;
+}
+
+const GoogleOAuthContext = createContext<GoogleOAuthContextProps>(null!);
+
+interface GoogleOAuthProviderProps extends UseLoadGsiScriptOptions {
+  clientId?: string;
+  children: ReactNode;
+}
+
+export default function GoogleOAuthProvider({
+  clientId,
+  nonce,
+  locale,
+  onScriptLoadSuccess,
+  onScriptLoadError,
+  children,
+}: GoogleOAuthProviderProps) {
+  const scriptLoadedSuccessfully = useLoadGsiScript({
+    nonce,
+    onScriptLoadSuccess,
+    onScriptLoadError,
+    locale,
+    disabled: !clientId,
+  });
+
+  const contextValue = useMemo(
+    () => ({
+      locale,
+      clientId,
+      scriptLoadedSuccessfully,
+    }),
+    [clientId, locale, scriptLoadedSuccessfully]
+  );
+
+  return (
+    <GoogleOAuthContext.Provider value={contextValue}>
+      {children}
+    </GoogleOAuthContext.Provider>
+  );
+}
+
+export function useGoogleOAuth() {
+  const context = useContext(GoogleOAuthContext);
+  if (!context) {
+    throw new Error(
+      'Google OAuth components must be used within GoogleOAuthProvider'
+    );
+  }
+  return context;
+}
