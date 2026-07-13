@@ -6,6 +6,7 @@
 @theme {
   --color-on-primary: var(--on-primary);
   --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-600);
   --color-primary-container: var(--primary-container);
   --color-on-primary-container: var(--on-primary-container);
   --color-inverse-primary: var(--inverse-primary);
@@ -56,7 +57,8 @@
 
   /* Font Families from DESIGN.md */
   --font-family-sans:
-    'Baloo Da 2', 'Inter', 'SF Pro Display', 'Manrope', system-ui, -apple-system, sans-serif;
+    'Baloo Da 2', 'Inter', 'SF Pro Display', 'Manrope', system-ui,
+    -apple-system, sans-serif;
   --font-family-mono:
     'JetBrains Mono', 'SF Mono', 'Monaco', 'Courier New', monospace;
 
@@ -220,6 +222,11 @@
   background-color: rgba(var(--background-default-rgb), var(--bg-opacity));
 }
 
+@utility bg-input-default {
+  --bg-opacity: 1;
+  background-color: rgba(var(--background-input-rgb), var(--bg-opacity));
+}
+
 @utility text-default {
   --text-opacity: 1;
   color: rgba(var(--foreground-default-rgb), var(--text-opacity));
@@ -233,6 +240,17 @@
 @utility text-disabled {
   --text-opacity: 1;
   color: rgba(var(--foreground-disabled-rgb), var(--text-opacity));
+}
+
+@utility border-default {
+  --border-opacity: 1;
+  border-color: rgba(var(--border-default-rgb), var(--border-opacity));
+}
+
+@utility placeholder-hint {
+  &::placeholder {
+    color: rgb(var(--foreground-hint-rgb));
+  }
 }
 
 /* Glassmorphism utilities - Midnight Emerald Theme */

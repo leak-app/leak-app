@@ -41,7 +41,10 @@ export default function App() {
   return (
     <QueryProvider>
       <AuthProvider>
-        <GoogleOAuthProvider clientId={googleClientId}>
+        <GoogleOAuthProvider
+          clientId={googleClientId}
+          locale="vi"
+        >
           <GoogleAccessTokenProvider>{routing}</GoogleAccessTokenProvider>
         </GoogleOAuthProvider>
       </AuthProvider>

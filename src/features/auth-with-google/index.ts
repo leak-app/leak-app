@@ -15,3 +15,4 @@ export type {
 } from './hooks/useGoogleLogin';
 export { default as useGoogleOneTapLogin } from './hooks/useGoogleOneTapLogin';
 export * from './types';
+export * from './ui/GoogleSignIn';

@@ -93,6 +93,7 @@
 [data-theme='light'] {
   --background-card-rgb: 255, 255, 255;
   --background-default-rgb: 241, 245, 249;
+  --background-input-rgb: 241, 245, 249;
   --foreground-default-rgb: 30, 41, 59;
   --foreground-hint-rgb: 148, 163, 184;
   --foreground-disabled-rgb: 148, 163, 184;
@@ -103,6 +104,7 @@
   /* Midnight Emerald Dark Theme mapping to DESIGN.md colors */
   --background-card-rgb: 13, 26, 16; /* surface: #0d1a10 */
   --background-default-rgb: 10, 18, 11; /* background: #0a120b */
+  --background-input-rgb: 9, 18, 11; /* surface-dim: #09120b */
   --foreground-default-rgb: 240, 240, 240; /* on-surface: #f0f0f0 */
   --foreground-hint-rgb: 138, 154, 139; /* on-surface-variant: #8a9a8b */
   --foreground-disabled-rgb: 138, 154, 139;
