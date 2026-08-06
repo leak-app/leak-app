@@ -2,15 +2,16 @@ import { useQuery } from '@tanstack/react-query';
 
 import { apiClient, type BaseResponseModel } from '@/shared/api';
 
-import type { Category, CategoryType } from '../model/types';
+import type { CategoryModel, CategoryType } from '../model/types';
 
 export function useCategories(type?: CategoryType) {
-  return useQuery<Category[], Error>({
+  return useQuery<CategoryModel[], Error>({
     queryKey: ['categories'],
     queryFn: async () => {
-      const response = await apiClient.get<any>('/categories');
-      const resData = response as BaseResponseModel<Category[]>;
-      return resData.data ?? [];
+      return apiClient
+        .get<BaseResponseModel<CategoryModel[]>>('/categories')
+        .then((res) => res.data)
+        .then((res) => res.data || []);
     },
     select: (data) => {
       if (!type) return data;

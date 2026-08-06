@@ -47,7 +47,7 @@ apiClient.interceptors.request.use(
 
 // Response Interceptor: Handle expired tokens
 apiClient.interceptors.response.use(
-  (response) => response.data,
+  (response) => response,
   async (error) => {
     const originalRequest = error.config;
 

@@ -31,6 +31,7 @@ export default function Overview() {
   return (
     <MainLayout>
       <Screen
+        className="pb-28"
         header={
           <ScreenHeader
             leftAction={leftHeaderAction}

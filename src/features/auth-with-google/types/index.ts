@@ -134,17 +134,12 @@ export interface PromptMomentNotification {
   isSkippedMoment: () => boolean;
   /** The detailed reason for the skipped moment */
   getSkippedReason: () =>
-    | 'auto_cancel'
-    | 'user_cancel'
-    | 'tap_outside'
-    | 'issuing_failed';
+    'auto_cancel' | 'user_cancel' | 'tap_outside' | 'issuing_failed';
   /** Is this notification for a dismissed moment? */
   isDismissedMoment: () => boolean;
   /** The detailed reason for the dismissa */
   getDismissedReason: () =>
-    | 'credential_returned'
-    | 'cancel_called'
-    | 'flow_restarted';
+    'credential_returned' | 'cancel_called' | 'flow_restarted';
   /** Return a string for the moment type */
   getMomentType: () => 'display' | 'skipped' | 'dismissed';
 }
@@ -385,5 +380,5 @@ export interface CodeClientConfig {
 }
 
 export type MomentListener = (
-  promptMomentNotification: PromptMomentNotification,
+  promptMomentNotification: PromptMomentNotification
 ) => void;

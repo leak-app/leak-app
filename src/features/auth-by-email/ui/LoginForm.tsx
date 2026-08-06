@@ -39,7 +39,9 @@ export function LoginWithEmailForm({
     LoginSchemaType
   >({
     mutationFn: async (credentials) => {
-      return apiClient.post('/auth/sign-in', credentials);
+      return apiClient
+        .post('/auth/sign-in', credentials)
+        .then((res) => res.data);
     },
     onSuccess: (response) => {
       if (response && response.success && response.data?.accessToken) {

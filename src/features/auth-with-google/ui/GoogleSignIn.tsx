@@ -1,20 +1,8 @@
 import { useAuthStore } from '@/entities/auth';
-import { apiClient } from '@/shared/api';
+import { apiClient, type BaseResponseModel } from '@/shared/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogin from '../GoogleLogin';
-
-interface AuthApiResponse {
-  success: boolean;
-  data: {
-    accessToken: string;
-  };
-  error?: {
-    message: string | string[];
-    error: string;
-    statusCode: number;
-  };
-}
 
 interface GoogleSignInProps {
   onAuthError: (errorMsg: string) => void;
@@ -28,10 +16,14 @@ export function GoogleSignIn({ onAuthError }: GoogleSignInProps) {
   const handleGoogleSuccess = async (googleResponse: any) => {
     setLoading(true);
     try {
-      const response = await apiClient.post<any, AuthApiResponse>(
-        '/auth/google-sign-in',
-        { credentialToken: googleResponse.credential }
-      );
+      const response = await apiClient
+        .post<BaseResponseModel<{ accessToken: string }>>(
+          '/auth/google-sign-in',
+          {
+            credentialToken: googleResponse.credential,
+          }
+        )
+        .then((res) => res.data);
       if (response && response.success && response.data?.accessToken) {
         setAccessToken(response.data.accessToken);
         navigate('/overview');

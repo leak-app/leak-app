@@ -1,6 +1,11 @@
-export { useAddTransaction } from './api/transactions.api';
+export {
+  useAddTransaction,
+  useInfiniteTransactions,
+} from './api/transactions.api';
 export type {
-  CreateTransactionParams,
-  Transaction,
+  CreateTransactionParamsModel,
+  GetTransactionsQueryParamsModel,
+  TransactionListResponseModel,
+  TransactionModel,
   TransactionType,
 } from './model/types';

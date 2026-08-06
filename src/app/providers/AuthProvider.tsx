@@ -1,19 +1,12 @@
-import { useAuthStore, type User } from '@/entities/auth';
-import { apiClient } from '@/shared/api';
+import { useAuthStore, type UserModel } from '@/entities/auth';
+import { apiClient, type BaseResponseModel } from '@/shared/api';
 import { createContext, useContext, useEffect, type ReactNode } from 'react';
 
-export type { User };
+export type { UserModel };
 
 interface AuthContextType {
-  user: User | null;
+  user: UserModel | null;
   isReady: boolean;
-}
-
-interface RefreshResponse {
-  success: boolean;
-  data: {
-    accessToken: string;
-  };
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,9 +17,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const initAuth = async () => {
       try {
-        const response = await apiClient.post<any, RefreshResponse>(
-          '/auth/refresh-token'
-        );
+        const response = await apiClient
+          .post<BaseResponseModel<{ accessToken: string }>>(
+            '/auth/refresh-token'
+          )
+          .then((res) => res.data);
         if (response && response.success && response.data?.accessToken) {
           setAccessToken(response.data.accessToken);
         } else {

@@ -1,11 +1,14 @@
-import { SwapCryptocurrency } from '@/features/transaction-list';
+import { TransactionList } from '@/features/transaction-list';
 import { MainLayout, Screen, ScreenHeader } from '@/shared/layout';
 
 export default function Transaction() {
   return (
     <MainLayout>
-      <Screen header={<ScreenHeader title="Swap" />}>
-        <SwapCryptocurrency />
+      <Screen
+        className="pb-28"
+        header={<ScreenHeader title="Lịch Sử Giao Dịch" />}
+      >
+        <TransactionList />
       </Screen>
     </MainLayout>
   );

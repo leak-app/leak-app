@@ -62,8 +62,7 @@ export type UseGoogleLoginOptionsAuthCodeFlow = {
 } & AuthCodeFlowOptions;
 
 export type UseGoogleLoginOptions =
-  | UseGoogleLoginOptionsImplicitFlow
-  | UseGoogleLoginOptionsAuthCodeFlow;
+  UseGoogleLoginOptionsImplicitFlow | UseGoogleLoginOptionsAuthCodeFlow;
 
 export default function useGoogleLogin(
   options: UseGoogleLoginOptionsImplicitFlow

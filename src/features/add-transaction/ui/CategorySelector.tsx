@@ -1,9 +1,9 @@
 import { clsx } from 'clsx';
 
-import type { Category } from '@/entities/category';
+import type { CategoryModel } from '@/entities/category';
 
 interface Props {
-  categories: Category[];
+  categories: CategoryModel[];
   selectedId: string;
   onSelect: (id: string) => void;
   isLoading: boolean;
@@ -45,7 +45,7 @@ export function CategorySelector({
 
   return (
     <Wrapper>
-      {categories.map((cat: Category) => {
+      {categories.map((cat: CategoryModel) => {
         const isSelected = selectedId === cat.id;
         return (
           <button
@@ -58,6 +58,7 @@ export function CategorySelector({
                 : 'bg-surface border-outline/10 text-on-surface-variant hover:bg-surface-bright'
             )}
           >
+            {cat.emoji && <span className="text-base">{cat.emoji}</span>}
             <span>{cat.name}</span>
           </button>
         );

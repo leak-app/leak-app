@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 import { create } from 'zustand';
 
-export interface User {
+export interface UserModel {
   id: string;
   email: string;
   name?: string;
@@ -15,7 +15,7 @@ interface DecodedToken {
 }
 
 interface AuthState {
-  user: User | null;
+  user: UserModel | null;
   accessToken: string | null;
   isReady: boolean;
   setAccessToken: (token: string | null) => void;
