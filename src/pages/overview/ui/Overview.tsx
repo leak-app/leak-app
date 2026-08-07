@@ -1,6 +1,6 @@
 import { useAuth } from '@/app/providers';
 import { UserDropdown } from '@/entities/user';
-import { PortfolioOverview } from '@/features/report-overview';
+import { ReportOverview } from '@/features/report-overview';
 import { BellIcon } from '@/shared/icons';
 import { MainLayout, Screen, ScreenHeader } from '@/shared/layout';
 
@@ -22,7 +22,10 @@ export default function Overview() {
   );
 
   const rightHeaderAction = (
-    <button className="relative w-10 h-10 rounded-full bg-surface-bright/50 border border-outline/10 flex items-center justify-center text-on-surface hover:bg-surface-bright transition-all group">
+    <button
+      type="button"
+      className="relative w-10 h-10 rounded-full bg-surface-bright/50 border border-outline/10 flex items-center justify-center text-on-surface hover:bg-surface-bright transition-all group"
+    >
       <BellIcon size={20} />
       <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-error animate-pulse" />
     </button>
@@ -39,7 +42,7 @@ export default function Overview() {
           />
         }
       >
-        <PortfolioOverview />
+        <ReportOverview />
       </Screen>
     </MainLayout>
   );
