@@ -1,2 +1,2 @@
-export { useCategories } from './api/categories.api';
-export type { CategoryModel, CategoryType } from './model/types';
+export * from './api/categories.api';
+export * from './model/types';

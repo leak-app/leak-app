@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-import { DollarIcon, HomeIcon, PlusIcon, ReceiptIcon } from '@/shared/icons';
+import { DollarIcon, HomeIcon, PlusIcon } from '@/shared/icons';
 
 export function BottomNavigation() {
   const location = useLocation();
@@ -70,25 +70,6 @@ export function BottomNavigation() {
             `}
           >
             <DollarIcon size={20} />
-          </div>
-        </Link>
-
-        <Link
-          to="/transaction"
-          className="relative flex flex-col items-center justify-center group"
-          aria-label="Transactions"
-        >
-          <div
-            className={`
-              p-3 rounded-full transition-all duration-300 flex items-center justify-center
-              ${
-                isSavingsActive
-                  ? 'bg-surface-bright text-primary scale-110'
-                  : 'text-on-surface-variant hover:text-on-surface hover:scale-105'
-              }
-            `}
-          >
-            <ReceiptIcon size={20} />
           </div>
         </Link>
       </div>

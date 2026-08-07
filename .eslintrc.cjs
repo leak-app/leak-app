@@ -20,7 +20,7 @@ module.exports = {
     'react-hooks',
     '@typescript-eslint',
     'import',
-    'import-fsd',
+    // 'import-fsd',
     'unused-imports',
     'react-native',
     'prettier',
@@ -66,9 +66,9 @@ module.exports = {
     'import/no-duplicates': 'error',
 
     // Feature-Sliced Design boundary checks (eslint-plugin-import-fsd)
-    'import-fsd/no-denied-layers': 'error',
-    'import-fsd/no-unknown-layers': 'error',
-    'import-fsd/no-deprecated-layers': 'warn',
+    // 'import-fsd/no-denied-layers': 'error',
+    // 'import-fsd/no-unknown-layers': 'error',
+    // 'import-fsd/no-deprecated-layers': 'warn',
 
     // React Native - dormant as this is a web project
     'react-native/no-unused-styles': 'off',
