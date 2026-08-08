@@ -1,4 +1,6 @@
 import AddTransactionPage from '@/pages/add-transaction';
+import BudgetPage from '@/pages/budget';
+import BudgetSetupPage from '@/pages/budget-setup';
 import CategoriesPage from '@/pages/categories';
 import Investment from '@/pages/investment';
 import Login from '@/pages/login';
@@ -17,6 +19,8 @@ export const routes: RouteConfig[] = [
   { path: '/transaction', Component: Transaction, protected: true },
   { path: '/transaction/add', Component: AddTransactionPage, protected: true },
   { path: '/categories', Component: CategoriesPage, protected: true },
+  { path: '/budget', Component: BudgetPage, protected: true },
+  { path: '/budget/setup', Component: BudgetSetupPage, protected: true },
   { path: '/investment', Component: Investment, protected: true },
   { path: '/savings-goals', Component: SavingsGoals, protected: true },
   { path: '/profile', Component: Profile, protected: true },
