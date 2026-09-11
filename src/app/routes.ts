@@ -4,6 +4,7 @@ import BudgetSetupPage from '@/pages/budget-setup';
 import CategoriesPage from '@/pages/categories';
 import Investment from '@/pages/investment';
 import Login from '@/pages/login';
+import OnboardingPage from '@/pages/onboarding';
 import Overview from '@/pages/overview';
 import Profile from '@/pages/profile';
 import SavingsGoals from '@/pages/savings-goals';
@@ -13,6 +14,7 @@ import type { RouteConfig } from '@/shared/routing';
 
 export const routes: RouteConfig[] = [
   { path: '/', redirectTo: '/overview', protected: true },
+  { path: '/onboarding', Component: OnboardingPage, protected: false },
   { path: '/login', Component: Login, protected: false },
   { path: '/overview', Component: Overview, protected: true },
   { path: '/wallet', Component: Wallet, protected: true },

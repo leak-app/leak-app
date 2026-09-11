@@ -8,33 +8,36 @@ import {
 import { routes } from '@/app/routes';
 import { wrapWithProtected } from '@/entities/auth';
 import { GoogleOAuthProvider } from '@/features/auth-with-google';
+import { OnboardingGuard } from '@/features/onboarding';
 
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? '';
 
 export default function App() {
   const routing = (
     <BrowserRouter>
-      <Routes>
-        {routes.map((route) => {
-          const element =
-            'redirectTo' in route ? (
-              <Navigate
-                to={route.redirectTo}
-                replace
-              />
-            ) : (
-              <route.Component />
-            );
+      <OnboardingGuard>
+        <Routes>
+          {routes.map((route) => {
+            const element =
+              'redirectTo' in route ? (
+                <Navigate
+                  to={route.redirectTo}
+                  replace
+                />
+              ) : (
+                <route.Component />
+              );
 
-          return (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={wrapWithProtected(element, route.protected)}
-            />
-          );
-        })}
-      </Routes>
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={wrapWithProtected(element, route.protected)}
+              />
+            );
+          })}
+        </Routes>
+      </OnboardingGuard>
     </BrowserRouter>
   );
 
