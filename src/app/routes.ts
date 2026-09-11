@@ -2,12 +2,14 @@ import AddTransactionPage from '@/pages/add-transaction';
 import BudgetPage from '@/pages/budget';
 import BudgetSetupPage from '@/pages/budget-setup';
 import CategoriesPage from '@/pages/categories';
+import ForgotPassword from '@/pages/forgot-password';
 import Investment from '@/pages/investment';
 import Login from '@/pages/login';
 import OnboardingPage from '@/pages/onboarding';
 import Overview from '@/pages/overview';
 import Profile from '@/pages/profile';
 import Register from '@/pages/register';
+import ResetPassword from '@/pages/reset-password';
 import SavingsGoals from '@/pages/savings-goals';
 import Transaction from '@/pages/transaction';
 import Wallet from '@/pages/wallet';
@@ -18,6 +20,8 @@ export const routes: RouteConfig[] = [
   { path: '/onboarding', Component: OnboardingPage, protected: false },
   { path: '/login', Component: Login, protected: false },
   { path: '/register', Component: Register, protected: false },
+  { path: '/forgot-password', Component: ForgotPassword, protected: false },
+  { path: '/reset-password', Component: ResetPassword, protected: false },
   { path: '/overview', Component: Overview, protected: true },
   { path: '/wallet', Component: Wallet, protected: true },
   { path: '/transaction', Component: Transaction, protected: true },

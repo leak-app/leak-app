@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useAuthStore } from '@/entities/auth';
 import { apiClient, type BaseResponseModel } from '@/shared/api';
@@ -120,12 +120,12 @@ export function LoginWithEmailForm({
           <span className="label-text text-hint">Ghi nhớ đăng nhập</span>
         </label>
 
-        <button
-          type="button"
+        <Link
+          to="/forgot-password"
           className="link link-hover text-secondary font-medium"
         >
           Quên mật khẩu?
-        </button>
+        </Link>
       </div>
 
       <button
