@@ -2,6 +2,7 @@ import { LoginWithEmailForm } from '@/features/auth-by-email';
 import { GoogleSignIn } from '@/features/auth-with-google';
 import { AlertCircleIcon, LeakLogoIcon } from '@/shared/icons';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [error, setError] = useState<string | null>(null);
@@ -54,6 +55,17 @@ export default function Login() {
             onAuthError={setError}
             onClearError={() => setError(null)}
           />
+
+          {/* Register Link */}
+          <div className="mt-4 text-center text-xs text-hint">
+            Chưa có tài khoản?{' '}
+            <Link
+              to="/register"
+              className="link link-hover text-primary font-semibold"
+            >
+              Đăng ký
+            </Link>
+          </div>
 
           {/* Or Divider */}
           <div className="relative my-6 flex items-center justify-center">

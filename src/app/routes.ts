@@ -7,6 +7,7 @@ import Login from '@/pages/login';
 import OnboardingPage from '@/pages/onboarding';
 import Overview from '@/pages/overview';
 import Profile from '@/pages/profile';
+import Register from '@/pages/register';
 import SavingsGoals from '@/pages/savings-goals';
 import Transaction from '@/pages/transaction';
 import Wallet from '@/pages/wallet';
@@ -16,6 +17,7 @@ export const routes: RouteConfig[] = [
   { path: '/', redirectTo: '/overview', protected: true },
   { path: '/onboarding', Component: OnboardingPage, protected: false },
   { path: '/login', Component: Login, protected: false },
+  { path: '/register', Component: Register, protected: false },
   { path: '/overview', Component: Overview, protected: true },
   { path: '/wallet', Component: Wallet, protected: true },
   { path: '/transaction', Component: Transaction, protected: true },
