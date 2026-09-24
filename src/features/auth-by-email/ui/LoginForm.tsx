@@ -72,7 +72,7 @@ export function LoginWithEmailForm({
       className="space-y-4"
     >
       <div className="form-control w-full">
-        <label className="input flex items-center gap-2 rounded-2xl bg-input-default/60 border-none transition-all py-3 px-4 shadow-inner">
+        <label className="input w-full flex items-center gap-2 rounded-2xl bg-input-default/60 border-none transition-all py-3 px-4 shadow-inner">
           <MailIcon
             size={18}
             className="opacity-60 text-hint"
@@ -92,7 +92,7 @@ export function LoginWithEmailForm({
       </div>
 
       <div className="form-control w-full">
-        <label className="input flex items-center gap-2 rounded-2xl bg-input-default/60 border-none transition-all py-3 px-4 shadow-inner">
+        <label className="input w-full flex items-center gap-2 rounded-2xl bg-input-default/60 border-none transition-all py-3 px-4 shadow-inner">
           <LockIcon
             size={18}
             className="opacity-60 text-hint"

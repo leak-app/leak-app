@@ -70,7 +70,7 @@ export default function Login() {
           {/* Or Divider */}
           <div className="relative my-6 flex items-center justify-center">
             <div className="w-full border-t border-default/20"></div>
-            <span className="absolute bg-card px-3 text-xs text-hint font-medium">
+            <span className="absolute bg-default px-3 text-xs text-hint font-medium">
               hoặc
             </span>
           </div>
