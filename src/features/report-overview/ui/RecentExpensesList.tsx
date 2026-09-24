@@ -13,7 +13,7 @@ export function RecentExpensesList({ expenses }: RecentExpensesListProps) {
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold text-on-surface">Chi tiêu gần đây</h3>
         <Link
-          to="/transaction"
+          to="/transactions"
           className="text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors"
         >
           Xem tất cả

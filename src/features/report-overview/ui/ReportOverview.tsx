@@ -1,10 +1,15 @@
+import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+
+import { ChevronRightIcon, DollarIcon } from '@/shared/icons';
+
 import { useReportOverview } from '../api';
 import { BudgetGoalsProgress } from './BudgetGoalsProgress';
 import { RecentExpensesList } from './RecentExpensesList';
 import { TotalBalanceCard } from './TotalBalanceCard';
 import { WeeklyExpenseChart } from './WeeklyExpenseChart';
 
-export function ReportOverview() {
+export function ReportOverview({ insightsSlot }: { insightsSlot?: ReactNode }) {
   const { data, isLoading, isError } = useReportOverview();
 
   if (isLoading) {
@@ -38,9 +43,28 @@ export function ReportOverview() {
 
       <WeeklyExpenseChart weeklyExpense={data.weeklyExpense} />
 
+      {insightsSlot}
+
       <RecentExpensesList expenses={data.recentExpenses} />
 
       <BudgetGoalsProgress goals={data.budgetGoals} />
+
+      <Link
+        to="/goals"
+        className="card bg-surface/90 border border-outline/10 rounded-3xl px-5 py-4 min-h-11 flex flex-row items-center justify-between shadow-lg"
+      >
+        <span className="flex items-center gap-3 text-sm font-semibold text-on-surface">
+          <DollarIcon
+            size={20}
+            className="text-secondary"
+          />
+          Mục tiêu tiết kiệm
+        </span>
+        <ChevronRightIcon
+          size={18}
+          className="text-on-surface-variant"
+        />
+      </Link>
     </div>
   );
 }

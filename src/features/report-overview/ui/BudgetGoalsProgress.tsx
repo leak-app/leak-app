@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import type { BudgetGoalProgressModel } from '../model';
 
 interface BudgetGoalsProgressProps {
@@ -14,24 +16,12 @@ export function BudgetGoalsProgress({ goals }: BudgetGoalsProgressProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold text-on-surface">Ngân sách</h3>
-        <button
-          type="button"
-          className="btn btn-ghost btn-circle btn-xs text-on-surface-variant hover:text-on-surface"
+        <Link
+          to="/budgets"
+          className="text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors min-h-11 flex items-center"
         >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
-        </button>
+          Xem ngân sách
+        </Link>
       </div>
 
       {/* Goal Items / Empty State */}

@@ -61,7 +61,7 @@ export const BudgetSetupForm = ({ month, year }: Props) => {
       setSaveSuccess(true);
 
       setTimeout(() => {
-        navigate(`/budget?month=${month}&year=${year}`);
+        navigate(`/budgets?month=${month}&year=${year}`);
       }, 1000);
     } catch (err) {
       console.error('Failed to save budgets', err);
@@ -147,7 +147,7 @@ export const BudgetSetupForm = ({ month, year }: Props) => {
       <div className="flex items-center justify-end gap-3 pt-2">
         <button
           type="button"
-          onClick={() => navigate(`/budget?month=${month}&year=${year}`)}
+          onClick={() => navigate(`/budgets?month=${month}&year=${year}`)}
           className="btn btn-ghost rounded-xl text-on-surface-variant hover:text-on-surface flex-1/2"
         >
           Hủy
