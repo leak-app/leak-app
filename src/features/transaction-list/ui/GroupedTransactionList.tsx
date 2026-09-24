@@ -10,6 +10,7 @@ interface GroupedTransactionListProps {
   isFetchingNextPage: boolean;
   onFetchNextPage: () => void;
   loadMoreRef?: RefObject<HTMLDivElement | null>;
+  onOutcomeClick?: (transaction: TransactionModel) => void;
 }
 
 function formatGroupDate(dateStr: string): string {
@@ -34,6 +35,7 @@ export function GroupedTransactionList({
   isFetchingNextPage,
   onFetchNextPage,
   loadMoreRef,
+  onOutcomeClick,
 }: GroupedTransactionListProps) {
   const groupedTransactions = useMemo(() => {
     const groups: { [key: string]: TransactionModel[] } = {};
@@ -83,6 +85,7 @@ export function GroupedTransactionList({
               <TransactionItem
                 key={tx.id}
                 transaction={tx}
+                onOutcomeClick={onOutcomeClick}
               />
             ))}
           </div>
