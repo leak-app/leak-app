@@ -1,5 +1,6 @@
 import { useAuth } from '@/app/providers';
 import { UserDropdown } from '@/entities/user';
+import { CategoryLeakCard } from '@/features/category-leak-rate';
 import { ReflectionBanner } from '@/features/reflection-ritual';
 import { ReportOverview } from '@/features/report-overview';
 import { BellIcon } from '@/shared/icons';
@@ -45,7 +46,7 @@ export default function Overview() {
       >
         <div className="flex flex-col gap-4">
           <ReflectionBanner />
-          <ReportOverview />
+          <ReportOverview insightsSlot={<CategoryLeakCard />} />
         </div>
       </Screen>
     </MainLayout>

@@ -4,6 +4,7 @@ import BudgetSetupPage from '@/pages/budget-setup';
 import CategoriesPage from '@/pages/categories';
 import ForgotPassword from '@/pages/forgot-password';
 import Investment from '@/pages/investment';
+import LeakReportPage from '@/pages/leak-report';
 import Login from '@/pages/login';
 import OnboardingPage from '@/pages/onboarding';
 import Overview from '@/pages/overview';
@@ -31,6 +32,7 @@ export const routes: RouteConfig[] = [
   { path: '/budgets/setup', Component: BudgetSetupPage, protected: true },
   { path: '/wallets', Component: Wallet, protected: true },
   { path: '/goals', Component: SavingsGoals, protected: true },
+  { path: '/leaks', Component: LeakReportPage, protected: true },
   { path: '/investment', Component: Investment, protected: true },
   { path: '/profile', Component: Profile, protected: true },
 
