@@ -13,14 +13,13 @@
 :root {
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: dark; /* Midnight Emerald uses dark theme */
+  color-scheme: dark;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Baloo Da 2 font family for Midnight Emerald theme */
   font-family:
     'Baloo Da 2',
     'Inter',

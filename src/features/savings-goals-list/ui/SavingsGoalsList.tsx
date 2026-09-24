@@ -40,7 +40,7 @@ export function SavingsGoalsList() {
         {/* Progress bar */}
         <div className="mt-4 w-full h-2.5 rounded-full bg-surface-bright overflow-hidden">
           <div
-            className="h-full rounded-full bg-primary shadow-[0_0_10px_rgba(0,255,102,0.3)] transition-all duration-500"
+            className="h-full rounded-full bg-primary shadow-[0_0_10px_rgba(56,189,248,0.3)] transition-all duration-500"
             style={{ width: '72%' }}
           />
         </div>

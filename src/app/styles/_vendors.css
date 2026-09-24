@@ -2,7 +2,7 @@
 @import 'swiper/css/pagination';
 
 /* ----------------------------------------------------------------------------------------------------- */
-/*  @ Swiper Custom Styles for Midnight Emerald Theme
+/*  @ Swiper Custom Styles
 /* ----------------------------------------------------------------------------------------------------- */
 .swiper-pagination-bullet {
   position: relative;
@@ -40,5 +40,5 @@
   width: 1.75rem;
   background-color: var(--primary);
   opacity: 1;
-  box-shadow: 0 0 14px rgba(0, 255, 102, 0.45);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
 }

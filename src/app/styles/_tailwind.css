@@ -21,12 +21,15 @@
   --color-tertiary-container: var(--tertiary-container);
   --color-on-tertiary-container: var(--on-tertiary-container);
 
+  --color-success: var(--success);
+  --color-on-success: var(--on-success);
+
   --color-error: var(--error);
   --color-on-error: var(--on-error);
   --color-error-container: var(--error-container);
   --color-on-error-container: var(--on-error-container);
 
-  /* Midnight Emerald Theme Colors from DESIGN.md */
+  /* Leak App theme colors (see DESIGN.md) */
   --color-background: var(--background);
   --color-on-background: var(--on-background);
   --color-surface: var(--surface);
@@ -39,6 +42,8 @@
   --color-surface-container-highest: var(--surface-container-highest);
 
   --color-on-surface: var(--on-surface);
+  --color-on-surface-strong: var(--on-surface-strong);
+  --color-on-surface-variant-elevated: var(--on-surface-variant-elevated);
   --color-on-surface-variant: var(--on-surface-variant);
   --color-inverse-surface: var(--inverse-surface);
   --color-inverse-on-surface: var(--inverse-on-surface);
@@ -253,9 +258,9 @@
   }
 }
 
-/* Glassmorphism utilities - Midnight Emerald Theme */
+/* Glassmorphism utilities */
 @utility glass {
-  background: rgba(26, 36, 27, 0.7); /* card-dark with opacity */
+  background: rgba(30, 41, 59, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -263,7 +268,7 @@
 }
 
 @utility glass-card {
-  background: rgba(26, 36, 27, 0.7); /* card-dark: #1a241b */
+  background: rgba(30, 41, 59, 0.7); /* surface: #1e293b */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -271,11 +276,11 @@
 }
 
 @utility glass-wallet {
-  background: rgba(26, 36, 27, 0.6);
+  background: rgba(30, 41, 59, 0.6);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 255, 102, 0.1); /* primary with opacity */
-  box-shadow: 0 4px 16px 0 rgba(0, 255, 102, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.1); /* primary with opacity */
+  box-shadow: 0 4px 16px 0 rgba(56, 189, 248, 0.1);
 }
 
 @utility glass-light {
@@ -287,7 +292,7 @@
 }
 
 @utility glass-dark {
-  background: rgba(26, 36, 27, 0.8); /* Updated for Midnight Emerald */
+  background: rgba(30, 41, 59, 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -296,7 +301,7 @@
 
 @variant dark {
   .glass {
-    background: rgba(26, 36, 27, 0.7);
+    background: rgba(30, 41, 59, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   }

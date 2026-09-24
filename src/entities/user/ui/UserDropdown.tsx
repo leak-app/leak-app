@@ -13,7 +13,7 @@ export function UserDropdown() {
       className="avatar cursor-pointer select-none active:scale-95 transition-transform"
       aria-label="View Profile"
     >
-      <div className="w-10 h-10 rounded-full border border-outline/10 overflow-hidden shadow-md hover:shadow-[0_0_12px_rgba(0,255,102,0.15)] transition-all bg-surface-bright">
+      <div className="w-10 h-10 rounded-full border border-outline/10 overflow-hidden shadow-md hover:shadow-[0_0_12px_rgba(56,189,248,0.15)] transition-all bg-surface-bright">
         <img
           src={`https://api.dicebear.com/10.x/lorelei/svg?seed=user-${user.id}`}
           alt={user.name || 'User Avatar'}
