@@ -56,7 +56,7 @@ export function OutcomePicker({
             onClick={() => onSelect('LEAK')}
             className="btn btn-ghost min-h-11"
           >
-            Bỏ qua
+            Lưu không lý do
           </button>
         </div>
       </div>

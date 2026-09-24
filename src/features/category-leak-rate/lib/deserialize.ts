@@ -45,7 +45,9 @@ export function deserializeLeakRow(
     unreviewedPct,
     barLabel: `Rò rỉ ${leakPct}%, đã đánh giá khác ${reviewedOkPct}%, chưa đánh giá ${unreviewedPct}%`,
     transactionsLink: raw.categoryId
-      ? `/transactions?categoryId=${raw.categoryId}&outcome=LEAK&month=${monthParam}`
+      ? Number(raw.leakAmount) > 0
+        ? `/transactions?categoryId=${raw.categoryId}&outcome=LEAK&month=${monthParam}`
+        : `/transactions?categoryId=${raw.categoryId}&month=${monthParam}`
       : null,
   };
 }

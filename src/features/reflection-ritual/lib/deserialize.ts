@@ -11,5 +11,8 @@ export function formatProgress(index: number, total: number): string {
 }
 
 export function formatSessionSummary(tally: ReflectionTally): string {
+  if (tally.worthIt + tally.neutral + tally.leak === 0) {
+    return 'Đã bỏ qua tất cả khoản chi. Bạn có thể đánh giá sau.';
+  }
   return `Xong! ${tally.worthIt} đáng giá · ${tally.neutral} bình thường · ${tally.leak} rò rỉ (${formatVnd(tally.leakAmount)})`;
 }
