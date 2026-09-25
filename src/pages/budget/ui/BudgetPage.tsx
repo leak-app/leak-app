@@ -1,8 +1,10 @@
-import { useBudgetReport } from '@/entities/budget';
+import { useBudgetReport, useBudgets } from '@/entities/budget';
 import {
   BudgetGrid,
   BudgetHeaderSummary,
+  BudgetQuickEditSheet,
   MonthYearSelector,
+  useBudgetQuickEdit,
 } from '@/features/manage-budget';
 import { GearIcon } from '@/shared/icons';
 import { BackButton, MainLayout, Screen, ScreenHeader } from '@/shared/layout';
@@ -39,6 +41,8 @@ export default function BudgetPage() {
   };
 
   const { data: report, isLoading, isError } = useBudgetReport(month, year);
+  const { data: budgets = [] } = useBudgets(month, year);
+  const quickEdit = useBudgetQuickEdit(budgets);
 
   return (
     <MainLayout showBottomNav={true}>
@@ -96,9 +100,11 @@ export default function BudgetPage() {
               savingsInsight={report.savingsInsight}
               month={month}
               year={year}
+              onSelect={(item) => quickEdit.open(item, month, year)}
             />
           ) : null}
         </div>
+        <BudgetQuickEditSheet edit={quickEdit} />
       </Screen>
     </MainLayout>
   );

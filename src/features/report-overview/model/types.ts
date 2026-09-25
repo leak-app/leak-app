@@ -47,3 +47,19 @@ export interface ReportOverviewModel {
   recentExpenses: RecentExpenseItemModel[];
   budgetGoals: BudgetGoalProgressModel[];
 }
+
+/** GET /overview/monthly */
+export interface RawMonthlyCashFlowModel {
+  currentMonth: { income: number; expense: number };
+  previousMonth: { income: number; expense: number };
+}
+
+export interface CashFlowModel {
+  incomeText: string;
+  expenseText: string;
+  netText: string;
+  isNetNegative: boolean;
+  deltaText: string;
+  deltaDirection: 'up' | 'down' | 'flat' | null;
+  isEmpty: boolean;
+}

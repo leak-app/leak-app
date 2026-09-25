@@ -2,11 +2,17 @@ import type { BudgetCategoryReportModel } from '@/entities/budget';
 
 interface Props {
   item: BudgetCategoryReportModel;
+  onSelect: (item: BudgetCategoryReportModel) => void;
 }
 
-export const BudgetCategoryCard = ({ item }: Props) => {
+export const BudgetCategoryCard = ({ item, onSelect }: Props) => {
   return (
-    <div className="card glass-card p-5 rounded-2xl space-y-4 hover:scale-[1.01] transition-transform duration-300 border border-outline/10 shadow-lg">
+    <button
+      type="button"
+      onClick={() => onSelect(item)}
+      aria-label={`Chỉnh ngân sách ${item.categoryName}`}
+      className="card glass-card w-full text-left p-5 rounded-2xl space-y-4 hover:scale-[1.01] transition-transform duration-300 border border-outline/10 shadow-lg"
+    >
       <div className="flex justify-between items-start">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-xl shrink-0 shadow-inner">
@@ -23,9 +29,13 @@ export const BudgetCategoryCard = ({ item }: Props) => {
             </p>
           </div>
         </div>
-        <p className="text-sm font-bold text-on-surface">
-          {item.budgetAmount > 0 ? `${item.formattedBudget ?? '0'}đ` : '0đ'}
-        </p>
+        {item.budgetAmount > 0 ? (
+          <p className="text-sm font-bold text-on-surface">
+            {item.formattedBudget ?? '0'}đ
+          </p>
+        ) : (
+          <p className="text-sm font-bold text-primary">+ Đặt</p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -56,6 +66,6 @@ export const BudgetCategoryCard = ({ item }: Props) => {
           </span>
         </div>
       </div>
-    </div>
+    </button>
   );
 };

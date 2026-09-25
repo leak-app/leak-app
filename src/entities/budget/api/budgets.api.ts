@@ -68,7 +68,8 @@ export function useDeleteBudget() {
         .delete<BaseResponseModel<void>>(`/budgets/${id}`)
         .then((res) => res.data);
     },
-    onSuccess: () => {
+    // Also on error: a 404 means another tab removed it; refetch either way.
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['budgets'] });
       queryClient.invalidateQueries({ queryKey: ['budget-report'] });
     },

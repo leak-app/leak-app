@@ -5,6 +5,7 @@ import { ChevronRightIcon, DollarIcon } from '@/shared/icons';
 
 import { useReportOverview } from '../api';
 import { BudgetGoalsProgress } from './BudgetGoalsProgress';
+import { CashFlowCard } from './CashFlowCard';
 import { RecentExpensesList } from './RecentExpensesList';
 import { TotalBalanceCard } from './TotalBalanceCard';
 import { WeeklyExpenseChart } from './WeeklyExpenseChart';
@@ -41,6 +42,8 @@ export function ReportOverview({ insightsSlot }: { insightsSlot?: ReactNode }) {
         accountsCount={data.accountsCount}
         splitText={data.balanceSplitText}
       />
+
+      <CashFlowCard />
 
       <WeeklyExpenseChart weeklyExpense={data.weeklyExpense} />
 
