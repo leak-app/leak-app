@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
 import type { CategoryModel, CategoryType } from '@/entities/category';
@@ -59,8 +59,8 @@ export function CategoryFormModal({
     register,
     handleSubmit,
     setValue,
-    watch,
     setError,
+    control,
     formState: { errors },
   } = useForm<CategoryFormValuesModel>({
     resolver: zodResolver(categoryFormSchema),
@@ -71,7 +71,7 @@ export function CategoryFormModal({
     },
   });
 
-  const currentEmoji = watch('emoji') || '📁';
+  const currentEmoji = useWatch({ control, name: 'emoji' }) || '📁';
 
   if (!isOpen) return null;
 

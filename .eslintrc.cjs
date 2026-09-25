@@ -84,7 +84,8 @@ module.exports = {
     'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
-        project: ['./tsconfig.json', './tsconfig.app.json'],
+        // The root tsconfig references tsconfig.app.json, so one entry covers both.
+        project: './tsconfig.json',
       },
     },
     fsd: {

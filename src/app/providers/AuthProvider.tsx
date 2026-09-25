@@ -27,7 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } else {
           setAccessToken(null);
         }
-      } catch (error) {
+      } catch {
         console.log('No active session or failed to refresh token on mount');
         setAccessToken(null);
       } finally {
