@@ -43,6 +43,11 @@ export function UserProfile() {
         <div className="rounded-2xl bg-surface/50 border border-outline/5 overflow-hidden flex flex-col select-none">
           {[
             {
+              label: 'Ví & tài khoản',
+              desc: 'Quản lý ví tiền mặt, tài khoản ngân hàng và đầu tư',
+              onClick: () => navigate('/wallets'),
+            },
+            {
               label: 'Quản lý danh mục',
               desc: 'Thêm, sửa, xóa các danh mục thu chi & đầu tư',
               onClick: () => navigate('/categories'),
