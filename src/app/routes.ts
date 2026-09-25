@@ -9,6 +9,7 @@ import Login from '@/pages/login';
 import OnboardingPage from '@/pages/onboarding';
 import Overview from '@/pages/overview';
 import Profile from '@/pages/profile';
+import ProfileSecurity from '@/pages/profile-security';
 import Register from '@/pages/register';
 import ResetPassword from '@/pages/reset-password';
 import SavingsGoals from '@/pages/savings-goals';
@@ -35,6 +36,7 @@ export const routes: RouteConfig[] = [
   { path: '/leaks', Component: LeakReportPage, protected: true },
   { path: '/investment', Component: Investment, protected: true },
   { path: '/profile', Component: Profile, protected: true },
+  { path: '/profile/security', Component: ProfileSecurity, protected: true },
 
   // Legacy paths (kept for bookmarks); the query string is preserved.
   { path: '/transaction', redirectTo: '/transactions', protected: true },

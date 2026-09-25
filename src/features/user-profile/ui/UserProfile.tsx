@@ -54,7 +54,8 @@ export function UserProfile() {
             },
             {
               label: 'Bảo mật & Mật khẩu',
-              desc: 'Quản lý thông tin đăng nhập và mật khẩu',
+              desc: 'Thiết bị đang đăng nhập',
+              onClick: () => navigate('/profile/security'),
             },
             {
               label: 'Phương thức thanh toán',
