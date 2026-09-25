@@ -23,3 +23,30 @@ export interface WalletModel {
   typeLabel: string;
   isNegative: boolean;
 }
+
+export interface CreateWalletParamsModel {
+  name: string;
+  type: AccountType;
+  initialBalance: number;
+}
+
+export interface UpdateWalletParamsModel {
+  id: string;
+  name?: string;
+  initialBalance?: number;
+}
+
+export interface WalletGroupModel {
+  type: AccountType;
+  title: string;
+  totalText: string;
+  wallets: WalletModel[];
+}
+
+export interface WalletSummaryModel {
+  totalText: string;
+  countTexts: string[];
+  groups: WalletGroupModel[];
+  /** False when only one wallet is active: the API refuses to archive the last one. */
+  canArchive: boolean;
+}
