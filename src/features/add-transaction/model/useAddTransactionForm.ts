@@ -1,0 +1,115 @@
+import { useMemo, useState } from 'react';
+
+import { useCategories, type CategoryModel } from '@/entities/category';
+import {
+  useAddTransaction,
+  type TransactionType,
+} from '@/entities/transaction';
+import {
+  pickDefaultWallet,
+  readLastWalletId,
+  useWallets,
+  writeLastWalletId,
+  type WalletModel,
+} from '@/entities/wallet';
+import { getApiErrorMessage } from '@/shared/api';
+import { applyNumpadKey } from '@/shared/lib';
+
+import {
+  AMOUNT_LABELS,
+  categoriesForType,
+  formatAmountDisplay,
+} from '../lib/deserialize';
+
+export interface AddTransactionFormState {
+  type: TransactionType;
+  setType: (type: TransactionType) => void;
+  amountLabel: string;
+  amountText: string;
+  canSave: boolean;
+  description: string;
+  setDescription: (value: string) => void;
+  categories: CategoryModel[];
+  categoriesLoading: boolean;
+  activeCategoryId: string;
+  setCategoryId: (id: string) => void;
+  wallets: WalletModel[];
+  selectedWallet?: WalletModel;
+  setWalletId: (id: string) => void;
+  pressKey: (key: string) => void;
+  save: (onSaved: () => void) => void;
+  isSaving: boolean;
+  errorText: string | null;
+}
+
+export function useAddTransactionForm(): AddTransactionFormState {
+  const [type, setTypeState] = useState<TransactionType>('EXPENSE');
+  const [amount, setAmount] = useState('0');
+  const [description, setDescription] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [walletId, setWalletId] = useState<string | null>(readLastWalletId);
+
+  const { data: allCategories = [], isLoading: categoriesLoading } =
+    useCategories();
+  const { data: wallets = [] } = useWallets();
+  const { mutate, isPending, error } = useAddTransaction();
+
+  const categories = useMemo(
+    () => categoriesForType(allCategories, type),
+    [allCategories, type]
+  );
+  // A stale selection (other type, deleted) falls back to the first listed category.
+  const activeCategoryId = categories.some((c) => c.id === categoryId)
+    ? categoryId
+    : (categories[0]?.id ?? '');
+  const selectedWallet = pickDefaultWallet(wallets, walletId);
+
+  const numericAmount = parseInt(amount, 10) || 0;
+
+  const setType = (next: TransactionType) => {
+    setTypeState(next);
+    setCategoryId('');
+  };
+
+  const save = (onSaved: () => void) => {
+    if (numericAmount <= 0 || !activeCategoryId) return;
+    mutate(
+      {
+        amount: numericAmount,
+        type,
+        categoryId: activeCategoryId,
+        accountId: selectedWallet?.id,
+        description: description.trim() || undefined,
+      },
+      {
+        onSuccess: () => {
+          if (selectedWallet) writeLastWalletId(selectedWallet.id);
+          onSaved();
+        },
+      }
+    );
+  };
+
+  return {
+    type,
+    setType,
+    amountLabel: AMOUNT_LABELS[type],
+    amountText: formatAmountDisplay(numericAmount),
+    canSave: numericAmount > 0 && !!activeCategoryId && !isPending,
+    description,
+    setDescription,
+    categories,
+    categoriesLoading,
+    activeCategoryId,
+    setCategoryId,
+    wallets,
+    selectedWallet,
+    setWalletId,
+    pressKey: (key) => setAmount((prev) => applyNumpadKey(prev, key)),
+    save,
+    isSaving: isPending,
+    errorText: error
+      ? getApiErrorMessage(error, 'Lưu giao dịch thất bại. Vui lòng thử lại.')
+      : null,
+  };
+}
