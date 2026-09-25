@@ -7,8 +7,8 @@ export interface NavigationType {
 }
 
 export const NAVIGATION_CONFIG: NavigationType[] = [
-  { path: '/overview', label: 'Overview', Icon: HomeIcon },
-  { path: '/wallet', label: 'Wallet', Icon: WalletIcon },
-  { path: '/transaction', label: 'Swap', Icon: ReceiptIcon },
-  { path: '/savings-goals', label: 'Savings', Icon: DollarIcon },
+  { path: '/overview', label: 'Trang chủ', Icon: HomeIcon },
+  { path: '/transactions', label: 'Lịch sử', Icon: ReceiptIcon },
+  { path: '/transactions/new', label: 'Ghi chép', Icon: DollarIcon },
+  { path: '/profile', label: 'Cài đặt', Icon: WalletIcon },
 ];

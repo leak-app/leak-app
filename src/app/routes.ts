@@ -4,6 +4,7 @@ import BudgetSetupPage from '@/pages/budget-setup';
 import CategoriesPage from '@/pages/categories';
 import ForgotPassword from '@/pages/forgot-password';
 import Investment from '@/pages/investment';
+import LeakReportPage from '@/pages/leak-report';
 import Login from '@/pages/login';
 import OnboardingPage from '@/pages/onboarding';
 import Overview from '@/pages/overview';
@@ -23,13 +24,27 @@ export const routes: RouteConfig[] = [
   { path: '/forgot-password', Component: ForgotPassword, protected: false },
   { path: '/reset-password', Component: ResetPassword, protected: false },
   { path: '/overview', Component: Overview, protected: true },
-  { path: '/wallet', Component: Wallet, protected: true },
-  { path: '/transaction', Component: Transaction, protected: true },
-  { path: '/transaction/add', Component: AddTransactionPage, protected: true },
+  { path: '/transactions', Component: Transaction, protected: true },
+  { path: '/transactions/new', Component: AddTransactionPage, protected: true },
+  { path: '/log', Component: AddTransactionPage, protected: true },
   { path: '/categories', Component: CategoriesPage, protected: true },
-  { path: '/budget', Component: BudgetPage, protected: true },
-  { path: '/budget/setup', Component: BudgetSetupPage, protected: true },
+  { path: '/budgets', Component: BudgetPage, protected: true },
+  { path: '/budgets/setup', Component: BudgetSetupPage, protected: true },
+  { path: '/wallets', Component: Wallet, protected: true },
+  { path: '/goals', Component: SavingsGoals, protected: true },
+  { path: '/leaks', Component: LeakReportPage, protected: true },
   { path: '/investment', Component: Investment, protected: true },
-  { path: '/savings-goals', Component: SavingsGoals, protected: true },
   { path: '/profile', Component: Profile, protected: true },
+
+  // Legacy paths (kept for bookmarks); the query string is preserved.
+  { path: '/transaction', redirectTo: '/transactions', protected: true },
+  {
+    path: '/transaction/add',
+    redirectTo: '/transactions/new',
+    protected: true,
+  },
+  { path: '/budget', redirectTo: '/budgets', protected: true },
+  { path: '/budget/setup', redirectTo: '/budgets/setup', protected: true },
+  { path: '/wallet', redirectTo: '/wallets', protected: true },
+  { path: '/savings-goals', redirectTo: '/goals', protected: true },
 ];

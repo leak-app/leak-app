@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import {
   AuthProvider,
@@ -9,6 +9,7 @@ import { routes } from '@/app/routes';
 import { wrapWithProtected } from '@/entities/auth';
 import { GoogleOAuthProvider } from '@/features/auth-with-google';
 import { OnboardingGuard } from '@/features/onboarding';
+import { RedirectWithSearch } from '@/shared/routing';
 
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? '';
 
@@ -20,10 +21,7 @@ export default function App() {
           {routes.map((route) => {
             const element =
               'redirectTo' in route ? (
-                <Navigate
-                  to={route.redirectTo}
-                  replace
-                />
+                <RedirectWithSearch to={route.redirectTo} />
               ) : (
                 <route.Component />
               );

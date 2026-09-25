@@ -1,22 +1,54 @@
 import dayjs from 'dayjs';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { useCategories } from '@/entities/category';
 import {
+  parseSpendOutcome,
   useInfiniteTransactions,
+  type SpendOutcome,
+  type TransactionModel,
   type TransactionType,
 } from '@/entities/transaction';
 
 import { GroupedTransactionList } from './GroupedTransactionList';
+import { OutcomeReviewSheet } from './OutcomeReviewSheet';
 import { TransactionFilter } from './TransactionFilter';
 
 export function TransactionList() {
   // Filter States
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState<TransactionType | undefined>();
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
-  const [selectedMonth, setSelectedMonth] = useState<string>(
-    dayjs().format('YYYY-MM')
+
+  // categoryId, outcome and month live in the URL so /leaks can deep-link here.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategoryId = searchParams.get('categoryId') ?? '';
+  const outcomeFilter = parseSpendOutcome(searchParams.get('outcome'));
+  const monthParam = searchParams.get('month');
+  const selectedMonth =
+    monthParam === 'all' ? '' : (monthParam ?? dayjs().format('YYYY-MM'));
+
+  const updateParam = (key: string, value?: string) =>
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value) next.set(key, value);
+        else next.delete(key);
+        return next;
+      },
+      { replace: true }
+    );
+
+  const setSelectedCategoryId = (id: string) =>
+    updateParam('categoryId', id || undefined);
+  const setOutcomeFilter = (outcome?: SpendOutcome) =>
+    updateParam('outcome', outcome);
+  // An emptied month input means "all time"; store it explicitly so the default doesn't return.
+  const setSelectedMonth = (month: string) =>
+    updateParam('month', month || 'all');
+
+  const [reviewTarget, setReviewTarget] = useState<TransactionModel | null>(
+    null
   );
 
   // Compute Start and End Date for current month filter
@@ -44,6 +76,7 @@ export function TransactionList() {
     search: search.trim() || undefined,
     type: typeFilter,
     categoryId: selectedCategoryId || undefined,
+    outcome: typeFilter === 'INCOME' ? undefined : outcomeFilter,
     startDate,
     endDate,
     limit: 15,
@@ -111,6 +144,7 @@ export function TransactionList() {
         isFetchingNextPage={isFetchingNextPage}
         onFetchNextPage={fetchNextPage}
         loadMoreRef={loadMoreRef}
+        onOutcomeClick={setReviewTarget}
       />
     );
   };
@@ -122,6 +156,8 @@ export function TransactionList() {
         onSearchChange={setSearch}
         typeFilter={typeFilter}
         onTypeFilterChange={setTypeFilter}
+        outcomeFilter={outcomeFilter}
+        onOutcomeFilterChange={setOutcomeFilter}
         selectedMonth={selectedMonth}
         onMonthChange={setSelectedMonth}
         selectedCategoryId={selectedCategoryId}
@@ -130,6 +166,11 @@ export function TransactionList() {
       />
 
       {renderContent()}
+
+      <OutcomeReviewSheet
+        transaction={reviewTarget}
+        onClose={() => setReviewTarget(null)}
+      />
     </div>
   );
 }

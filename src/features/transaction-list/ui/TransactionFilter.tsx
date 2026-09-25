@@ -1,5 +1,9 @@
 import type { CategoryModel } from '@/entities/category';
-import type { TransactionType } from '@/entities/transaction';
+import {
+  OUTCOME_FILTER_OPTIONS,
+  type SpendOutcome,
+  type TransactionType,
+} from '@/entities/transaction';
 import { MagnifyingGlassIcon, XMarkIcon } from '@/shared/icons';
 
 interface TransactionFilterProps {
@@ -7,6 +11,8 @@ interface TransactionFilterProps {
   onSearchChange: (val: string) => void;
   typeFilter?: TransactionType;
   onTypeFilterChange: (type?: TransactionType) => void;
+  outcomeFilter?: SpendOutcome;
+  onOutcomeFilterChange: (outcome?: SpendOutcome) => void;
   selectedMonth: string;
   onMonthChange: (month: string) => void;
   selectedCategoryId: string;
@@ -19,6 +25,8 @@ export function TransactionFilter({
   onSearchChange,
   typeFilter,
   onTypeFilterChange,
+  outcomeFilter,
+  onOutcomeFilterChange,
   selectedMonth,
   onMonthChange,
   selectedCategoryId,
@@ -85,6 +93,22 @@ export function TransactionFilter({
           Thu nhập
         </button>
       </div>
+
+      {typeFilter !== 'INCOME' && (
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+          {OUTCOME_FILTER_OPTIONS.map((option) => (
+            <button
+              key={option.label}
+              type="button"
+              aria-pressed={outcomeFilter === option.value}
+              onClick={() => onOutcomeFilterChange(option.value)}
+              className="btn btn-sm min-h-11 rounded-full font-semibold whitespace-nowrap transition-all bg-surface border-outline/10 text-on-surface-variant hover:text-on-surface aria-pressed:btn-secondary aria-pressed:text-on-secondary"
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="flex items-center gap-3 w-full">
         <div className="flex-1 bg-surface border border-outline/10 rounded-2xl px-3 py-1 flex items-center justify-between">

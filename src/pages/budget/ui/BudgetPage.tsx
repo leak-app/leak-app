@@ -51,7 +51,7 @@ export default function BudgetPage() {
             rightAction={
               <button
                 onClick={() =>
-                  navigate(`/budget/setup?month=${month}&year=${year}`)
+                  navigate(`/budgets/setup?month=${month}&year=${year}`)
                 }
                 className="btn btn-ghost btn-circle btn-sm font-bold hover:bg-primary/10 rounded-xl"
               >

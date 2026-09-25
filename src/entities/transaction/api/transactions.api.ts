@@ -17,6 +17,7 @@ import type {
   TransactionListResponseModel,
   TransactionModel,
 } from '../model/types';
+import { REFLECTION_QUEUE_KEY } from './outcomes.api';
 
 export function useInfiniteTransactions(
   params: Omit<GetTransactionsQueryParamsModel, 'page'> = {}
@@ -71,6 +72,8 @@ export function useAddTransaction() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['leak-rate'] });
+      queryClient.invalidateQueries({ queryKey: REFLECTION_QUEUE_KEY });
     },
   });
 }
