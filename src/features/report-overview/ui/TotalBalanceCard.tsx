@@ -4,6 +4,7 @@ interface TotalBalanceCardProps {
   totalBalance: number;
   growthPercentage: number;
   accountsCount: number;
+  splitText?: string | null;
 }
 
 function formatVND(amount: number): string {
@@ -14,6 +15,7 @@ export function TotalBalanceCard({
   totalBalance,
   growthPercentage,
   accountsCount,
+  splitText,
 }: TotalBalanceCardProps) {
   return (
     <Link
@@ -31,6 +33,10 @@ export function TotalBalanceCard({
         </span>
         <span className="text-lg font-bold text-primary">VND</span>
       </div>
+
+      {splitText && (
+        <span className="text-xs text-on-surface-variant">{splitText}</span>
+      )}
 
       <div className="flex items-center gap-2 mt-1">
         <div className="badge badge-success badge-soft font-semibold gap-1 px-3 py-1 text-xs">

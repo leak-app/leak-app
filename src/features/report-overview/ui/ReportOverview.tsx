@@ -39,6 +39,7 @@ export function ReportOverview({ insightsSlot }: { insightsSlot?: ReactNode }) {
         totalBalance={data.totalBalance}
         growthPercentage={data.growthPercentage}
         accountsCount={data.accountsCount}
+        splitText={data.balanceSplitText}
       />
 
       <WeeklyExpenseChart weeklyExpense={data.weeklyExpense} />
