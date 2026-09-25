@@ -21,6 +21,8 @@ export interface TransactionModel {
   description?: string;
   categoryId: string;
   category?: CategoryModel;
+  accountId: string;
+  account?: { id: string; name: string; type: 'LIQUID' | 'INVESTMENT' };
   userId: string;
   createdAt: string;
   updatedAt: string;
@@ -33,6 +35,8 @@ export interface TransactionModel {
   amountText: string;
   signedAmountText: string;
   timeText: string;
+  walletName: string;
+  metaText: string;
   dateText: string;
   outcomeLabel: string;
   outcomeBadgeClass: string;
@@ -44,6 +48,7 @@ export interface CreateTransactionParamsModel {
   amount: number;
   type: TransactionType;
   categoryId: string;
+  accountId?: string;
   description?: string;
 }
 
@@ -53,6 +58,7 @@ export interface GetTransactionsQueryParamsModel {
   limit?: number;
   type?: TransactionType;
   categoryId?: string;
+  accountId?: string;
   outcome?: SpendOutcome;
   startDate?: string;
   endDate?: string;
