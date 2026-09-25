@@ -3,6 +3,7 @@ export * from './ArrowLeftIcon';
 export * from './BackspaceIcon';
 export * from './BellIcon';
 export * from './CheckIcon';
+export * from './ChevronDownIcon';
 export * from './ChevronRightIcon';
 export * from './CircleDashedIcon';
 export * from './DollarIcon';

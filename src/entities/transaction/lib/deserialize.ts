@@ -27,6 +27,10 @@ export function deserialize(raw: TransactionModel): TransactionModel {
   raw.amountText = formatVnd(raw.amount);
   raw.signedAmountText = `${isExpense ? '−' : '+'} ${raw.amountText}`;
   raw.timeText = dayjs(raw.createdAt).format('HH:mm');
+  raw.walletName = raw.account?.name ?? '';
+  raw.metaText = raw.walletName
+    ? `${raw.timeText} · ${raw.walletName}`
+    : raw.timeText;
   raw.dateText = formatRelativeDateTime(raw.createdAt);
   raw.outcomeLabel = meta.label;
   raw.outcomeBadgeClass = meta.badgeClass;

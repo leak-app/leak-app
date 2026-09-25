@@ -74,6 +74,8 @@ export function useAddTransaction() {
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
       queryClient.invalidateQueries({ queryKey: ['leak-rate'] });
       queryClient.invalidateQueries({ queryKey: REFLECTION_QUEUE_KEY });
+      queryClient.invalidateQueries({ queryKey: ['wallets'] });
+      queryClient.invalidateQueries({ queryKey: ['report-overview'] });
     },
   });
 }

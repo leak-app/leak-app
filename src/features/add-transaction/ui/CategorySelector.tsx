@@ -1,4 +1,5 @@
 import { clsx } from 'clsx';
+import { Link } from 'react-router-dom';
 
 import type { CategoryModel } from '@/entities/category';
 
@@ -7,6 +8,7 @@ interface Props {
   selectedId: string;
   onSelect: (id: string) => void;
   isLoading: boolean;
+  emptyText: string;
 }
 
 function Wrapper({ children }: { children: React.ReactNode }) {
@@ -22,6 +24,7 @@ export function CategorySelector({
   selectedId,
   onSelect,
   isLoading,
+  emptyText,
 }: Props) {
   if (isLoading) {
     return (
@@ -37,8 +40,14 @@ export function CategorySelector({
     return (
       <Wrapper>
         <span className="text-xs text-on-surface-variant py-2">
-          Không tìm thấy danh mục chi tiêu
+          {emptyText}
         </span>
+        <Link
+          to="/categories"
+          className="btn btn-ghost btn-sm min-h-11 text-primary"
+        >
+          Tạo danh mục
+        </Link>
       </Wrapper>
     );
   }

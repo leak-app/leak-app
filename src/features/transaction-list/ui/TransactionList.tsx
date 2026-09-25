@@ -10,6 +10,7 @@ import {
   type TransactionModel,
   type TransactionType,
 } from '@/entities/transaction';
+import { useWallets } from '@/entities/wallet';
 
 import { GroupedTransactionList } from './GroupedTransactionList';
 import { OutcomeReviewSheet } from './OutcomeReviewSheet';
@@ -20,9 +21,10 @@ export function TransactionList() {
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState<TransactionType | undefined>();
 
-  // categoryId, outcome and month live in the URL so /leaks can deep-link here.
+  // categoryId, accountId, outcome and month live in the URL so other pages can deep-link here.
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedCategoryId = searchParams.get('categoryId') ?? '';
+  const selectedAccountId = searchParams.get('accountId') ?? '';
   const outcomeFilter = parseSpendOutcome(searchParams.get('outcome'));
   const monthParam = searchParams.get('month');
   const selectedMonth =
@@ -41,6 +43,8 @@ export function TransactionList() {
 
   const setSelectedCategoryId = (id: string) =>
     updateParam('categoryId', id || undefined);
+  const setSelectedAccountId = (id: string) =>
+    updateParam('accountId', id || undefined);
   const setOutcomeFilter = (outcome?: SpendOutcome) =>
     updateParam('outcome', outcome);
   // An emptied month input means "all time"; store it explicitly so the default doesn't return.
@@ -63,6 +67,7 @@ export function TransactionList() {
 
   // Load Categories for Filter Dropdown
   const { data: categories = [] } = useCategories();
+  const { data: wallets = [] } = useWallets();
 
   // Fetch Infinite Transactions
   const {
@@ -76,6 +81,7 @@ export function TransactionList() {
     search: search.trim() || undefined,
     type: typeFilter,
     categoryId: selectedCategoryId || undefined,
+    accountId: selectedAccountId || undefined,
     outcome: typeFilter === 'INCOME' ? undefined : outcomeFilter,
     startDate,
     endDate,
@@ -163,6 +169,9 @@ export function TransactionList() {
         selectedCategoryId={selectedCategoryId}
         onCategoryChange={setSelectedCategoryId}
         categories={categories}
+        selectedAccountId={selectedAccountId}
+        onAccountChange={setSelectedAccountId}
+        wallets={wallets}
       />
 
       {renderContent()}
