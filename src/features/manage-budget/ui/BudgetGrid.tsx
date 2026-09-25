@@ -8,6 +8,7 @@ interface Props {
   savingsInsight: string;
   month: number;
   year: number;
+  onSelect: (item: BudgetCategoryReportModel) => void;
 }
 
 export const BudgetGrid = ({
@@ -15,15 +16,32 @@ export const BudgetGrid = ({
   savingsInsight,
   month,
   year,
+  onSelect,
 }: Props) => {
   const navigate = useNavigate();
+  const budgeted = categories.filter((c) => c.budgetAmount > 0);
+  const unbudgeted = categories.filter((c) => c.budgetAmount <= 0);
 
   return (
     <div className="grid grid-cols-1 gap-4">
-      {categories.map((item) => (
+      {budgeted.map((item) => (
         <BudgetCategoryCard
           key={item.categoryId}
           item={item}
+          onSelect={onSelect}
+        />
+      ))}
+
+      {unbudgeted.length > 0 && (
+        <h3 className="text-xs font-bold text-on-surface-variant uppercase mt-2">
+          Chưa đặt ngân sách
+        </h3>
+      )}
+      {unbudgeted.map((item) => (
+        <BudgetCategoryCard
+          key={item.categoryId}
+          item={item}
+          onSelect={onSelect}
         />
       ))}
 
