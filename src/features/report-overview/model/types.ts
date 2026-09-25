@@ -37,6 +37,10 @@ export interface BudgetGoalProgressModel {
 
 export interface ReportOverviewModel {
   totalBalance: number;
+  walletsBalance: number;
+  goalsBalance: number;
+  // Added for UI only
+  balanceSplitText?: string | null;
   growthPercentage: number;
   accountsCount: number;
   weeklyExpense: WeeklyExpenseSummaryModel;

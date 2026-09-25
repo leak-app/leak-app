@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 
+import { formatCompactVnd } from '@/shared/lib';
+
 import type { ReportOverviewModel } from '../model/types';
 
 function formatTimestamp(dateStr: string): string {
@@ -31,6 +33,12 @@ export function deserializeReportOverview(
 ): ReportOverviewModel {
   return {
     totalBalance: raw.totalBalance,
+    walletsBalance: raw.walletsBalance,
+    goalsBalance: raw.goalsBalance,
+    balanceSplitText:
+      raw.goalsBalance > 0
+        ? `Trong ví ${formatCompactVnd(raw.walletsBalance)} · Mục tiêu ${formatCompactVnd(raw.goalsBalance)}`
+        : null,
     growthPercentage: raw.growthPercentage,
     accountsCount: raw.accountsCount,
     weeklyExpense: {
