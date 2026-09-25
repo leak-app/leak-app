@@ -20,8 +20,8 @@ export function TransactionItem({
           <span className="text-sm font-semibold text-on-surface line-clamp-1">
             {transaction.description}
           </span>
-          <span className="text-xs text-on-surface-variant mt-0.5">
-            {transaction.timeText}
+          <span className="text-xs text-on-surface-variant mt-0.5 line-clamp-1">
+            {transaction.metaText}
           </span>
         </div>
       </div>

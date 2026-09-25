@@ -4,6 +4,7 @@ import {
   type SpendOutcome,
   type TransactionType,
 } from '@/entities/transaction';
+import type { WalletModel } from '@/entities/wallet';
 import { MagnifyingGlassIcon, XMarkIcon } from '@/shared/icons';
 
 interface TransactionFilterProps {
@@ -18,6 +19,9 @@ interface TransactionFilterProps {
   selectedCategoryId: string;
   onCategoryChange: (id: string) => void;
   categories: CategoryModel[];
+  selectedAccountId: string;
+  onAccountChange: (id: string) => void;
+  wallets: WalletModel[];
 }
 
 export function TransactionFilter({
@@ -32,6 +36,9 @@ export function TransactionFilter({
   selectedCategoryId,
   onCategoryChange,
   categories,
+  selectedAccountId,
+  onAccountChange,
+  wallets,
 }: TransactionFilterProps) {
   return (
     <div className="flex flex-col gap-4">
@@ -110,7 +117,7 @@ export function TransactionFilter({
         </div>
       )}
 
-      <div className="flex items-center gap-3 w-full">
+      <div className="flex flex-wrap items-center gap-3 w-full">
         <div className="flex-1 bg-surface border border-outline/10 rounded-2xl px-3 py-1 flex items-center justify-between">
           <span className="text-xs text-on-surface-variant font-medium shrink-0">
             Tháng:
@@ -140,6 +147,27 @@ export function TransactionFilter({
             ))}
           </select>
         </div>
+
+        {wallets.length > 1 && (
+          <div className="flex-1 bg-surface border border-outline/10 rounded-2xl px-2 py-1 flex items-center">
+            <select
+              aria-label="Lọc theo ví"
+              value={selectedAccountId}
+              onChange={(e) => onAccountChange(e.target.value)}
+              className="select select-ghost select-xs w-full font-semibold text-on-surface focus:bg-transparent cursor-pointer"
+            >
+              <option value="">Tất cả ví</option>
+              {wallets.map((wallet) => (
+                <option
+                  key={wallet.id}
+                  value={wallet.id}
+                >
+                  {wallet.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
     </div>
   );
