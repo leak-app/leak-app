@@ -76,6 +76,7 @@ export function useAddTransaction() {
       queryClient.invalidateQueries({ queryKey: REFLECTION_QUEUE_KEY });
       queryClient.invalidateQueries({ queryKey: ['wallets'] });
       queryClient.invalidateQueries({ queryKey: ['report-overview'] });
+      queryClient.invalidateQueries({ queryKey: ['reclaim-offer'] });
     },
   });
 }

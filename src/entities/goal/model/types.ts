@@ -17,6 +17,7 @@ export interface RawGoalContributionModel {
   note: string | null;
   createdAt: string;
   account: { id: string; name: string } | null;
+  source?: 'MANUAL' | 'LEAK_RECLAIM';
 }
 
 export interface GoalModel {
@@ -50,6 +51,7 @@ export interface GoalContributionModel {
   dateText: string;
   typeLabel: string;
   walletName: string;
+  isReclaim: boolean;
 }
 
 export interface GoalsSummaryModel {

@@ -66,6 +66,7 @@ export function deserializeContribution(
 ): GoalContributionModel {
   const amount = Number(raw.amount);
   const sign = raw.type === 'WITHDRAWAL' ? '−' : '+';
+  const isReclaim = raw.source === 'LEAK_RECLAIM' && raw.type === 'DEPOSIT';
   return {
     id: raw.id,
     type: raw.type,
@@ -74,7 +75,8 @@ export function deserializeContribution(
     createdAt: raw.createdAt,
     amountText: `${sign} ${formatVnd(amount)}`,
     dateText: formatRelativeDateTime(raw.createdAt),
-    typeLabel: TYPE_LABELS[raw.type],
+    typeLabel: isReclaim ? 'Bịt rò rỉ' : TYPE_LABELS[raw.type],
     walletName: raw.account?.name ?? '',
+    isReclaim,
   };
 }

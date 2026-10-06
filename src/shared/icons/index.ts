@@ -19,6 +19,7 @@ export * from './MonitorIcon';
 export * from './PencilIcon';
 export * from './PlusIcon';
 export * from './ReceiptIcon';
+export * from './ShieldCheckIcon';
 export * from './SmartphoneIcon';
 export * from './TrashIcon';
 export * from './TrendingDownIcon';

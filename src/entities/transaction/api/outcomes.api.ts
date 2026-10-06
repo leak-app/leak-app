@@ -45,6 +45,7 @@ export function useReviewTransaction() {
       queryClient.invalidateQueries({ queryKey: REFLECTION_QUEUE_KEY });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
       queryClient.invalidateQueries({ queryKey: ['leak-rate'] });
+      queryClient.invalidateQueries({ queryKey: ['reclaim-offer'] });
     },
   });
 }

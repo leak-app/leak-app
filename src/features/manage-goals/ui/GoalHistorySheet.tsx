@@ -1,4 +1,5 @@
 import { useGoalContributions, type GoalModel } from '@/entities/goal';
+import { ShieldCheckIcon } from '@/shared/icons';
 import { BottomSheet } from '@/shared/ui';
 
 interface Props {
@@ -53,7 +54,14 @@ export function GoalHistorySheet({ goal, onEdit, onDelete, onClose }: Props) {
                   className="flex items-center justify-between gap-3 text-sm"
                 >
                   <span className="flex flex-col">
-                    <span className="font-semibold text-on-surface">
+                    <span className="flex items-center gap-1 font-semibold text-on-surface">
+                      {c.isReclaim && (
+                        <ShieldCheckIcon
+                          size={14}
+                          className="text-success"
+                          aria-hidden="true"
+                        />
+                      )}
                       {c.typeLabel}
                     </span>
                     <span className="text-xs text-on-surface-variant">
