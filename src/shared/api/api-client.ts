@@ -1,8 +1,8 @@
 import { useAuthStore } from '@/entities/auth';
+import { appConfig } from '@/shared/configs/runtime.config';
 import axios from 'axios';
 
-const baseURL =
-  import.meta.env.VITE_BASE_API_URL || 'http://localhost:3000/api';
+const baseURL = appConfig.apiBaseUrl;
 
 export const apiClient = axios.create({
   baseURL,
