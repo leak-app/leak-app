@@ -1,3 +1,5 @@
+import { Select, type SelectOption } from '@/shared/ui';
+
 interface Props {
   month: number;
   year: number;
@@ -12,42 +14,34 @@ export const MonthYearSelector = ({
   onYearChange,
 }: Props) => {
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 5 }, (_, i) => currentYear - 2 + i);
-  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  const monthOptions: SelectOption<number>[] = Array.from(
+    { length: 12 },
+    (_, i) => ({ value: i + 1, label: `Tháng ${i + 1}` })
+  );
+  const yearOptions: SelectOption<number>[] = Array.from(
+    { length: 5 },
+    (_, i) => ({
+      value: currentYear - 2 + i,
+      label: `Năm ${currentYear - 2 + i}`,
+    })
+  );
 
   return (
     <div className="flex items-center gap-2">
-      <select
-        aria-label="Chọn tháng"
+      <Select
+        variant="pill"
+        ariaLabel="Chọn tháng"
         value={month}
-        onChange={(e) => onMonthChange(Number(e.target.value))}
-        className="select select-sm border-outline/20 bg-surface-container-high text-on-surface focus:outline-none focus:border-primary rounded-xl font-medium"
-      >
-        {months.map((m) => (
-          <option
-            key={m}
-            value={m}
-          >
-            Tháng {m}
-          </option>
-        ))}
-      </select>
-
-      <select
-        aria-label="Chọn năm"
+        options={monthOptions}
+        onChange={onMonthChange}
+      />
+      <Select
+        variant="pill"
+        ariaLabel="Chọn năm"
         value={year}
-        onChange={(e) => onYearChange(Number(e.target.value))}
-        className="select select-sm border-outline/20 bg-surface-container-high text-on-surface focus:outline-none focus:border-primary rounded-xl font-medium"
-      >
-        {years.map((y) => (
-          <option
-            key={y}
-            value={y}
-          >
-            Năm {y}
-          </option>
-        ))}
-      </select>
+        options={yearOptions}
+        onChange={onYearChange}
+      />
     </div>
   );
 };

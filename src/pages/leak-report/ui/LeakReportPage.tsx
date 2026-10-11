@@ -6,19 +6,22 @@ import {
   type LeakRatePeriodModel,
 } from '@/features/category-leak-rate';
 import { MainLayout, Screen, ScreenHeader } from '@/shared/layout';
+import { Select, type SelectOption } from '@/shared/ui';
 
-const MONTH_OPTIONS = Array.from({ length: 12 }, (_, i) => ({
-  value: i + 1,
-  label: `Tháng ${i + 1}`,
-}));
+const MONTH_OPTIONS: SelectOption<number>[] = Array.from(
+  { length: 12 },
+  (_, i) => ({ value: i + 1, label: `Tháng ${i + 1}` })
+);
 
-function yearOptions(currentYear: number) {
-  return [currentYear - 2, currentYear - 1, currentYear];
+function yearOptions(currentYear: number): SelectOption<number>[] {
+  return [currentYear - 2, currentYear - 1, currentYear].map((year) => ({
+    value: year,
+    label: String(year),
+  }));
 }
 
 export default function LeakReportPage() {
   const [period, setPeriod] = useState<LeakRatePeriodModel>(currentPeriod());
-  const years = yearOptions(currentPeriod().year);
 
   return (
     <MainLayout>
@@ -27,40 +30,22 @@ export default function LeakReportPage() {
         header={<ScreenHeader title="Vùng rò rỉ" />}
       >
         <div className="mb-4 flex gap-2">
-          <select
-            aria-label="Chọn tháng"
+          <Select
+            variant="pill"
+            className="flex-1"
+            ariaLabel="Chọn tháng"
             value={period.month}
-            onChange={(e) =>
-              setPeriod((p) => ({ ...p, month: Number(e.target.value) }))
-            }
-            className="select select-sm min-h-11 flex-1 rounded-full"
-          >
-            {MONTH_OPTIONS.map((m) => (
-              <option
-                key={m.value}
-                value={m.value}
-              >
-                {m.label}
-              </option>
-            ))}
-          </select>
-          <select
-            aria-label="Chọn năm"
+            options={MONTH_OPTIONS}
+            onChange={(month) => setPeriod((p) => ({ ...p, month }))}
+          />
+          <Select
+            variant="pill"
+            className="flex-1"
+            ariaLabel="Chọn năm"
             value={period.year}
-            onChange={(e) =>
-              setPeriod((p) => ({ ...p, year: Number(e.target.value) }))
-            }
-            className="select select-sm min-h-11 flex-1 rounded-full"
-          >
-            {years.map((y) => (
-              <option
-                key={y}
-                value={y}
-              >
-                {y}
-              </option>
-            ))}
-          </select>
+            options={yearOptions(currentPeriod().year)}
+            onChange={(year) => setPeriod((p) => ({ ...p, year }))}
+          />
         </div>
 
         <LeakReport

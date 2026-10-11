@@ -6,6 +6,7 @@ import {
 } from '@/entities/transaction';
 import type { WalletModel } from '@/entities/wallet';
 import { MagnifyingGlassIcon, XMarkIcon } from '@/shared/icons';
+import { Select, type SelectOption } from '@/shared/ui';
 
 interface TransactionFilterProps {
   search: string;
@@ -40,6 +41,18 @@ export function TransactionFilter({
   onAccountChange,
   wallets,
 }: TransactionFilterProps) {
+  const categoryOptions: SelectOption<string>[] = [
+    { value: '', label: 'Tất cả danh mục' },
+    ...categories.map((cat) => ({
+      value: cat.id,
+      label: `${cat.emoji} ${cat.name}`,
+    })),
+  ];
+  const walletOptions: SelectOption<string>[] = [
+    { value: '', label: 'Tất cả ví' },
+    ...wallets.map((wallet) => ({ value: wallet.id, label: wallet.name })),
+  ];
+
   return (
     <div className="flex flex-col gap-4">
       <label className="input input-bordered rounded-full w-full flex items-center gap-2">
@@ -130,43 +143,24 @@ export function TransactionFilter({
           />
         </div>
 
-        <div className="flex-1 bg-surface border border-outline/10 rounded-2xl px-2 py-1 flex items-center">
-          <select
-            value={selectedCategoryId}
-            onChange={(e) => onCategoryChange(e.target.value)}
-            className="select select-ghost select-xs w-full font-semibold text-on-surface focus:bg-transparent cursor-pointer"
-          >
-            <option value="">Tất cả danh mục</option>
-            {categories.map((cat) => (
-              <option
-                key={cat.id}
-                value={cat.id}
-              >
-                {cat.emoji} {cat.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          variant="pill"
+          className="flex-1"
+          ariaLabel="Lọc theo danh mục"
+          value={selectedCategoryId}
+          options={categoryOptions}
+          onChange={onCategoryChange}
+        />
 
         {wallets.length > 1 && (
-          <div className="flex-1 bg-surface border border-outline/10 rounded-2xl px-2 py-1 flex items-center">
-            <select
-              aria-label="Lọc theo ví"
-              value={selectedAccountId}
-              onChange={(e) => onAccountChange(e.target.value)}
-              className="select select-ghost select-xs w-full font-semibold text-on-surface focus:bg-transparent cursor-pointer"
-            >
-              <option value="">Tất cả ví</option>
-              {wallets.map((wallet) => (
-                <option
-                  key={wallet.id}
-                  value={wallet.id}
-                >
-                  {wallet.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <Select
+            variant="pill"
+            className="flex-1"
+            ariaLabel="Lọc theo ví"
+            value={selectedAccountId}
+            options={walletOptions}
+            onChange={onAccountChange}
+          />
         )}
       </div>
     </div>

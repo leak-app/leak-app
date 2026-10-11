@@ -23,8 +23,10 @@ import {
   Meter,
   Numpad,
   OutcomeBadge,
+  Select,
   TransactionRow,
   type ChoiceTone,
+  type SelectOption,
 } from '@/shared/ui';
 
 const SWATCHES = [
@@ -40,6 +42,12 @@ const SWATCHES = [
   ['muted', 'bg-muted'],
   ['subtle', 'bg-subtle'],
 ] as const;
+
+const WALLET_OPTIONS: SelectOption<string>[] = [
+  { value: 'cash', label: 'Tiền mặt · 1.3tr₫' },
+  { value: 'bank', label: 'Vietcombank · 24tr₫' },
+  { value: 'save', label: 'Quỹ dự phòng · 60tr₫' },
+];
 
 const CHOICES: { tone: ChoiceTone; label: string; hint: string }[] = [
   {
@@ -69,6 +77,7 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 
 /** Development only (route /dev/kit): every kit component in its states, for visual checks. */
 export default function KitGallery() {
+  const [wallet, setWallet] = useState('cash');
   const [category, setCategory] = useState(CATEGORIES[0]);
   const [reason, setReason] = useState(REASONS[0]);
   const [choice, setChoice] = useState<ChoiceTone>('leak');
@@ -344,6 +353,22 @@ export default function KitGallery() {
             </Card>
             <Card variant="elevated">Thẻ nâng (reflection)</Card>
             <Card variant="tint">Thẻ sage nhạt (Bịt chỗ rò rỉ)</Card>
+          </Section>
+
+          <Section title="Select">
+            <Select
+              label="Lấy từ ví"
+              value={wallet}
+              options={WALLET_OPTIONS}
+              onChange={setWallet}
+            />
+            <Select
+              variant="pill"
+              ariaLabel="Chọn ví"
+              value={wallet}
+              options={WALLET_OPTIONS}
+              onChange={setWallet}
+            />
           </Section>
 
           <Section title="EmptyState">

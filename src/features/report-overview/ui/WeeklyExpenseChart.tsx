@@ -1,21 +1,36 @@
+import { useState } from 'react';
+
+import { Select, type SelectOption } from '@/shared/ui';
+
 import type { WeeklyExpenseSummaryModel } from '../model';
+
+type Range = '7days' | 'thisMonth';
+
+const RANGE_OPTIONS: SelectOption<Range>[] = [
+  { value: '7days', label: '7 ngày qua' },
+  { value: 'thisMonth', label: 'Tháng này' },
+];
 
 interface WeeklyExpenseChartProps {
   weeklyExpense: WeeklyExpenseSummaryModel;
 }
 
 export function WeeklyExpenseChart({ weeklyExpense }: WeeklyExpenseChartProps) {
+  // The range does not change the data yet; the control keeps its previous (inert) behaviour.
+  const [range, setRange] = useState<Range>('7days');
+
   return (
     <div className="card bg-surface/90 border border-outline/10 rounded-3xl p-4 shadow-lg select-none">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold text-on-surface">Chi tiêu tuần này</h3>
-        <div>
-          <select className="select select-ghost select-xs text-xs font-medium text-on-surface-variant focus:bg-transparent cursor-pointer">
-            <option value="7days">7 ngày qua</option>
-            <option value="thisMonth">Tháng này</option>
-          </select>
-        </div>
+        <Select
+          variant="pill"
+          ariaLabel="Khoảng thời gian"
+          value={range}
+          options={RANGE_OPTIONS}
+          onChange={setRange}
+        />
       </div>
 
       {/* Bar Chart Container / Empty State */}

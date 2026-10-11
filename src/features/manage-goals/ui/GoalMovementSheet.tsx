@@ -1,5 +1,5 @@
 import type { GoalModel } from '@/entities/goal';
-import { BottomSheet } from '@/shared/ui';
+import { BottomSheet, Select } from '@/shared/ui';
 
 import { useMovementForm, type MovementKind } from '../model/useMovementForm';
 
@@ -79,25 +79,15 @@ function MovementForm({
         </button>
       )}
       {f.wallets.length > 1 && (
-        <label className="flex flex-col gap-1">
-          <span className="text-xs font-semibold text-on-surface-variant">
-            {WALLET_LABELS[kind]}
-          </span>
-          <select
-            className="select w-full"
-            value={f.wallet?.id ?? ''}
-            onChange={(e) => f.setWalletId(e.target.value)}
-          >
-            {f.wallets.map((w) => (
-              <option
-                key={w.id}
-                value={w.id}
-              >
-                {w.name} · {w.compactBalanceText}
-              </option>
-            ))}
-          </select>
-        </label>
+        <Select
+          label={WALLET_LABELS[kind]}
+          value={f.wallet?.id ?? ''}
+          options={f.wallets.map((w) => ({
+            value: w.id,
+            label: `${w.name} · ${w.compactBalanceText}`,
+          }))}
+          onChange={f.setWalletId}
+        />
       )}
       {f.warningText && <p className="text-xs text-warning">{f.warningText}</p>}
       {f.overWithdrawText && (
