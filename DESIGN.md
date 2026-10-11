@@ -72,7 +72,7 @@ Text on a cyan fill: `#0F172A` is 8.33:1 (pass); white `#F8FAFC` is 2.05:1 (fail
 
 ### 1.6 Icons and illustrations
 
-- Lucide React, outline only, `strokeWidth` 1.75–2. No filled icons.
+- Local icon pack (`src/shared/icons`, catalog in `ICONS.md`), outline only, `strokeWidth` 1.75–2. No filled icons.
 - Illustrations ("Energetic unDraw" style, locked to `#38BDF8` and `#A78BFA`) appear **only in onboarding and empty states**, at ≤ 120px on core screens.
 - Prefer geometric objects over characters. Character poses must stay restrained so they don't conflict with the no-cartoonish tone.
 - **Human characters come from Storyset "Cuate" artwork recolored to this palette, never drawn in code.** The production guide and pipeline live in `wiki/illustrations/README.md`.

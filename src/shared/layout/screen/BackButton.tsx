@@ -1,7 +1,6 @@
-import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-import { ICON } from '@/shared/icons';
+import { ChevronLeftIcon, ICON } from '@/shared/icons';
 
 import { HEADER_CIRCLE_CLASS } from './HeaderActions';
 
@@ -33,7 +32,7 @@ export function BackButton({
       className={`${HEADER_CIRCLE_CLASS} ${className}`}
       aria-label={ariaLabel}
     >
-      <ChevronLeft
+      <ChevronLeftIcon
         size={ICON.size.ui}
         strokeWidth={ICON.stroke.active}
         aria-hidden="true"

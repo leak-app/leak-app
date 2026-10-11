@@ -2,6 +2,7 @@ import { CategoryLeakCard } from '@/features/category-leak-rate';
 import { ReclaimOfferCard } from '@/features/leak-reclaim';
 import { ReflectionBanner } from '@/features/reflection-ritual';
 import { ReportOverview } from '@/features/report-overview';
+import { SettingsIcon } from '@/shared/icons';
 import {
   HeaderIconButton,
   MainLayout,
@@ -9,7 +10,6 @@ import {
   ScreenHeader,
 } from '@/shared/layout';
 import { formatLongDate, greetingForHour } from '@/shared/lib';
-import { Settings } from 'lucide-react';
 
 export default function Overview() {
   const now = new Date();
@@ -26,7 +26,7 @@ export default function Overview() {
             title={greeting}
             rightAction={
               <HeaderIconButton
-                icon={Settings}
+                icon={SettingsIcon}
                 label="Cài đặt"
                 to="/profile"
               />

@@ -1,7 +1,12 @@
-import { ArrowRight, Mic, Plus, Settings } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 
-import { ICON } from '@/shared/icons';
+import {
+  ArrowRightIcon,
+  ICON,
+  MicIcon,
+  PlusIcon,
+  SettingsIcon,
+} from '@/shared/icons';
 import {
   BackButton,
   HeaderIconButton,
@@ -96,7 +101,7 @@ export default function KitGallery() {
             title="Chào buổi tối"
             rightAction={
               <HeaderIconButton
-                icon={Settings}
+                icon={SettingsIcon}
                 label="Cài đặt"
               />
             }
@@ -111,7 +116,7 @@ export default function KitGallery() {
               leftAction={<BackButton />}
               rightAction={
                 <HeaderPill>
-                  <Plus
+                  <PlusIcon
                     size={16}
                     strokeWidth={1.8}
                     aria-hidden="true"
@@ -200,7 +205,7 @@ export default function KitGallery() {
             <div className="flex flex-wrap gap-3">
               <Button
                 trailingIcon={
-                  <ArrowRight
+                  <ArrowRightIcon
                     size={ICON.size.row}
                     strokeWidth={ICON.stroke.onPrimary}
                     aria-hidden="true"
@@ -269,7 +274,7 @@ export default function KitGallery() {
                   aria-label="Nói"
                   className="flex size-touch items-center justify-center rounded-full bg-primary-tint text-primary"
                 >
-                  <Mic
+                  <MicIcon
                     size={ICON.size.ui}
                     strokeWidth={ICON.stroke.idle}
                     aria-hidden="true"

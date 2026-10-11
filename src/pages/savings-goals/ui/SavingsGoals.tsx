@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { ManageGoals } from '@/features/manage-goals';
+import { PlusIcon } from '@/shared/icons';
 import {
   BackButton,
   HeaderPill,
@@ -8,7 +9,6 @@ import {
   Screen,
   ScreenHeader,
 } from '@/shared/layout';
-import { Plus } from 'lucide-react';
 
 export default function SavingsGoals() {
   const [addRequested, setAddRequested] = useState(0);
@@ -21,7 +21,7 @@ export default function SavingsGoals() {
             leftAction={<BackButton />}
             rightAction={
               <HeaderPill onClick={() => setAddRequested((n) => n + 1)}>
-                <Plus
+                <PlusIcon
                   size={16}
                   strokeWidth={1.8}
                   aria-hidden="true"

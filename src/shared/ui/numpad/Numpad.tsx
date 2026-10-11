@@ -1,7 +1,6 @@
 import { clsx } from 'clsx';
-import { Delete } from 'lucide-react';
 
-import { ICON } from '@/shared/icons';
+import { DeleteIcon, ICON } from '@/shared/icons';
 
 interface NumpadProps {
   onKeyPress: (key: string) => void;
@@ -33,7 +32,7 @@ export function Numpad({ onKeyPress, className }: NumpadProps) {
         aria-label="Xóa số cuối"
         className={KEY_CLASS}
       >
-        <Delete
+        <DeleteIcon
           size={22}
           strokeWidth={ICON.stroke.idle}
           className="text-muted"

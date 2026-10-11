@@ -1,16 +1,16 @@
 import {
-  ChartColumn,
-  History,
-  House,
-  Plus,
-  Target,
-  type LucideIcon,
-} from 'lucide-react';
+  ChartColumnIcon,
+  HistoryIcon,
+  HouseIcon,
+  PlusIcon,
+  TargetIcon,
+  type IconComponent,
+} from '@/shared/icons';
 
 export interface NavItem {
   to: string;
   label: string;
-  icon: LucideIcon;
+  icon: IconComponent;
   /** The sage add button in the middle of the bar. */
   isAction?: boolean;
   isActive: (pathname: string) => boolean;
@@ -21,19 +21,19 @@ export const NAV_ITEMS: NavItem[] = [
   {
     to: '/overview',
     label: 'Hôm nay',
-    icon: House,
+    icon: HouseIcon,
     isActive: (pathname) => pathname === '/overview',
   },
   {
     to: '/reflect',
     label: 'Nhìn lại',
-    icon: History,
+    icon: HistoryIcon,
     isActive: (pathname) => pathname.startsWith('/reflect'),
   },
   {
     to: '/transactions/new',
     label: 'Ghi khoản chi',
-    icon: Plus,
+    icon: PlusIcon,
     isAction: true,
     isActive: (pathname) =>
       pathname === '/transactions/new' || pathname === '/log',
@@ -41,13 +41,13 @@ export const NAV_ITEMS: NavItem[] = [
   {
     to: '/leaks',
     label: 'Rò rỉ',
-    icon: ChartColumn,
+    icon: ChartColumnIcon,
     isActive: (pathname) => pathname.startsWith('/leaks'),
   },
   {
     to: '/goals',
     label: 'Mục tiêu',
-    icon: Target,
+    icon: TargetIcon,
     isActive: (pathname) => pathname.startsWith('/goals'),
   },
 ];

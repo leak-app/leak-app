@@ -55,7 +55,7 @@ src/
 
 - **DaisyUI Semantic Classes**: Prioritize DaisyUI classes (`btn`, `card`, `badge`, `input`, `modal`, `tabs`, `table`, etc.) over verbose, repetitive Tailwind utility strings.
 - **Touch Targets**: Maintain a minimum **44×44px touch target** for buttons and interactive controls.
-- **Icons**: Use `lucide-react` icons in outline style only with `strokeWidth={1.75 - 2}`.
+- **Icons**: Use the local icon pack from `@/shared/icons` (see `app/src/shared/icons/ICONS.md`) in outline style only with `strokeWidth={1.75 - 2}`. Do not add an icon package.
 - **Illustrations**: Visual assets and empty states must follow a minimal geometric and soft line-art vector style (Energetic unDraw hybrid) restricted to dark surfaces (`#1E293B`) and theme accents (`#38BDF8`, `#A78BFA`).
 
 ---

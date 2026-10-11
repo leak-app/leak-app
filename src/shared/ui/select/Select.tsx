@@ -1,8 +1,7 @@
 import { clsx } from 'clsx';
-import { Check, ChevronDown } from 'lucide-react';
 import { useId, useState } from 'react';
 
-import { ICON } from '@/shared/icons';
+import { CheckIcon, ChevronDownIcon, ICON } from '@/shared/icons';
 
 import { BottomSheet } from '../bottom-sheet/BottomSheet';
 
@@ -94,7 +93,7 @@ export function Select<T extends string | number>({
         <span className="min-w-0 truncate">
           {selected?.label ?? placeholder}
         </span>
-        <ChevronDown
+        <ChevronDownIcon
           size={ICON.size.row}
           strokeWidth={ICON.stroke.idle}
           className="shrink-0 text-muted"
@@ -134,7 +133,7 @@ export function Select<T extends string | number>({
                 >
                   <span className="min-w-0">{option.label}</span>
                   {isSelected && (
-                    <Check
+                    <CheckIcon
                       size={ICON.size.ui}
                       strokeWidth={ICON.stroke.active}
                       className="shrink-0 text-primary"

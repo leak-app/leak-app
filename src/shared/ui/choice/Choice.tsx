@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
-import { Check } from 'lucide-react';
 
+import { CheckIcon } from '@/shared/icons';
 import type { OutcomeTone } from '../outcome-badge/OutcomeBadge';
 
 export type ChoiceTone = Exclude<OutcomeTone, 'pending'>;
@@ -59,7 +59,7 @@ export function Choice({
       </span>
       {selected ? (
         <span className="flex size-[22px] shrink-0 items-center justify-center rounded-full bg-current">
-          <Check
+          <CheckIcon
             size={14}
             strokeWidth={3}
             className="text-bg"

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { ManageWallets } from '@/features/manage-wallets';
+import { PlusIcon } from '@/shared/icons';
 import {
   BackButton,
   HeaderPill,
@@ -8,7 +9,6 @@ import {
   Screen,
   ScreenHeader,
 } from '@/shared/layout';
-import { Plus } from 'lucide-react';
 
 export default function Wallet() {
   const [addRequested, setAddRequested] = useState(0);
@@ -21,7 +21,7 @@ export default function Wallet() {
             leftAction={<BackButton />}
             rightAction={
               <HeaderPill onClick={() => setAddRequested((n) => n + 1)}>
-                <Plus
+                <PlusIcon
                   size={16}
                   strokeWidth={1.8}
                   aria-hidden="true"

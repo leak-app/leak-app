@@ -1,103 +1,103 @@
 ---
 name: Midnight Emerald (Dark Mode)
 colors:
-  surface: "#0d1a10"
-  surface-dim: "#09120b"
-  surface-bright: "#15281a"
-  surface-container-lowest: "#040805"
-  surface-container-low: "#0a160c"
-  surface-container: "#0d1d11"
-  surface-container-high: "#122817"
-  surface-container-highest: "#18321e"
-  on-surface: "#f0f0f0"
-  on-surface-variant: "#8a9a8b"
-  inverse-surface: "#e6f2e8"
-  inverse-on-surface: "#0a120b"
-  outline: "#4f6854"
-  outline-variant: "#2a3d2f"
-  surface-tint: "#00ff66"
-  primary: "#00ff66"
-  on-primary: "#003812"
-  primary-container: "#00521e"
-  on-primary-container: "#99ffd4"
-  inverse-primary: "#00a33e"
-  secondary: "#00e5ff"
-  on-secondary: "#00363d"
-  secondary-container: "#004d57"
-  on-secondary-container: "#80f2ff"
-  tertiary: "#ff8a7a"
-  on-tertiary: "#4a120b"
-  tertiary-container: "#7d1c10"
-  on-tertiary-container: "#ffdad6"
-  error: "#ff5449"
-  on-error: "#4e0002"
-  error-container: "#ba1a1a"
-  on-error-container: "#ffdad6"
-  primary-fixed: "#00ff66"
-  primary-fixed-dim: "#00cc52"
-  on-primary-fixed: "#002107"
-  on-primary-fixed-variant: "#00531b"
-  secondary-fixed: "#80f2ff"
-  secondary-fixed-dim: "#00e5ff"
-  on-secondary-fixed: "#001f24"
-  on-secondary-fixed-variant: "#004d57"
-  tertiary-fixed: "#ffdad6"
-  tertiary-fixed-dim: "#ffb4a9"
-  on-tertiary-fixed: "#410002"
-  on-tertiary-fixed-variant: "#7f2920"
-  background: "#0a120b"
-  on-background: "#f0f0f0"
-  surface-variant: "#1a241b"
-  bg-sage: "#0a120b"
-  glass-white: "rgba(26, 36, 27, 0.6)"
-  deep-forest: "#0a120b"
-  vibrant-green: "#00ff66"
-  electric-cyan: "#00e5ff"
-  soft-coral: "#ff8a7a"
-  pastel-yellow: "#fdf07b"
+  surface: '#0d1a10'
+  surface-dim: '#09120b'
+  surface-bright: '#15281a'
+  surface-container-lowest: '#040805'
+  surface-container-low: '#0a160c'
+  surface-container: '#0d1d11'
+  surface-container-high: '#122817'
+  surface-container-highest: '#18321e'
+  on-surface: '#f0f0f0'
+  on-surface-variant: '#8a9a8b'
+  inverse-surface: '#e6f2e8'
+  inverse-on-surface: '#0a120b'
+  outline: '#4f6854'
+  outline-variant: '#2a3d2f'
+  surface-tint: '#00ff66'
+  primary: '#00ff66'
+  on-primary: '#003812'
+  primary-container: '#00521e'
+  on-primary-container: '#99ffd4'
+  inverse-primary: '#00a33e'
+  secondary: '#00e5ff'
+  on-secondary: '#00363d'
+  secondary-container: '#004d57'
+  on-secondary-container: '#80f2ff'
+  tertiary: '#ff8a7a'
+  on-tertiary: '#4a120b'
+  tertiary-container: '#7d1c10'
+  on-tertiary-container: '#ffdad6'
+  error: '#ff5449'
+  on-error: '#4e0002'
+  error-container: '#ba1a1a'
+  on-error-container: '#ffdad6'
+  primary-fixed: '#00ff66'
+  primary-fixed-dim: '#00cc52'
+  on-primary-fixed: '#002107'
+  on-primary-fixed-variant: '#00531b'
+  secondary-fixed: '#80f2ff'
+  secondary-fixed-dim: '#00e5ff'
+  on-secondary-fixed: '#001f24'
+  on-secondary-fixed-variant: '#004d57'
+  tertiary-fixed: '#ffdad6'
+  tertiary-fixed-dim: '#ffb4a9'
+  on-tertiary-fixed: '#410002'
+  on-tertiary-fixed-variant: '#7f2920'
+  background: '#0a120b'
+  on-background: '#f0f0f0'
+  surface-variant: '#1a241b'
+  bg-sage: '#0a120b'
+  glass-white: 'rgba(26, 36, 27, 0.6)'
+  deep-forest: '#0a120b'
+  vibrant-green: '#00ff66'
+  electric-cyan: '#00e5ff'
+  soft-coral: '#ff8a7a'
+  pastel-yellow: '#fdf07b'
 typography:
   display-currency:
     fontFamily: Baloo Da 2
     fontSize: 48px
-    fontWeight: "700"
+    fontWeight: '700'
     lineHeight: 56px
     letterSpacing: -0.02em
   display-currency-mobile:
     fontFamily: Baloo Da 2
     fontSize: 36px
-    fontWeight: "700"
+    fontWeight: '700'
     lineHeight: 44px
     letterSpacing: -0.02em
   headline-lg:
     fontFamily: Baloo Da 2
     fontSize: 32px
-    fontWeight: "600"
+    fontWeight: '600'
     lineHeight: 40px
   headline-md:
     fontFamily: Baloo Da 2
     fontSize: 24px
-    fontWeight: "600"
+    fontWeight: '600'
     lineHeight: 32px
   body-lg:
     fontFamily: Baloo Da 2
     fontSize: 18px
-    fontWeight: "400"
+    fontWeight: '400'
     lineHeight: 28px
   body-md:
     fontFamily: Baloo Da 2
     fontSize: 16px
-    fontWeight: "400"
+    fontWeight: '400'
     lineHeight: 24px
   label-caps:
     fontFamily: JetBrains Mono
     fontSize: 12px
-    fontWeight: "500"
+    fontWeight: '500'
     lineHeight: 16px
     letterSpacing: 0.05em
   metadata:
     fontFamily: Baloo Da 2
     fontSize: 14px
-    fontWeight: "400"
+    fontWeight: '400'
     lineHeight: 20px
 rounded:
   sm: 0.5rem
@@ -171,4 +171,4 @@ All primary containers use a 24px to 32px radius to feel friendly and organic. B
 - **Input Fields:** Large, pill-shaped fields with a background of `rgba(26, 36, 27, 0.4)`. Focus states switch the border to solid Vibrant Green (`#00FF66`) or Electric Cyan (`#00E5FF`).
 - **Chips:** Small, highly-rounded tags for categories. Use low-saturation versions of the flow colors (e.g., a dark green background with `#00FF66` text at 20% opacity for "Income" tags).
 - **Progress Bars:** Thick (8px+), fully rounded tracks. The background track is semi-transparent, while the progress indicator is a solid, vibrant brand color (Vibrant Green or Electric Cyan).
-- **Iconography:** Icons must be thin-stroke (1.5pt to 2pt), rounded-end line icons (Lucide/Feather). They should be colored in Snow White (`#F0F0F0`), Sage Grey (`#8A9A8B`), or the specific Flow color relevant to their context.
+- **Iconography:** Icons must be thin-stroke (1.5pt to 2pt), rounded-end line icons (local icon pack in `src/shared/icons`, Lucide/Feather geometry). They should be colored in Snow White (`#F0F0F0`), Sage Grey (`#8A9A8B`), or the specific Flow color relevant to their context.

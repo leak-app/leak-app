@@ -6,6 +6,7 @@ import {
   MonthYearSelector,
   useBudgetQuickEdit,
 } from '@/features/manage-budget';
+import { SettingsIcon } from '@/shared/icons';
 import {
   BackButton,
   HeaderIconButton,
@@ -13,7 +14,6 @@ import {
   Screen,
   ScreenHeader,
 } from '@/shared/layout';
-import { Settings } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -60,7 +60,7 @@ export default function BudgetPage() {
             leftAction={<BackButton />}
             rightAction={
               <HeaderIconButton
-                icon={Settings}
+                icon={SettingsIcon}
                 label="Thiết lập ngân sách"
                 onClick={() =>
                   navigate(`/budgets/setup?month=${month}&year=${year}`)

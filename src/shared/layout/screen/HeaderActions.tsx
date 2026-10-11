@@ -1,15 +1,14 @@
-import type { LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ICON } from '@/shared/icons';
+import { ICON, type IconComponent } from '@/shared/icons';
 
 /** The 44px glass circle shared by the back button and header icon buttons. */
 export const HEADER_CIRCLE_CLASS =
   'flex size-touch shrink-0 items-center justify-center rounded-full border border-border bg-surface text-muted transition-colors duration-200 ease-out hover:text-text focus-visible:shadow-focus focus-visible:outline-none';
 
 interface HeaderIconButtonProps {
-  icon: LucideIcon;
+  icon: IconComponent;
   /** Spoken label; the button shows only the icon. */
   label: string;
   /** Navigates when set, otherwise renders a button that calls `onClick`. */
