@@ -4,12 +4,14 @@ import BudgetSetupPage from '@/pages/budget-setup';
 import CategoriesPage from '@/pages/categories';
 import ForgotPassword from '@/pages/forgot-password';
 import Investment from '@/pages/investment';
+import KitGallery from '@/pages/kit-gallery';
 import LeakReportPage from '@/pages/leak-report';
 import Login from '@/pages/login';
 import OnboardingPage from '@/pages/onboarding';
 import Overview from '@/pages/overview';
 import Profile from '@/pages/profile';
 import ProfileSecurity from '@/pages/profile-security';
+import Reflect from '@/pages/reflect';
 import Register from '@/pages/register';
 import ResetPassword from '@/pages/reset-password';
 import SavingsGoals from '@/pages/savings-goals';
@@ -34,9 +36,15 @@ export const routes: RouteConfig[] = [
   { path: '/wallets', Component: Wallet, protected: true },
   { path: '/goals', Component: SavingsGoals, protected: true },
   { path: '/leaks', Component: LeakReportPage, protected: true },
+  { path: '/reflect', Component: Reflect, protected: true },
   { path: '/investment', Component: Investment, protected: true },
   { path: '/profile', Component: Profile, protected: true },
   { path: '/profile/security', Component: ProfileSecurity, protected: true },
+
+  // Development only: every kit component in its states.
+  ...(import.meta.env.DEV
+    ? [{ path: '/dev/kit', Component: KitGallery, protected: false }]
+    : []),
 
   // Legacy paths (kept for bookmarks); the query string is preserved.
   { path: '/transaction', redirectTo: '/transactions', protected: true },

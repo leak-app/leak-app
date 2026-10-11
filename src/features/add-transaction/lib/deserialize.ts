@@ -1,5 +1,6 @@
 import type { CategoryModel } from '@/entities/category';
 import type { TransactionType } from '@/entities/transaction';
+import { formatNumber } from '@/shared/lib';
 
 export const AMOUNT_LABELS: Record<TransactionType, string> = {
   EXPENSE: 'SỐ TIỀN CHI TIÊU',
@@ -11,10 +12,8 @@ export const EMPTY_CATEGORY_TEXT: Record<TransactionType, string> = {
   INCOME: 'Chưa có danh mục thu nhập',
 };
 
-const vnd = new Intl.NumberFormat('vi-VN');
-
 export function formatAmountDisplay(amount: number): string {
-  return vnd.format(amount);
+  return formatNumber(amount);
 }
 
 /** Expense mode: EXPENSE then INVESTMENT categories (the ledger accepts both). */

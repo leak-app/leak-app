@@ -1,8 +1,14 @@
 import { useState } from 'react';
 
 import { ManageWallets } from '@/features/manage-wallets';
-import { PlusIcon } from '@/shared/icons';
-import { BackButton, MainLayout, Screen, ScreenHeader } from '@/shared/layout';
+import {
+  BackButton,
+  HeaderPill,
+  MainLayout,
+  Screen,
+  ScreenHeader,
+} from '@/shared/layout';
+import { Plus } from 'lucide-react';
 
 export default function Wallet() {
   const [addRequested, setAddRequested] = useState(0);
@@ -14,14 +20,14 @@ export default function Wallet() {
             title="Ví & tài khoản"
             leftAction={<BackButton />}
             rightAction={
-              <button
-                type="button"
-                onClick={() => setAddRequested((n) => n + 1)}
-                className="btn btn-primary btn-sm min-h-11 gap-1"
-              >
-                <PlusIcon size={16} />
+              <HeaderPill onClick={() => setAddRequested((n) => n + 1)}>
+                <Plus
+                  size={16}
+                  strokeWidth={1.8}
+                  aria-hidden="true"
+                />
                 Thêm ví
-              </button>
+              </HeaderPill>
             }
           />
         }

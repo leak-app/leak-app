@@ -16,6 +16,11 @@ export function OnboardingGuard({ children }: OnboardingGuardProps) {
     return null;
   }
 
+  // Development tools such as the kit gallery (/dev/kit) skip onboarding.
+  if (import.meta.env.DEV && location.pathname.startsWith('/dev/')) {
+    return <>{children}</>;
+  }
+
   const isOnboardingRoute = location.pathname === '/onboarding';
 
   if (!isCompleted && !isOnboardingRoute) {

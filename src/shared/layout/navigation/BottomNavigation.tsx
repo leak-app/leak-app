@@ -1,84 +1,83 @@
-import type { ComponentType } from 'react';
+import { clsx } from 'clsx';
 import { Link, useLocation } from 'react-router-dom';
 
-import { GearIcon, HomeIcon, PlusIcon, ReceiptIcon } from '@/shared/icons';
+import { NAV_ITEMS, type NavItem } from '@/shared/configs/navigation.config';
+import { ICON } from '@/shared/icons';
 
-interface TabProps {
-  to: string;
-  label: string;
-  isActive: boolean;
-  Icon: ComponentType<{ size?: number }>;
-}
+const FOCUS = 'focus-visible:shadow-focus focus-visible:outline-none';
 
-const TAB_BASE =
-  'p-3 rounded-full transition-all duration-300 flex items-center justify-center';
-const TAB_ACTIVE = 'bg-surface-bright text-primary scale-110';
-const TAB_IDLE =
-  'text-on-surface-variant hover:text-on-surface hover:scale-105';
+function Tab({ item, active }: { item: NavItem; active: boolean }) {
+  const Icon = item.icon;
 
-function Tab({ to, label, isActive, Icon }: TabProps) {
   return (
     <Link
-      to={to}
-      aria-label={label}
-      aria-current={isActive ? 'page' : undefined}
-      className="relative flex flex-col items-center justify-center"
+      to={item.to}
+      aria-current={active ? 'page' : undefined}
+      className={clsx(
+        'flex h-[52px] w-[60px] flex-col items-center justify-center gap-1 rounded-full text-tab transition-colors duration-200 ease-out',
+        FOCUS,
+        active
+          ? 'font-semibold text-primary'
+          : 'font-medium text-muted hover:text-text'
+      )}
     >
-      <div className={`${TAB_BASE} ${isActive ? TAB_ACTIVE : TAB_IDLE}`}>
-        <Icon size={20} />
-      </div>
+      <Icon
+        size={ICON.size.ui}
+        strokeWidth={active ? ICON.stroke.active : ICON.stroke.idle}
+        aria-hidden="true"
+      />
+      {item.label}
     </Link>
   );
 }
 
+function AddButton({ item, active }: { item: NavItem; active: boolean }) {
+  const Icon = item.icon;
+
+  return (
+    <Link
+      to={item.to}
+      aria-label={item.label}
+      aria-current={active ? 'page' : undefined}
+      className={clsx(
+        'flex size-nav-action items-center justify-center rounded-full bg-primary text-on-primary transition-[filter] duration-200 ease-out hover:brightness-110',
+        FOCUS
+      )}
+    >
+      <Icon
+        size={22}
+        strokeWidth={ICON.stroke.onPrimary}
+        aria-hidden="true"
+      />
+    </Link>
+  );
+}
+
+/** The floating pill: the only glass-with-blur element in the app. */
 export function BottomNavigation() {
   const { pathname } = useLocation();
 
-  const isLogActive = pathname === '/transactions/new' || pathname === '/log';
-
   return (
-    <nav className="fixed bottom-6 left-1/2 z-50 max-w-[448px] -translate-x-1/2">
-      <div className="glass-dark flex items-center justify-around gap-6 py-2 px-6 rounded-full border border-outline/15 shadow-2xl">
-        <Tab
-          to="/overview"
-          label="Trang chủ"
-          Icon={HomeIcon}
-          isActive={pathname === '/overview'}
-        />
-        <Tab
-          to="/transactions"
-          label="Lịch sử"
-          Icon={ReceiptIcon}
-          isActive={pathname === '/transactions'}
-        />
-
-        {/* Center: quick log (raised) */}
-        <Link
-          to="/transactions/new"
-          aria-label="Ghi chép"
-          aria-current={isLogActive ? 'page' : undefined}
-          className="relative flex flex-col items-center justify-center"
-        >
-          <div
-            className={`p-3.5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center bg-primary text-on-primary hover:scale-110 active:scale-95 ${
-              isLogActive
-                ? 'ring-4 ring-primary/30 scale-110 shadow-primary/50'
-                : 'shadow-primary/30 hover:shadow-primary/50'
-            }`}
-          >
-            <PlusIcon size={22} />
-          </div>
-        </Link>
-
-        <Tab
-          to="/profile"
-          label="Cài đặt"
-          Icon={GearIcon}
-          isActive={
-            pathname.startsWith('/profile') ||
-            pathname.startsWith('/categories')
-          }
-        />
+    <nav
+      aria-label="Điều hướng chính"
+      className="pointer-events-none fixed inset-x-0 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-50 mx-auto w-full max-w-[480px] px-4"
+    >
+      <div className="pointer-events-auto flex h-nav items-center justify-between rounded-full border border-border bg-glass px-2.5 shadow-nav [-webkit-backdrop-filter:var(--glass-blur)] [backdrop-filter:var(--glass-blur)]">
+        {NAV_ITEMS.map((item) =>
+          item.isAction ? (
+            <AddButton
+              key={item.to}
+              item={item}
+              active={item.isActive(pathname)}
+            />
+          ) : (
+            <Tab
+              key={item.to}
+              item={item}
+              active={item.isActive(pathname)}
+            />
+          )
+        )}
       </div>
     </nav>
   );

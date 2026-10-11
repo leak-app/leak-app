@@ -1,3 +1,4 @@
+import { formatNumber } from '@/shared/lib';
 import type {
   BudgetCategoryReportModel,
   BudgetReportModel,
@@ -6,13 +7,9 @@ import type {
 export function deserializeCategoryReport(
   raw: BudgetCategoryReportModel
 ): BudgetCategoryReportModel {
-  const formattedBudget = new Intl.NumberFormat('vi-VN').format(
-    raw.budgetAmount
-  );
-  const formattedSpent = new Intl.NumberFormat('vi-VN').format(raw.spentAmount);
-  const formattedRemaining = new Intl.NumberFormat('vi-VN').format(
-    Math.max(0, raw.remainingAmount)
-  );
+  const formattedBudget = formatNumber(raw.budgetAmount);
+  const formattedSpent = formatNumber(raw.spentAmount);
+  const formattedRemaining = formatNumber(Math.max(0, raw.remainingAmount));
 
   const progressPercent = Math.min(100, Math.max(0, raw.percentage));
 

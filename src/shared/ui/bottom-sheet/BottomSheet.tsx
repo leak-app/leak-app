@@ -30,13 +30,13 @@ export function BottomSheet({
       aria-label={title}
       onClose={onClose}
     >
-      <div className="modal-box bg-surface border-t border-outline/10 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+      <div className="modal-box rounded-t-sheet border-t border-border bg-sheet px-6 pt-4 pb-[max(2rem,env(safe-area-inset-bottom))]">
         <div
-          className="mx-auto mb-4 h-1 w-10 rounded-full bg-outline/30"
+          className="mx-auto mb-4 h-1 w-10 rounded-full bg-white/20"
           aria-hidden="true"
         />
         {title && (
-          <h3 className="mb-4 text-base font-bold text-on-surface">{title}</h3>
+          <h3 className="mb-4 text-section-title text-text">{title}</h3>
         )}
         {open && children}
       </div>

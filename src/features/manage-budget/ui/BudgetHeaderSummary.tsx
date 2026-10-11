@@ -1,3 +1,5 @@
+import { formatNumber } from '@/shared/lib';
+
 interface Props {
   totalBudget: number;
   month: number;
@@ -5,7 +7,7 @@ interface Props {
 }
 
 export const BudgetHeaderSummary = ({ totalBudget, month, year }: Props) => {
-  const formattedTotal = new Intl.NumberFormat('vi-VN').format(totalBudget);
+  const formattedTotal = formatNumber(totalBudget);
 
   return (
     <div className="space-y-2">

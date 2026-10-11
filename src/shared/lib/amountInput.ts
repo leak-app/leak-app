@@ -1,4 +1,4 @@
-const vnd = new Intl.NumberFormat('vi-VN');
+const grouped = new Intl.NumberFormat('en-US');
 
 /** "1.250.000", "1,250,000", "-5000", "−5.000" → numbers. Decimals are not supported (VND). */
 export function parseAmountInput(text: string): number | null {
@@ -11,6 +11,6 @@ export function parseAmountInput(text: string): number | null {
 }
 
 export function formatAmountInput(value: number): string {
-  const abs = vnd.format(Math.abs(value));
+  const abs = grouped.format(Math.abs(value));
   return value < 0 ? `-${abs}` : abs;
 }

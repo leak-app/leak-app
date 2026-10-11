@@ -6,8 +6,14 @@ import {
   MonthYearSelector,
   useBudgetQuickEdit,
 } from '@/features/manage-budget';
-import { GearIcon } from '@/shared/icons';
-import { BackButton, MainLayout, Screen, ScreenHeader } from '@/shared/layout';
+import {
+  BackButton,
+  HeaderIconButton,
+  MainLayout,
+  Screen,
+  ScreenHeader,
+} from '@/shared/layout';
+import { Settings } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -53,14 +59,13 @@ export default function BudgetPage() {
             title="Ngân sách hàng tháng"
             leftAction={<BackButton />}
             rightAction={
-              <button
+              <HeaderIconButton
+                icon={Settings}
+                label="Thiết lập ngân sách"
                 onClick={() =>
                   navigate(`/budgets/setup?month=${month}&year=${year}`)
                 }
-                className="btn btn-ghost btn-circle btn-sm font-bold hover:bg-primary/10 rounded-xl"
-              >
-                <GearIcon size={16} />
-              </button>
+              />
             }
           />
         }

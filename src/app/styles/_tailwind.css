@@ -4,35 +4,54 @@
  * Theme variables
  */
 @theme {
-  --color-on-primary: var(--on-primary);
+  /* ---- Still water colours (values live in _colors.css) ---- */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-sheet: var(--surface-elevated-solid);
+  --color-glass: var(--glass);
+
   --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-600);
+  --color-on-primary: var(--on-primary);
+  --color-primary-tint: var(--primary-tint);
+  --color-secondary: var(--secondary);
+  --color-secondary-tint: var(--secondary-tint);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-danger-tint: var(--danger-tint);
+  --color-on-danger: var(--on-danger);
+  /* The design token "neutral" is "pebble" here, so it cannot collide with DaisyUI's neutral */
+  --color-pebble: var(--neutral);
+  --color-pebble-tint: var(--neutral-tint);
+
+  --color-text: var(--text);
+  --color-soft: var(--text-soft);
+  --color-muted: var(--text-muted);
+  --color-subtle: var(--text-subtle);
+
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-track: var(--track);
+
+  /* ---- Legacy colour names, aliases removed in the cleanup phase ---- */
+  --color-primary-hover: var(--primary);
   --color-primary-container: var(--primary-container);
   --color-on-primary-container: var(--on-primary-container);
   --color-inverse-primary: var(--inverse-primary);
-
-  --color-secondary: var(--secondary);
   --color-on-secondary: var(--on-secondary);
   --color-secondary-container: var(--secondary-container);
   --color-on-secondary-container: var(--on-secondary-container);
-
   --color-tertiary: var(--tertiary);
   --color-on-tertiary: var(--on-tertiary);
   --color-tertiary-container: var(--tertiary-container);
   --color-on-tertiary-container: var(--on-tertiary-container);
-
-  --color-success: var(--success);
   --color-on-success: var(--on-success);
-
   --color-error: var(--error);
   --color-on-error: var(--on-error);
   --color-error-container: var(--error-container);
   --color-on-error-container: var(--on-error-container);
-
-  /* Leak App theme colors (see DESIGN.md) */
   --color-background: var(--background);
   --color-on-background: var(--on-background);
-  --color-surface: var(--surface);
   --color-surface-dim: var(--surface-dim);
   --color-surface-bright: var(--surface-bright);
   --color-surface-container-lowest: var(--surface-container-lowest);
@@ -40,40 +59,43 @@
   --color-surface-container: var(--surface-container);
   --color-surface-container-high: var(--surface-container-high);
   --color-surface-container-highest: var(--surface-container-highest);
-
   --color-on-surface: var(--on-surface);
   --color-on-surface-strong: var(--on-surface-strong);
   --color-on-surface-variant-elevated: var(--on-surface-variant-elevated);
   --color-on-surface-variant: var(--on-surface-variant);
   --color-inverse-surface: var(--inverse-surface);
   --color-inverse-on-surface: var(--inverse-on-surface);
-
   --color-outline: var(--outline);
   --color-outline-variant: var(--outline-variant);
   --color-surface-tint: var(--surface-tint);
 
-  --color-bg-sage: var(--bg-sage);
-  --color-glass-white: var(--glass-white);
-  --color-deep-forest: var(--deep-forest);
-  --color-vibrant-green: var(--vibrant-green);
-  --color-electric-cyan: var(--electric-cyan);
-  --color-soft-coral: var(--soft-coral);
-  --color-pastel-yellow: var(--pastel-yellow);
+  /* ---- One family: Manrope ---- */
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-family-sans: var(--font-sans);
+  --font-family-mono: var(--font-sans);
 
-  /* Font Families from DESIGN.md */
-  --font-family-sans:
-    'Baloo Da 2', 'Inter', 'SF Pro Display', 'Manrope', system-ui,
-    -apple-system, sans-serif;
-  --font-family-mono:
-    'JetBrains Mono', 'SF Mono', 'Monaco', 'Courier New', monospace;
-
-  /* Border Radius from DESIGN.md */
+  /* ---- Radii: the old scale stays; the Still water shapes are added ---- */
   --radius-sm: 0.5rem;
   --radius-DEFAULT: 1rem;
   --radius-md: 1.5rem;
   --radius-lg: 2rem;
   --radius-xl: 3rem;
   --radius-full: 9999px;
+  --radius-tile: 20px;
+  --radius-choice: 22px;
+  --radius-card: 28px;
+  --radius-sheet: 32px;
+
+  /* ---- Sizes (h-touch, h-button-lg, h-nav, size-nav-action, size-disc) ---- */
+  --spacing-touch: 44px;
+  --spacing-button-lg: 56px;
+  --spacing-nav: 68px;
+  --spacing-nav-action: 52px;
+  --spacing-disc: 40px;
+
+  /* ---- The only two shadows in the system ---- */
+  --shadow-nav: 0 12px 32px rgba(0, 0, 0, 0.35);
+  --shadow-focus: 0 0 0 3px rgba(143, 217, 182, 0.35);
 
   /* Spacing/Layout from DESIGN.md */
   --spacing-container-padding: 24px;
@@ -258,53 +280,43 @@
   }
 }
 
-/* Glassmorphism utilities */
-@utility glass {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-}
-
+/* Glass card (old name, new look). The old glass, glass-light and glass-wallet utilities are gone. */
 @utility glass-card {
-  background: rgba(30, 41, 59, 0.7); /* surface: #1e293b */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  background: var(--surface);
+  border: 1px solid var(--border);
 }
 
-@utility glass-wallet {
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(56, 189, 248, 0.1); /* primary with opacity */
-  box-shadow: 0 4px 16px 0 rgba(56, 189, 248, 0.1);
+/*
+ * The one faint glow at the top of a screen. Exactly one per screen. Painted by
+ * an absolute full-width layer in MainLayout, so it is not cut off at the edge
+ * of the 480px column. On a phone the glow sits 15% from the left, as designed;
+ * on a wide window it stays over the column instead of drifting with the window.
+ */
+@utility mist-sage {
+  --mist-x: max(15%, calc(50% - 168px));
+  background-image: radial-gradient(
+    ellipse 480px 520px at var(--mist-x) -52px,
+    var(--mist),
+    transparent 60%
+  );
 }
 
-@utility glass-light {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+@utility mist-lavender {
+  --mist-x: max(15%, calc(50% - 168px));
+  background-image: radial-gradient(
+    ellipse 480px 520px at var(--mist-x) -52px,
+    var(--mist-lavender),
+    transparent 60%
+  );
 }
 
-@utility glass-dark {
-  background: rgba(30, 41, 59, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-}
-
-@variant dark {
-  .glass {
-    background: rgba(30, 41, 59, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  }
+@utility mist-apricot {
+  --mist-x: max(15%, calc(50% - 168px));
+  background-image: radial-gradient(
+    ellipse 480px 520px at var(--mist-x) -52px,
+    var(--mist-apricot),
+    transparent 60%
+  );
 }
 
 /* Currency Typography Utility */
@@ -376,6 +388,94 @@
   line-height: 20px;
 }
 
+/* Still water type scale (Manrope). Amounts are thin and always tabular. */
+@utility text-amount-xl {
+  font-size: 52px;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility text-amount-lg {
+  font-size: 40px;
+  line-height: 1.05;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility text-amount-md {
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility text-amount-row {
+  font-size: 15px;
+  line-height: 1.3;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility text-page-title {
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+@utility text-section-title {
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+@utility text-heading {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+@utility text-body {
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+@utility text-description {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+@utility text-label {
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+@utility text-caption {
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+@utility text-eyebrow {
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@utility text-tab {
+  font-size: 11px;
+  line-height: 1;
+}
+
 @utility no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -392,7 +492,7 @@
     border-color: rgba(var(--border-default-rgb), var(--border-opacity));
 
     @variant dark {
-      --border-opacity: 0.12;
+      --border-opacity: 0.08;
     }
   }
 }

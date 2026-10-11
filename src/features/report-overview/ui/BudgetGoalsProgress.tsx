@@ -1,13 +1,10 @@
+import { formatNumber } from '@/shared/lib';
 import { Link } from 'react-router-dom';
 
 import type { BudgetGoalProgressModel } from '../model';
 
 interface BudgetGoalsProgressProps {
   goals: BudgetGoalProgressModel[];
-}
-
-function formatVND(amount: number): string {
-  return amount.toLocaleString('vi-VN');
 }
 
 export function BudgetGoalsProgress({ goals }: BudgetGoalsProgressProps) {
@@ -64,7 +61,8 @@ export function BudgetGoalsProgress({ goals }: BudgetGoalsProgressProps) {
               {/* Subtext (Amounts & Warning Status) */}
               <div className="flex items-center justify-between text-[11px] text-on-surface-variant/80 font-mono">
                 <span>
-                  {formatVND(g.savedAmount)} / {formatVND(g.targetAmount)} VND
+                  {formatNumber(g.savedAmount)} / {formatNumber(g.targetAmount)}{' '}
+                  VND
                 </span>
                 {g.isWarning && (
                   <span className="badge badge-error badge-xs badge-soft font-semibold animate-pulse">

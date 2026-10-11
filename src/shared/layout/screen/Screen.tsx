@@ -16,10 +16,7 @@ export function Screen({
 }: ScreenProps) {
   return (
     <div
-      className={clsx(
-        'flex flex-col min-h-screen w-full bg-background text-on-surface',
-        className
-      )}
+      className={clsx('flex flex-col min-h-screen w-full text-text', className)}
     >
       {header}
       <main

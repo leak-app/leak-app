@@ -1,5 +1,6 @@
 import { useBudgets, useUpsertBudget } from '@/entities/budget';
 import { useCategories } from '@/entities/category';
+import { formatNumber } from '@/shared/lib';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -110,7 +111,7 @@ export const BudgetSetupForm = ({ month, year }: Props) => {
             {categories.map((cat) => {
               const currentVal = budgetInputs[cat.id] ?? 0;
               const formattedDisplay =
-                currentVal > 0 ? currentVal.toLocaleString('vi-VN') : '';
+                currentVal > 0 ? formatNumber(currentVal) : '';
 
               return (
                 <div

@@ -1,6 +1,9 @@
+import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-import { ArrowLeftIcon } from '@/shared/icons';
+import { ICON } from '@/shared/icons';
+
+import { HEADER_CIRCLE_CLASS } from './HeaderActions';
 
 interface BackButtonProps {
   onClick?: () => void;
@@ -27,12 +30,13 @@ export function BackButton({
     <button
       type="button"
       onClick={handleClick}
-      className={`w-10 h-10 rounded-2xl bg-surface border border-outline/10 flex items-center justify-center text-on-surface hover:bg-surface-bright transition-all active:scale-95 group ${className}`}
+      className={`${HEADER_CIRCLE_CLASS} ${className}`}
       aria-label={ariaLabel}
     >
-      <ArrowLeftIcon
-        size={18}
-        className="group-hover:-translate-x-0.5 transition-transform"
+      <ChevronLeft
+        size={ICON.size.ui}
+        strokeWidth={ICON.stroke.active}
+        aria-hidden="true"
       />
     </button>
   );

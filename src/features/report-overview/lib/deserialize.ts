@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { formatCompactVnd } from '@/shared/lib';
+import { formatCompactVnd, formatVnd } from '@/shared/lib';
 
 import type { ReportOverviewModel } from '../model/types';
 
@@ -50,7 +50,7 @@ export function deserializeReportOverview(
     },
     recentExpenses: (raw.recentExpenses || []).map((item) => ({
       ...item,
-      formattedAmount: Number(item.amount).toLocaleString('vi-VN') + 'đ',
+      formattedAmount: formatVnd(Number(item.amount)),
       formattedTimestamp: formatTimestamp(item.createdAt),
     })),
     budgetGoals: raw.budgetGoals || [],

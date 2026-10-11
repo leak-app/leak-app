@@ -2,73 +2,40 @@
   themes: false;
 }
 
-@plugin 'daisyui/theme' {
-  name: 'light';
-  default: false;
-  prefersdark: false;
-  color-scheme: 'light';
-
-  --color-base-100: #ffffff;
-  --color-base-200: #f8f8fb;
-  --color-base-300: #f2f2f3;
-  --color-base-content: #353437;
-  --color-primary: var(--primary);
-  --color-primary-content: var(--on-primary);
-  --color-secondary: var(--secondary);
-  --color-secondary-content: var(--on-secondary);
-  --color-accent: #fecee9;
-  --color-accent-content: #ffffff;
-  --color-neutral: #242326;
-  --color-neutral-content: #fafafa;
-  --color-info: #66b6e2;
-  --color-info-content: #f0faff;
-  --color-success: var(--success);
-  --color-success-content: var(--on-success);
-  --color-warning: #dea038;
-  --color-warning-content: #fffcf0;
-  --color-error: var(--error);
-  --color-error-content: var(--on-error);
-
-  --radius-selector: var(--radius-md);
-  --radius-field: var(--radius-sm);
-  --radius-box: var(--radius-DEFAULT);
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 0;
-  --noise: 0;
-}
-
+/*
+ * Still water, the only theme. DaisyUI derives shades from these colours, so
+ * the glass surfaces are given as their solid equivalents over --bg.
+ */
 @plugin 'daisyui/theme' {
   name: 'dark';
   default: true;
   prefersdark: true;
   color-scheme: 'dark';
-  /* Leak App dark theme (see DESIGN.md). Note: base-200/300 are lighter than base-100 here. */
-  --color-base-100: var(--background); /* #0f172a */
-  --color-base-200: var(--surface); /* #1e293b - cards */
-  --color-base-300: var(--surface-bright); /* #334155 - inputs, elevated */
-  --color-base-content: var(--on-surface); /* #e2e8f0 */
-  --color-primary: var(--primary); /* #38bdf8 */
-  --color-primary-content: var(--on-primary); /* #0f172a */
-  --color-secondary: var(--secondary); /* #a78bfa */
-  --color-secondary-content: var(--on-secondary); /* #0f172a */
+
+  --color-base-100: var(--bg);
+  --color-base-200: var(--surface-solid);
+  --color-base-300: var(--surface-elevated-solid);
+  --color-base-content: var(--text);
+  --color-primary: var(--primary);
+  --color-primary-content: var(--on-primary);
+  --color-secondary: var(--secondary);
+  --color-secondary-content: var(--bg);
   --color-accent: var(--secondary);
-  --color-accent-content: var(--on-secondary);
-  --color-neutral: var(--surface-bright); /* #334155 */
-  --color-neutral-content: var(--on-surface);
-  --color-info: var(--primary);
-  --color-info-content: var(--on-primary);
-  --color-success: var(--success); /* #34d399 */
-  --color-success-content: var(--on-success);
-  --color-warning: var(--tertiary); /* #fbbf24 */
-  --color-warning-content: var(--on-tertiary);
-  --color-error: var(--error); /* #f87171 */
-  --color-error-content: var(--on-error);
+  --color-accent-content: var(--bg);
+  --color-neutral: var(--surface-elevated-solid);
+  --color-neutral-content: var(--text);
+  --color-info: var(--neutral);
+  --color-info-content: var(--bg);
+  --color-success: var(--primary);
+  --color-success-content: var(--on-primary);
+  --color-warning: var(--danger);
+  --color-warning-content: var(--on-danger);
+  --color-error: var(--danger);
+  --color-error-content: var(--on-danger);
 
   --radius-selector: 9999px;
-  --radius-field: 10px;
-  --radius-box: 12px;
+  --radius-field: 9999px;
+  --radius-box: 28px;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
   --border: 1px;

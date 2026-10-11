@@ -1,118 +1,132 @@
+/**
+ * Still water: design tokens (dark only).
+ * Source: the Leak design system, project/tokens.json.
+ *
+ * Section 1 is the design system. Section 2 keeps the old Material-style names
+ * alive, pointing at the new values, so screens that are not migrated yet keep
+ * working. Section 2 is deleted in the cleanup phase.
+ */
+
+/* ---- 1. Still water tokens ----------------------------------------------------------------- */
 :root {
-  /** Primary - Cyan scale (500 is the main accent) */
-  --primary-50: #f0f9ff;
-  --primary-100: #e0f2fe;
-  --primary-200: #bae6fd;
-  --primary-300: #7dd3fc;
-  --primary-400: #59c8fa;
-  --primary-500: #38bdf8; /* Main primary - Cyan */
-  --primary-600: #0ea5e9;
-  --primary-700: #0284c7;
-  --primary-800: #0369a1;
-  --primary-900: #075985;
-  --primary-950: #082f49;
+  color-scheme: dark;
 
-  /** Secondary - Soft purple scale (400 is the main accent) */
-  --secondary-50: #f5f3ff;
-  --secondary-100: #ede9fe;
-  --secondary-200: #ddd6fe;
-  --secondary-300: #c4b5fd;
-  --secondary-400: #a78bfa; /* Main secondary - Soft purple */
-  --secondary-500: #8b5cf6;
-  --secondary-600: #7c3aed;
-  --secondary-700: #6d28d9;
-  --secondary-800: #5b21b6;
-  --secondary-900: #4c1d95;
-  --secondary-950: #2e1065;
+  /* Ground and glass */
+  --bg: #101418; /* Night: the ground of every screen */
+  --mist: rgba(
+    143,
+    217,
+    182,
+    0.11
+  ); /* The one faint glow at the top of a screen */
+  --mist-lavender: rgba(
+    185,
+    180,
+    242,
+    0.11
+  ); /* Reflection and logging screens */
+  --mist-apricot: rgba(240, 165, 138, 0.09); /* Leak views */
+  --surface: rgba(
+    255,
+    255,
+    255,
+    0.045
+  ); /* Glass cards; reads as #1b1f22 over --bg */
+  --surface-elevated: rgba(
+    255,
+    255,
+    255,
+    0.07
+  ); /* Inputs, reflection card; reads as #212428 */
+  --glass: rgba(24, 30, 36, 0.72); /* The floating bottom nav only */
 
-  /** Tertiary - Amber scale (warnings, neutral attention) */
-  --tertiary-50: #fffbeb;
-  --tertiary-100: #fef3c7;
-  --tertiary-200: #fde68a;
-  --tertiary-300: #fcd34d;
-  --tertiary-400: #fbbf24;
-  --tertiary-500: #f59e0b;
-  --tertiary-600: #d97706;
-  --tertiary-700: #b45309;
-  --tertiary-800: #92400e;
-  --tertiary-900: #78350f;
-  --tertiary-950: #451a03;
+  /* Solid equivalents of the two surfaces over --bg, for DaisyUI and sheets, which must not be see-through */
+  --surface-solid: #1b1f22;
+  --surface-elevated-solid: #212428;
 
-  /* Leak App brand colors (see DESIGN.md) */
-  --background: #0f172a;
-  --on-background: #e2e8f0;
+  /* Roles */
+  --primary: #8fd9b6; /* Sage: the single action colour */
+  --on-primary: #0e1a14;
+  --primary-tint: rgba(143, 217, 182, 0.12);
+  --secondary: #b9b4f2; /* Lavender: reflection */
+  --secondary-tint: rgba(185, 180, 242, 0.12);
+  --success: var(--primary); /* Income and money saved, always with a + sign */
+  --danger: #f0a58a; /* Apricot: leaks and gentle errors, never ordinary spending */
+  --danger-tint: rgba(240, 165, 138, 0.12);
+  --on-danger: var(--bg);
+  --neutral: #aeb8c2; /* Pebble: the neutral outcome and category icons */
+  --neutral-tint: rgba(174, 184, 194, 0.12);
 
-  --surface: #1e293b;
-  --surface-dim: #0f172a;
-  --surface-bright: #334155;
-  --surface-container-lowest: #0b1120;
-  --surface-container-low: #131d31;
-  --surface-container: #1e293b;
-  --surface-container-high: #273449;
-  --surface-container-highest: #334155;
+  /* Text */
+  --text: #edf0f2; /* Content and every amount */
+  --text-soft: #c9d0d6; /* Body that sits back */
+  --text-muted: #9aa5af; /* Labels, meta, inactive tabs */
+  --text-subtle: #6e7881; /* Placeholders and disabled only */
 
-  --on-surface: #e2e8f0;
-  --on-surface-strong: #f8fafc; /* Hero numbers, headings */
-  --on-surface-variant: #94a3b8;
-  --on-surface-variant-elevated: #cbd5e1; /* Muted text on #334155 */
-  --inverse-surface: #e2e8f0;
-  --inverse-on-surface: #0f172a;
+  /* Lines */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --track: rgba(255, 255, 255, 0.07);
 
-  --outline: #64748b;
-  --outline-variant: #334155;
-  --surface-tint: #38bdf8;
+  /* Outcomes */
+  --outcome-worth-it: var(--primary);
+  --outcome-neutral: var(--neutral);
+  --outcome-leak: var(--danger);
+  --outcome-unreviewed: var(--secondary);
 
-  --primary: #38bdf8;
-  --on-primary: #0f172a; /* Dark text on cyan: 8.33:1 (white fails at 2.05:1) */
-  --primary-container: #0c4a6e;
-  --on-primary-container: #bae6fd;
-  --inverse-primary: #0284c7;
-
-  --secondary: #a78bfa;
-  --on-secondary: #0f172a;
-  --secondary-container: #4c1d95;
-  --on-secondary-container: #ddd6fe;
-
-  --tertiary: #fbbf24;
-  --on-tertiary: #0f172a;
-  --tertiary-container: #78350f;
-  --on-tertiary-container: #fde68a;
-
-  --success: #34d399; /* WORTH_IT */
-  --on-success: #0f172a;
-
-  --error: #f87171; /* LEAK and errors only */
-  --on-error: #0f172a;
-  --error-container: #7f1d1d;
-  --on-error-container: #fecaca;
-
-  /* Legacy aliases, kept so existing utilities keep working */
-  --bg-sage: #0f172a;
-  --glass-white: rgba(30, 41, 59, 0.6);
-  --deep-forest: #0f172a;
-  --vibrant-green: #34d399;
-  --electric-cyan: #38bdf8;
-  --soft-coral: #f87171;
-  --pastel-yellow: #fcd34d;
+  --glass-blur: blur(24px) saturate(160%);
 }
 
-[data-theme='light'] {
-  --background-card-rgb: 255, 255, 255;
-  --background-default-rgb: 241, 245, 249;
-  --background-input-rgb: 241, 245, 249;
-  --foreground-default-rgb: 30, 41, 59;
-  --foreground-hint-rgb: 148, 163, 184;
-  --foreground-disabled-rgb: 148, 163, 184;
-  --border-default-rgb: 226, 232, 240;
-}
+/* ---- 2. Legacy aliases (removed in the cleanup phase) ---------------------------------------- */
+:root {
+  --background: var(--bg);
+  --on-background: var(--text);
 
-[data-theme='dark'] {
-  --background-card-rgb: 30, 41, 59; /* surface: #1e293b */
-  --background-default-rgb: 15, 23, 42; /* background: #0f172a */
-  --background-input-rgb: 51, 65, 85; /* elevated: #334155 */
-  --foreground-default-rgb: 226, 232, 240; /* on-surface: #e2e8f0 */
-  --foreground-hint-rgb:
-    203, 213, 225; /* #cbd5e1, readable on the #334155 input surface */
-  --foreground-disabled-rgb: 100, 116, 139; /* #64748b */
-  --border-default-rgb: 71, 85, 105; /* #475569 */
+  --surface-dim: var(--bg);
+  --surface-bright: var(--surface-elevated);
+  --surface-container-lowest: var(--bg);
+  --surface-container-low: var(--surface);
+  --surface-container: var(--surface);
+  --surface-container-high: var(--surface-elevated);
+  --surface-container-highest: var(--surface-elevated);
+
+  --on-surface: var(--text);
+  --on-surface-strong: var(--text);
+  --on-surface-variant: var(--text-muted);
+  --on-surface-variant-elevated: var(--text-soft);
+  --inverse-surface: var(--text);
+  --inverse-on-surface: var(--bg);
+
+  --outline: var(--text-muted);
+  --outline-variant: var(--border);
+  --surface-tint: var(--primary);
+
+  --primary-container: var(--primary-tint);
+  --on-primary-container: var(--primary);
+  --inverse-primary: var(--primary);
+
+  --on-secondary: var(--bg);
+  --secondary-container: var(--secondary-tint);
+  --on-secondary-container: var(--secondary);
+
+  --tertiary: var(--neutral);
+  --on-tertiary: var(--bg);
+  --tertiary-container: var(--neutral-tint);
+  --on-tertiary-container: var(--neutral);
+
+  --on-success: var(--on-primary);
+
+  --error: var(--danger);
+  --on-error: var(--on-danger);
+  --error-container: var(--danger-tint);
+  --on-error-container: var(--danger);
+
+  /* RGB triplets behind the old bg-card / text-hint / border-default utilities */
+  --background-card-rgb: 27, 31, 34;
+  --background-default-rgb: 16, 20, 24;
+  --background-input-rgb: 33, 36, 40;
+  --foreground-default-rgb: 237, 240, 242;
+  --foreground-hint-rgb: 154, 165, 175;
+  --foreground-disabled-rgb: 110, 120, 129;
+  --border-default-rgb: 255, 255, 255;
 }

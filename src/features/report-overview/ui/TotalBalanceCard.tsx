@@ -1,3 +1,4 @@
+import { formatNumber } from '@/shared/lib';
 import { Link } from 'react-router-dom';
 
 interface TotalBalanceCardProps {
@@ -5,10 +6,6 @@ interface TotalBalanceCardProps {
   growthPercentage: number;
   accountsCount: number;
   splitText?: string | null;
-}
-
-function formatVND(amount: number): string {
-  return amount.toLocaleString('vi-VN');
 }
 
 export function TotalBalanceCard({
@@ -29,7 +26,7 @@ export function TotalBalanceCard({
 
       <div className="flex items-baseline gap-2">
         <span className="text-3xl font-extrabold text-on-surface tracking-tight">
-          {formatVND(totalBalance)}
+          {formatNumber(totalBalance)}
         </span>
         <span className="text-lg font-bold text-primary">VND</span>
       </div>
