@@ -20,6 +20,7 @@ export const PRIVACY_DOCUMENT: LegalDocumentModel = {
       items: [
         'Thông tin tài khoản: email, tên hiển thị (nếu có) và mật khẩu. Mật khẩu được lưu dưới dạng băm một chiều; chúng tôi không lưu và không xem được mật khẩu gốc.',
         'Đăng nhập bằng Google: nếu bạn chọn đăng nhập bằng Google, chúng tôi nhận email và tên hiển thị của tài khoản Google. Chúng tôi không truy cập Gmail, Google Drive, danh bạ hay dữ liệu Google nào khác thông qua tính năng đăng nhập.',
+        'Cấu hình đồng bộ Google Sheets (chỉ khi bạn bật): email của tài khoản Google đã kết nối, mã làm mới được mã hóa và mã định danh của bảng tính do Leak tạo trong Drive của bạn.',
         'Dữ liệu tài chính do bạn nhập: giao dịch (số tiền, mô tả, ngày), danh mục, ví và số dư, ngân sách, mục tiêu tiết kiệm, cùng đánh giá và lý do rò rỉ của từng khoản chi.',
         'Dữ liệu phiên đăng nhập: loại thiết bị hoặc trình duyệt, địa chỉ IP và thời điểm đăng nhập, dùng để hiển thị danh sách thiết bị đang đăng nhập và bảo vệ tài khoản.',
         'Cookie và bộ nhớ trình duyệt: một cookie đăng nhập để giữ phiên của bạn và bộ nhớ cục bộ ghi nhớ việc bạn đã xem phần giới thiệu. Chúng tôi không dùng cookie quảng cáo hay cookie theo dõi.',
@@ -42,13 +43,15 @@ export const PRIVACY_DOCUMENT: LegalDocumentModel = {
       id: 'google-data',
       heading: '3. Dữ liệu người dùng Google và Google Sheets',
       paragraphs: [
-        'Tính năng xuất dữ liệu sang Google Sheets là tùy chọn và chỉ theo một chiều: ứng dụng ghi một bản sao dữ liệu của bạn vào bảng tính Google do bạn sở hữu để bạn làm báo cáo riêng. Dữ liệu trong bảng tính không được ghi ngược lại vào ứng dụng.',
+        'Đồng bộ Google Sheets là tính năng tùy chọn và mặc định tắt. Chỉ khi bạn tự bật trong mục Hồ sơ và đồng ý trên màn hình cấp quyền của Google, Leak App mới tạo một bảng tính mới trong Google Drive của bạn và, mỗi ngày vào lúc 00:00 (giờ Việt Nam), ghi một bản sao dữ liệu của bạn vào bảng tính đó. Việc đồng bộ chỉ theo một chiều: dữ liệu trong bảng tính không được ghi ngược lại vào Leak App.',
+        'Dữ liệu được ghi vào bảng tính gồm: giao dịch (ngày, loại, số tiền, danh mục, ví, mô tả, đánh giá và lý do rò rỉ), ví và số dư, ngân sách và mục tiêu tiết kiệm.',
       ],
       items: [
-        'Phạm vi truy cập: https://www.googleapis.com/auth/spreadsheets, chỉ dùng để ghi vào bảng tính được chỉ định. Chúng tôi không đọc, liệt kê hay thay đổi các tệp khác trong Google Drive của bạn.',
-        'Thông tin xác thực Google (refresh token) được giữ trong cấu hình bảo mật phía máy chủ, không gửi tới trình duyệt và không ghi vào nhật ký.',
+        'Quyền truy cập chúng tôi yêu cầu: https://www.googleapis.com/auth/drive.file, chỉ cho phép truy cập các tệp do chính Leak App tạo, không đọc, liệt kê hay sửa các tệp khác trong Google Drive của bạn; cùng quyền cơ bản openid và email để biết bạn đang kết nối tài khoản Google nào.',
+        'Mã làm mới (refresh token) do Google cấp được lưu trong cơ sở dữ liệu của chúng tôi ở dạng mã hóa AES-256-GCM, chỉ dùng để chạy đồng bộ cho bạn, không gửi tới trình duyệt và không ghi vào nhật ký.',
+        'Bạn có thể tắt đồng bộ bất cứ lúc nào bằng công tắc trong Hồ sơ, hoặc chọn "Ngắt kết nối" để chúng tôi thu hồi quyền tại Google và xóa mã làm mới khỏi hệ thống. Bảng tính đã tạo vẫn nằm trong Google Drive của bạn và do bạn quản lý.',
+        'Bạn cũng có thể thu hồi quyền truy cập tại https://myaccount.google.com/permissions; khi đó đồng bộ sẽ dừng.',
         'Dữ liệu nhận được từ Google chỉ được dùng để cung cấp tính năng này; không bán, không chuyển cho bên thứ ba và không dùng cho quảng cáo.',
-        'Bạn có thể thu hồi quyền truy cập bất cứ lúc nào tại https://myaccount.google.com/permissions.',
       ],
     },
     {
@@ -88,6 +91,7 @@ export const PRIVACY_DOCUMENT: LegalDocumentModel = {
       items: [
         'Chúng tôi lưu dữ liệu trong thời gian tài khoản của bạn còn hoạt động.',
         'Khi bạn xóa giao dịch, ví hoặc danh mục trong ứng dụng, mục đó được đánh dấu là đã xóa và ẩn khỏi giao diện, nhưng vẫn được lưu để số dư và báo cáo luôn nhất quán.',
+        'Khi bạn chọn "Ngắt kết nối" Google Sheets, mã làm mới và mã định danh bảng tính bị xóa khỏi hệ thống ngay lập tức.',
         `Để xóa hoàn toàn tài khoản và toàn bộ dữ liệu, hãy gửi email tới ${CONTACT_EMAIL} từ địa chỉ email đã đăng ký. Chúng tôi xử lý yêu cầu trong vòng 30 ngày.`,
         'Bản sao đã xuất sang Google Sheets nằm trong tài khoản Google của bạn và do bạn tự quản lý.',
       ],

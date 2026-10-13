@@ -33,7 +33,7 @@ export const HOME_PURPOSE = {
 
 export const HOME_GOOGLE_DATA = {
   heading: 'Leak dùng dữ liệu Google của bạn như thế nào',
-  text: 'Bạn có thể đăng nhập bằng tài khoản Google. Khi đó Leak chỉ nhận địa chỉ email và tên hiển thị để tạo tài khoản và đăng nhập cho bạn. Leak không đọc Gmail, Google Drive hay danh bạ của bạn, không bán dữ liệu và không dùng dữ liệu đó để quảng cáo.',
+  text: 'Bạn có thể đăng nhập bằng tài khoản Google. Khi đó Leak chỉ nhận địa chỉ email và tên hiển thị để tạo tài khoản và đăng nhập cho bạn. Nếu bạn tự bật đồng bộ Google Sheets (tùy chọn), Leak chỉ truy cập bảng tính do chính Leak tạo trong Google Drive của bạn. Leak không đọc Gmail, danh bạ hay các tệp khác của bạn, không bán dữ liệu và không dùng dữ liệu đó để quảng cáo.',
 } as const;
 
 export const HOME_FEATURES_HEADING = 'Leak làm được gì';
@@ -72,7 +72,7 @@ export const HOME_FEATURES: HomeFeatureModel[] = [
     icon: 'sheets',
     title: 'Xuất sang Google Sheets',
     description:
-      'Tùy chọn: ghi một bản sao dữ liệu theo một chiều vào bảng tính Google do chính bạn sở hữu để làm báo cáo riêng. Ứng dụng không đọc hay thay đổi các tệp khác trong Drive của bạn.',
+      'Tùy chọn và mặc định tắt: khi bạn bật, mỗi ngày Leak ghi một bản sao dữ liệu theo một chiều vào bảng tính mới trong Google Drive của chính bạn để làm báo cáo riêng. Leak chỉ truy cập tệp do Leak tạo, không đọc các tệp khác của bạn.',
   },
   {
     id: 'privacy',
