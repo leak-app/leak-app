@@ -11,6 +11,11 @@ export { Chip } from './chip/Chip';
 export { Choice, type ChoiceTone } from './choice/Choice';
 export { EmptyState } from './empty-state/EmptyState';
 export { Input } from './input/Input';
+export {
+  LegalDocument,
+  type LegalDocumentModel,
+  type LegalSectionModel,
+} from './legal-document/LegalDocument';
 export { Meter } from './meter/Meter';
 export { Numpad } from './numpad/Numpad';
 export {

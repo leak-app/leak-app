@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && vite build --ssr src/app/prerender/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "lint": "lint-staged",
     "preview": "vite preview",
     "test": "node --experimental-strip-types --test \"src/**/*.test.ts\"",

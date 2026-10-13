@@ -11,7 +11,9 @@ declare global {
 
 // Container deployments inject values at start-up through /env.js; local dev
 // falls back to Vite's build-time VITE_* variables.
-const runtime = window.__APP_CONFIG__ ?? {};
+// `window` does not exist while the public pages are pre-rendered in Node at build time.
+const runtime =
+  (typeof window === 'undefined' ? undefined : window.__APP_CONFIG__) ?? {};
 
 export const appConfig = {
   apiBaseUrl:

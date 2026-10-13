@@ -1,8 +1,12 @@
 import { useAuthStore } from '@/entities/auth';
 import { apiClient, type BaseResponseModel } from '@/shared/api';
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogin from '../GoogleLogin';
+
+// Google only accepts a button width between 200 and 400 px.
+const GOOGLE_BUTTON_MIN_WIDTH = 200;
+const GOOGLE_BUTTON_MAX_WIDTH = 400;
 
 interface GoogleSignInProps {
   onAuthError: (errorMsg: string) => void;
@@ -12,6 +16,20 @@ export function GoogleSignIn({ onAuthError }: GoogleSignInProps) {
   const navigate = useNavigate();
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
   const [loading, setLoading] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [buttonWidth, setButtonWidth] = useState<number>();
+
+  // Google draws the button in its own iframe, so stretching the iframe with CSS does not
+  // stretch the button. Ask Google for the width the layout actually has instead.
+  useLayoutEffect(() => {
+    const available = containerRef.current?.clientWidth ?? 0;
+    setButtonWidth(
+      Math.min(
+        GOOGLE_BUTTON_MAX_WIDTH,
+        Math.max(GOOGLE_BUTTON_MIN_WIDTH, available)
+      )
+    );
+  }, []);
 
   const handleGoogleSuccess = async (googleResponse: any) => {
     setLoading(true);
@@ -43,17 +61,23 @@ export function GoogleSignIn({ onAuthError }: GoogleSignInProps) {
   };
 
   return (
-    <div className="w-full [&>div]:w-full! [&_iframe]:w-full! [&_iframe]:mx-auto! flex justify-center min-h-[40px]">
+    <div
+      ref={containerRef}
+      className="flex min-h-[40px] w-full justify-center [color-scheme:light]"
+    >
       {loading ? (
         <span className="loading loading-spinner loading-md text-primary"></span>
       ) : (
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={() => onAuthError('Xác thực Google thất bại')}
-          theme="filled_black"
-          shape="circle"
-          size="large"
-        />
+        buttonWidth && (
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => onAuthError('Xác thực Google thất bại')}
+            theme="filled_black"
+            shape="circle"
+            size="large"
+            width={buttonWidth}
+          />
+        )
       )}
     </div>
   );

@@ -1,5 +1,7 @@
+import { isPublicPath } from '@/shared/routing';
 import type { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+
 import { useOnboardingStore } from '../model';
 
 interface OnboardingGuardProps {
@@ -10,6 +12,12 @@ export function OnboardingGuard({ children }: OnboardingGuardProps) {
   const location = useLocation();
   const isCompleted = useOnboardingStore((s) => s.isCompleted);
   const hasHydrated = useOnboardingStore((s) => s.hasHydrated);
+
+  // Landing, privacy policy and terms are open to everyone (visitors, search engines,
+  // Google's OAuth reviewers) and must not be redirected into onboarding.
+  if (isPublicPath(location.pathname)) {
+    return <>{children}</>;
+  }
 
   // Defer redirect until store hydrates from localStorage to prevent flash
   if (!hasHydrated) {
