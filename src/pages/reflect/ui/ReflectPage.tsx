@@ -7,7 +7,7 @@ import {
 } from '@/entities/transaction';
 import { ReflectionSession } from '@/features/reflection-ritual';
 import { BackButton, MainLayout, Screen, ScreenHeader } from '@/shared/layout';
-import { buttonStyles, EmptyState } from '@/shared/ui';
+import { buttonStyles, Card, EmptyState } from '@/shared/ui';
 
 import { reflectView } from '../lib/reflectView';
 
@@ -33,12 +33,13 @@ export default function ReflectPage() {
   let body;
   if (view === 'error') {
     body = (
-      <div
+      <Card
+        variant="danger"
         role="alert"
-        className="alert alert-error alert-soft"
+        className="text-description text-text"
       >
         Không thể tải các khoản chi cần nhìn lại. Vui lòng thử lại sau.
-      </div>
+      </Card>
     );
   } else if (view === 'loading' || items === null) {
     body = (

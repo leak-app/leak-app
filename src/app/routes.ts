@@ -13,6 +13,7 @@ import Overview from '@/pages/overview';
 import PrivacyPage from '@/pages/privacy';
 import Profile from '@/pages/profile';
 import ProfileSecurity from '@/pages/profile-security';
+import ProfileSheetsReport from '@/pages/profile-sheets-report';
 import Reflect from '@/pages/reflect';
 import Register from '@/pages/register';
 import ResetPassword from '@/pages/reset-password';
@@ -45,6 +46,11 @@ export const routes: RouteConfig[] = [
   { path: '/investment', Component: Investment, protected: true },
   { path: '/profile', Component: Profile, protected: true },
   { path: '/profile/security', Component: ProfileSecurity, protected: true },
+  {
+    path: '/profile/sheets-report',
+    Component: ProfileSheetsReport,
+    protected: true,
+  },
 
   // Development only: every kit component in its states.
   ...(import.meta.env.DEV

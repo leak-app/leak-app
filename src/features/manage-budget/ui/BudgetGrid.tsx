@@ -48,7 +48,7 @@ export const BudgetGrid = ({
       {/* Shortcut button to Setup Budget page */}
       <button
         onClick={() => navigate(`/budgets/setup?month=${month}&year=${year}`)}
-        className="border-2 border-dashed border-outline/20 hover:border-primary/50 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 hover:bg-surface-container-high/40 transition-all group cursor-pointer min-h-[160px]"
+        className="border-2 border-dashed border-outline/20 hover:border-primary/50 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 hover:bg-surface-container-high/40 transition-all group cursor-pointer min-h-40"
       >
         <div className="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary/20 transition-colors">
           <span className="text-xl text-outline group-hover:text-primary transition-colors">

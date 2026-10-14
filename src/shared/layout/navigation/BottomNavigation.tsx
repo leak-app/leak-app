@@ -14,7 +14,7 @@ function Tab({ item, active }: { item: NavItem; active: boolean }) {
       to={item.to}
       aria-current={active ? 'page' : undefined}
       className={clsx(
-        'flex h-[52px] w-[60px] flex-col items-center justify-center gap-1 rounded-full text-tab transition-colors duration-200 ease-out',
+        'flex h-13 w-15 flex-col items-center justify-center gap-1 rounded-full text-tab transition-colors duration-200 ease-out',
         FOCUS,
         active
           ? 'font-semibold text-primary'
@@ -60,7 +60,7 @@ export function BottomNavigation() {
   return (
     <nav
       aria-label="Điều hướng chính"
-      className="pointer-events-none fixed inset-x-0 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-50 mx-auto w-full max-w-[480px] px-4"
+      className="pointer-events-none fixed inset-x-0 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-50 mx-auto w-full max-w-120 px-4"
     >
       <div className="pointer-events-auto flex h-nav items-center justify-between rounded-full border border-border bg-glass px-2.5 shadow-nav [-webkit-backdrop-filter:var(--glass-blur)] [backdrop-filter:var(--glass-blur)]">
         {NAV_ITEMS.map((item) =>

@@ -30,7 +30,7 @@ export function Meter({
       aria-valuenow={percent}
       className={clsx(
         'w-full overflow-hidden rounded-full bg-track',
-        thin ? 'h-[5px]' : 'h-1.5',
+        thin ? 'h-1.25' : 'h-1.5',
         className
       )}
     >

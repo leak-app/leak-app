@@ -23,7 +23,7 @@ export function BaseSlide({
         <h2 className="text-2xl font-bold tracking-tight text-on-surface">
           {title}
         </h2>
-        <p className="mt-3 max-w-[320px] text-sm leading-relaxed text-on-surface-variant">
+        <p className="mt-3 max-w-80 text-sm leading-relaxed text-on-surface-variant">
           {description}
         </p>
       </div>

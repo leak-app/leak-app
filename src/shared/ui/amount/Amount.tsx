@@ -21,10 +21,10 @@ const VALUE_CLASS: Record<AmountSize, string> = {
 };
 
 const SYMBOL_CLASS: Record<AmountSize, string> = {
-  xl: 'text-[28px]',
-  lg: 'text-[24px]',
+  xl: 'text-[1.75rem]',
+  lg: 'text-2xl',
   md: 'text-base',
-  row: 'text-[13px]',
+  row: 'text-sm',
 };
 
 /** A money amount: thin, tabular, with the symbol set smaller in muted text. */

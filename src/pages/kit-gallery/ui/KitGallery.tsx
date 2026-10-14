@@ -29,6 +29,7 @@ import {
   Numpad,
   OutcomeBadge,
   Select,
+  Switch,
   TransactionRow,
   type ChoiceTone,
   type SelectOption,
@@ -216,8 +217,29 @@ export default function KitGallery() {
               </Button>
               <Button variant="secondary">Để sau</Button>
               <Button variant="ghost">Bỏ qua</Button>
+              <Button variant="tint">Đã sao chép</Button>
+              <Button variant="danger">Ngắt kết nối</Button>
+              <Button variant="dangerGhost">Ngắt kết nối Google</Button>
               <Button loading>Đang lưu</Button>
               <Button disabled>Không dùng được</Button>
+            </div>
+          </Section>
+
+          <Section title="Switch">
+            <div className="flex items-center gap-4">
+              <Switch
+                checked
+                aria-label="Bật"
+              />
+              <Switch
+                checked={false}
+                aria-label="Tắt"
+              />
+              <Switch
+                checked={false}
+                disabled
+                aria-label="Không dùng được"
+              />
             </div>
           </Section>
 
@@ -358,6 +380,7 @@ export default function KitGallery() {
             </Card>
             <Card variant="elevated">Thẻ nâng (reflection)</Card>
             <Card variant="tint">Thẻ sage nhạt (Bịt chỗ rò rỉ)</Card>
+            <Card variant="danger">Thẻ apricot nhạt (sự cố nhẹ)</Card>
           </Section>
 
           <Section title="Select">

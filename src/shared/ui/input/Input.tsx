@@ -37,7 +37,7 @@ export function Input({
       </label>
       <div
         className={clsx(
-          'flex h-button-lg items-center gap-2 rounded-full border bg-surface-elevated pr-2 pl-[18px] transition-colors duration-200 ease-out focus-within:border-primary focus-within:shadow-focus',
+          'flex h-button-lg items-center gap-2 rounded-full border bg-surface-elevated pr-2 pl-4.5 transition-colors duration-200 ease-out focus-within:border-primary focus-within:shadow-focus',
           error ? 'border-danger' : 'border-border'
         )}
       >

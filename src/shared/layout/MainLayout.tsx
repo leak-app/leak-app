@@ -28,11 +28,11 @@ export function MainLayout({
       <div
         aria-hidden="true"
         className={clsx(
-          'pointer-events-none absolute inset-x-0 top-0 h-[640px]',
+          'pointer-events-none absolute inset-x-0 top-0 h-160',
           MIST_CLASS[mist]
         )}
       />
-      <div className="relative flex min-h-screen w-full max-w-[480px] flex-col">
+      <div className="relative flex min-h-screen w-full max-w-120 flex-col">
         <div
           className={clsx(
             'flex w-full flex-1 flex-col',

@@ -63,7 +63,7 @@ export function CategorySelector({
             className={clsx(
               'px-5 py-2.5 rounded-full flex items-center gap-2 text-sm font-semibold transition-all border whitespace-nowrap active:scale-95 duration-200',
               isSelected
-                ? 'bg-primary/10 border-primary text-primary shadow-[0_0_12px] shadow-primary/10'
+                ? 'bg-primary/10 border-primary text-primary shadow-[0_0_0.75rem] shadow-primary/10'
                 : 'bg-surface border-outline/10 text-on-surface-variant hover:bg-surface-bright'
             )}
           >

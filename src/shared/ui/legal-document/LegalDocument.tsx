@@ -21,11 +21,11 @@ export function LegalDocument({ content }: LegalDocumentProps) {
   return (
     <article className="flex flex-col gap-8 py-6 wrap-break-word">
       <header className="flex flex-col gap-3">
-        <h1 className="text-[28px] font-semibold leading-snug text-text">
+        <h1 className="text-[1.75rem] font-semibold leading-snug text-text">
           {content.title}
         </h1>
-        <p className="text-[13px] text-muted">{content.updatedAtLabel}</p>
-        <p className="text-[15px] leading-relaxed text-soft">{content.intro}</p>
+        <p className="text-sm text-muted">{content.updatedAtLabel}</p>
+        <p className="text-base leading-relaxed text-soft">{content.intro}</p>
       </header>
 
       {content.sections.map((section) => (
@@ -44,7 +44,7 @@ export function LegalDocument({ content }: LegalDocumentProps) {
           {section.paragraphs?.map((paragraph) => (
             <p
               key={paragraph}
-              className="text-[15px] leading-relaxed text-soft"
+              className="text-base leading-relaxed text-soft"
             >
               {paragraph}
             </p>
@@ -54,7 +54,7 @@ export function LegalDocument({ content }: LegalDocumentProps) {
               {section.items.map((item) => (
                 <li
                   key={item}
-                  className="text-[15px] leading-relaxed text-soft"
+                  className="text-base leading-relaxed text-soft"
                 >
                   {item}
                 </li>

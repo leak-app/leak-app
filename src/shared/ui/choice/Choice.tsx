@@ -38,7 +38,7 @@ export function Choice({
       disabled={disabled}
       onClick={onSelect}
       className={clsx(
-        'flex min-h-[58px] w-full items-center justify-between gap-3 rounded-choice border px-5 text-left transition-colors duration-200 ease-out focus-visible:shadow-focus focus-visible:outline-none disabled:opacity-60',
+        'flex min-h-14.5 w-full items-center justify-between gap-3 rounded-choice border px-5 text-left transition-colors duration-200 ease-out focus-visible:shadow-focus focus-visible:outline-none disabled:opacity-60',
         selected ? SELECTED_CLASS[tone] : 'border-border bg-surface text-text'
       )}
     >
@@ -52,13 +52,13 @@ export function Choice({
           {label}
         </span>
         <span
-          className={clsx('text-[13px]', selected ? 'text-soft' : 'text-muted')}
+          className={clsx('text-sm', selected ? 'text-soft' : 'text-muted')}
         >
           {hint}
         </span>
       </span>
       {selected ? (
-        <span className="flex size-[22px] shrink-0 items-center justify-center rounded-full bg-current">
+        <span className="flex size-5.5 shrink-0 items-center justify-center rounded-full bg-current">
           <CheckIcon
             size={14}
             strokeWidth={3}
@@ -68,7 +68,7 @@ export function Choice({
         </span>
       ) : (
         <span
-          className="size-[22px] shrink-0 rounded-full border-[1.5px] border-white/20"
+          className="size-5.5 shrink-0 rounded-full border-[1.5px] border-white/20"
           aria-hidden="true"
         />
       )}

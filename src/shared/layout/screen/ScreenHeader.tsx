@@ -60,9 +60,7 @@ export function ScreenHeader({
       ) : (
         <>
           <div className="flex min-w-0 flex-col gap-1">
-            {eyebrow && (
-              <span className="text-[13px] text-muted">{eyebrow}</span>
-            )}
+            {eyebrow && <span className="text-sm text-muted">{eyebrow}</span>}
             {titleNode}
           </div>
           {rightAction && (

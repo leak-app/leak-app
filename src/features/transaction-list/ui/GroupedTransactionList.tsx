@@ -76,7 +76,7 @@ export function GroupedTransactionList({
           key={group.dateKey}
           className="flex flex-col gap-2.5"
         >
-          <div className="text-[11px] font-bold tracking-wider text-on-surface-variant/80 uppercase px-1">
+          <div className="text-xs font-bold tracking-wider text-on-surface-variant/80 uppercase px-1">
             {group.dateTitle}
           </div>
 
@@ -110,7 +110,7 @@ export function GroupedTransactionList({
             Xem thêm lịch sử
           </button>
         ) : (
-          <span className="text-[11px] text-on-surface-variant/50 py-4">
+          <span className="text-xs text-on-surface-variant/50 py-4">
             Đã hiển thị tất cả giao dịch
           </span>
         )}

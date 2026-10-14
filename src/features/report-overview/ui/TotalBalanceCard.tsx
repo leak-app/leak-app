@@ -20,7 +20,7 @@ export function TotalBalanceCard({
       aria-label="Xem các ví"
       className="flex flex-col gap-2 rounded-2xl min-h-11"
     >
-      <span className="text-[11px] font-bold tracking-widest text-on-surface-variant/70 uppercase">
+      <span className="text-xs font-bold tracking-widest text-on-surface-variant/70 uppercase">
         Tổng số dư hiện tại
       </span>
 

@@ -40,7 +40,7 @@ export function TransactionRow({
       >
         {icon}
       </span>
-      <span className="flex min-w-0 flex-1 flex-col gap-[3px] text-left">
+      <span className="flex min-w-0 flex-1 flex-col gap-0.75 text-left">
         <span className="truncate text-body text-text">{title}</span>
         <span className="truncate text-caption text-muted">
           {category} · {time}
@@ -59,7 +59,7 @@ export function TransactionRow({
   );
 
   const rowClass = clsx(
-    'flex h-[60px] w-full items-center gap-3.5',
+    'flex h-15 w-full items-center gap-3.5',
     divider && 'border-t border-border-subtle'
   );
 

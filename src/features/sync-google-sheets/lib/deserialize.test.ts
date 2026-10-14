@@ -5,6 +5,7 @@ import { test } from 'node:test';
 import type { RawGoogleSheetsStatusModel } from '../model/types.ts';
 import {
   deserializeSheetsStatus,
+  formatRunHeadline,
   formatRunTime,
   parseSheetsReturn,
 } from './deserialize.ts';
@@ -19,142 +20,199 @@ const base: RawGoogleSheetsStatusModel = {
   lastRun: null,
 };
 
+const connected: RawGoogleSheetsStatusModel = {
+  ...base,
+  connected: true,
+  syncEnabled: true,
+  googleEmail: 'user@gmail.com',
+  spreadsheetUrl: 'https://docs.google.com/spreadsheets/d/x/edit',
+};
+
 // Built from local time so the assertions hold in any timezone.
-const localIso = (hour: number, minute: number) =>
-  new Date(2026, 9, 13, hour, minute).toISOString();
+const localDate = (day: number, hour: number, minute: number) =>
+  new Date(2026, 9, day, hour, minute);
+const localIso = (day: number, hour: number, minute: number) =>
+  localDate(day, hour, minute).toISOString();
+const NOW = localDate(13, 9, 0);
+
+const run = (
+  overrides: Partial<NonNullable<RawGoogleSheetsStatusModel['lastRun']>>
+): NonNullable<RawGoogleSheetsStatusModel['lastRun']> => ({
+  status: 'SUCCESS',
+  trigger: 'CRON',
+  startedAt: localIso(13, 0, 0),
+  finishedAt: localIso(13, 0, 5),
+  transactionCount: 1234,
+  errorMessage: null,
+  ...overrides,
+});
 
 test('formatRunTime shows time then day/month in local time', () => {
-  assert.equal(formatRunTime(localIso(0, 5)), '00:05 13/10');
+  assert.equal(formatRunTime(localIso(13, 0, 5)), '00:05 13/10');
 });
 
-test('a user who never connected: toggle off, nothing to run, no run text', () => {
-  const model = deserializeSheetsStatus(base);
+test('formatRunHeadline says today, yesterday, or the date', () => {
+  assert.equal(formatRunHeadline(localIso(13, 0, 5), NOW), '00:05 hôm nay');
+  assert.equal(formatRunHeadline(localIso(12, 23, 40), NOW), '23:40 hôm qua');
+  assert.equal(formatRunHeadline(localIso(10, 8, 0), NOW), '08:00 10/10');
+});
+
+test('a user who never connected sees the pitch and cannot run', () => {
+  const model = deserializeSheetsStatus(base, NOW);
+  assert.equal(model.panel, 'connect');
   assert.equal(model.isEnabled, false);
   assert.equal(model.canRunNow, false);
-  assert.equal(model.showReconnect, false);
-  assert.equal(model.runTone, 'none');
-  assert.equal(model.runBadgeLabel, 'Chưa chạy');
-  assert.equal(model.runText, 'Chưa có lần đồng bộ nào');
-  assert.equal(model.accountText, '');
+  assert.equal(model.accountEmail, '');
+  assert.equal(model.showReports, false);
 });
 
-test('connected, enabled and healthy: toggle on and can run now', () => {
-  const model = deserializeSheetsStatus({
-    ...base,
-    connected: true,
-    syncEnabled: true,
-    googleEmail: 'user@gmail.com',
-    spreadsheetUrl: 'https://docs.google.com/spreadsheets/d/x/edit',
-  });
+test('connected and healthy: calm status, sage badge, next run tonight', () => {
+  const model = deserializeSheetsStatus(
+    { ...connected, lastRun: run({}) },
+    NOW
+  );
+  assert.equal(model.panel, 'status');
   assert.equal(model.isEnabled, true);
   assert.equal(model.canRunNow, true);
-  assert.equal(model.accountText, 'Tài khoản Google: user@gmail.com');
+  assert.equal(model.accountEmail, 'user@gmail.com');
+  assert.equal(model.badgeLabel, 'Đã đồng bộ');
+  assert.equal(model.badgeTextClass, 'text-primary');
+  assert.equal(model.headline, '00:05 hôm nay');
+  assert.equal(model.subline, '1.234 giao dịch · bản đồng bộ tự động');
+  assert.equal(model.nextRunLabel, 'Lần kế tiếp:');
+  assert.equal(model.nextRunValue, '00:00 tối nay');
+  assert.equal(model.showReports, true);
+  assert.equal(model.switchNote, '00:00 giờ Việt Nam');
 });
 
-test('connected with the toggle off: toggle off but can still run now', () => {
-  const model = deserializeSheetsStatus({
-    ...base,
-    connected: true,
-    syncEnabled: false,
-  });
+test('a manual run is described as manual', () => {
+  const model = deserializeSheetsStatus(
+    { ...connected, lastRun: run({ trigger: 'MANUAL' }) },
+    NOW
+  );
+  assert.equal(model.subline, '1.234 giao dịch · bản đồng bộ thủ công');
+});
+
+test('paused: pebble badge, no night run, still can run now', () => {
+  const model = deserializeSheetsStatus(
+    { ...connected, syncEnabled: false, lastRun: run({}) },
+    NOW
+  );
+  assert.equal(model.panel, 'status');
   assert.equal(model.isEnabled, false);
+  assert.equal(model.canRunNow, true);
+  assert.equal(model.badgeLabel, 'Đã tạm dừng');
+  assert.equal(model.badgeTextClass, 'text-pebble');
+  assert.equal(model.nextRunValue, '');
+  assert.equal(
+    model.nextRunLabel,
+    'Không tự đồng bộ ban đêm. Bạn vẫn có thể đồng bộ ngay.'
+  );
+});
+
+test('connected but never run: a neutral "not yet" status', () => {
+  const model = deserializeSheetsStatus(connected, NOW);
+  assert.equal(model.panel, 'status');
+  assert.equal(model.badgeLabel, 'Chưa chạy');
+  assert.equal(model.headline, 'Chưa đồng bộ');
+});
+
+test('a running sync shows the running panel and blocks running again', () => {
+  const model = deserializeSheetsStatus(
+    {
+      ...connected,
+      lastRun: run({
+        status: 'RUNNING',
+        trigger: 'MANUAL',
+        finishedAt: null,
+        transactionCount: 0,
+      }),
+    },
+    NOW
+  );
+  assert.equal(model.panel, 'running');
+  assert.equal(model.isRunning, true);
+  assert.equal(model.canRunNow, false);
+  assert.equal(model.runningKicker, 'Đang đồng bộ');
+});
+
+test('the first run after connecting is called out as the first', () => {
+  const model = deserializeSheetsStatus(
+    {
+      ...connected,
+      lastRun: run({ status: 'RUNNING', trigger: 'CONNECT', finishedAt: null }),
+    },
+    NOW
+  );
+  assert.equal(model.panel, 'running');
+  assert.equal(model.runningKicker, 'Lần đồng bộ đầu tiên');
+  assert.match(model.runningNote, /lần đầu có thể mất một lúc/);
+});
+
+test('a failed run shows the stored Vietnamese message and offers a retry', () => {
+  const model = deserializeSheetsStatus(
+    {
+      ...connected,
+      lastRun: run({
+        status: 'FAILED',
+        transactionCount: 0,
+        errorMessage:
+          'Google tạm thời không phản hồi. Sẽ thử lại lần đồng bộ sau.',
+      }),
+    },
+    NOW
+  );
+  assert.equal(model.panel, 'problem');
+  assert.equal(model.problemAction, 'retry');
+  assert.equal(model.problemActionLabel, 'Thử lại ngay');
+  assert.equal(model.problemKicker, 'Lần đồng bộ gần nhất thất bại');
+  assert.equal(
+    model.problemTitle,
+    'Google tạm thời không phản hồi. Sẽ thử lại lần đồng bộ sau.'
+  );
+  assert.match(model.problemBody, /00:00 tối nay/);
+  assert.match(model.problemBody, /00:05 13\/10/);
   assert.equal(model.canRunNow, true);
 });
 
-test('a successful run shows when it finished and how many transactions', () => {
-  const model = deserializeSheetsStatus({
-    ...base,
-    connected: true,
-    syncEnabled: true,
-    lastRun: {
-      status: 'SUCCESS',
-      trigger: 'CRON',
-      startedAt: localIso(0, 0),
-      finishedAt: localIso(0, 1),
-      transactionCount: 1240,
-      errorMessage: null,
+test('a failed run while auto sync is off says it can be retried any time', () => {
+  const model = deserializeSheetsStatus(
+    {
+      ...connected,
+      syncEnabled: false,
+      lastRun: run({ status: 'FAILED', errorMessage: null }),
     },
-  });
-  assert.equal(model.runTone, 'success');
-  assert.equal(model.runBadgeClass, 'badge-success');
-  assert.equal(model.runBadgeLabel, 'Thành công');
-  assert.equal(
-    model.runText,
-    'Lần đồng bộ gần nhất: 00:01 13/10 · 1.240 giao dịch'
+    NOW
   );
+  assert.equal(model.problemTitle, 'Đồng bộ không thành công.');
+  assert.match(model.problemBody, /thử lại bất cứ lúc nào/);
 });
 
-test('a running sync disables running again and flags polling', () => {
-  const model = deserializeSheetsStatus({
-    ...base,
-    connected: true,
-    syncEnabled: true,
-    lastRun: {
-      status: 'RUNNING',
-      trigger: 'MANUAL',
-      startedAt: localIso(9, 0),
-      finishedAt: null,
-      transactionCount: 0,
-      errorMessage: null,
+test('a run left behind by a crash gets a readable Vietnamese title', () => {
+  const model = deserializeSheetsStatus(
+    {
+      ...connected,
+      lastRun: run({ status: 'FAILED', errorMessage: 'Interrupted' }),
     },
-  });
-  assert.equal(model.isRunning, true);
-  assert.equal(model.canRunNow, false);
-  assert.equal(model.runTone, 'running');
-  assert.equal(model.runBadgeClass, 'badge-info');
-  assert.equal(model.runText, 'Đang đồng bộ…');
-});
-
-test('a failed run shows the stored Vietnamese message', () => {
-  const model = deserializeSheetsStatus({
-    ...base,
-    connected: true,
-    syncEnabled: true,
-    lastRun: {
-      status: 'FAILED',
-      trigger: 'CRON',
-      startedAt: localIso(0, 0),
-      finishedAt: localIso(0, 0),
-      transactionCount: 0,
-      errorMessage:
-        'Google tạm thời không phản hồi. Sẽ thử lại lần đồng bộ sau.',
-    },
-  });
-  assert.equal(model.runTone, 'error');
-  assert.equal(model.runBadgeClass, 'badge-error');
-  assert.equal(model.runBadgeLabel, 'Thất bại');
-  assert.equal(
-    model.runText,
-    'Google tạm thời không phản hồi. Sẽ thử lại lần đồng bộ sau.'
+    NOW
   );
+  assert.equal(model.problemTitle, 'Lần đồng bộ bị gián đoạn.');
 });
 
-test('a failed run without a message falls back to a generic line', () => {
-  const model = deserializeSheetsStatus({
-    ...base,
-    connected: true,
-    lastRun: {
-      status: 'FAILED',
-      trigger: 'CRON',
-      startedAt: localIso(0, 0),
-      finishedAt: null,
-      transactionCount: 0,
-      errorMessage: null,
-    },
-  });
-  assert.equal(model.runText, 'Lần đồng bộ gần nhất thất bại');
-});
-
-test('needs reconnect: toggle off, reconnect banner, cannot run now', () => {
-  const model = deserializeSheetsStatus({
-    ...base,
-    connected: true,
-    syncEnabled: true,
-    needsReconnect: true,
-  });
+test('needs reconnect: problem panel, switch off and locked, cannot run', () => {
+  const model = deserializeSheetsStatus(
+    { ...connected, needsReconnect: true, lastRun: run({ status: 'FAILED' }) },
+    NOW
+  );
+  assert.equal(model.panel, 'problem');
+  assert.equal(model.problemAction, 'reconnect');
+  assert.equal(model.problemActionLabel, 'Kết nối lại');
+  assert.equal(model.problemKicker, 'Cần kết nối lại');
   assert.equal(model.isEnabled, false);
-  assert.equal(model.showReconnect, true);
   assert.equal(model.canRunNow, false);
+  assert.equal(model.switchDisabled, true);
+  assert.equal(model.switchNote, 'Tạm dừng cho tới khi kết nối lại');
+  assert.equal(model.showReports, false);
 });
 
 test('parseSheetsReturn: connected', () => {

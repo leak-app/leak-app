@@ -105,12 +105,12 @@ export function OnboardingCarousel() {
           <button
             type="button"
             onClick={handleSkip}
-            className="btn btn-ghost min-h-[44px] min-w-[44px] px-3 text-xs font-medium text-hint hover:text-default"
+            className="btn btn-ghost min-h-11 min-w-11 px-3 text-xs font-medium text-hint hover:text-default"
           >
             Bỏ qua
           </button>
         ) : (
-          <div className="min-h-[44px] min-w-[44px]" />
+          <div className="min-h-11 min-w-11" />
         )}
       </header>
 

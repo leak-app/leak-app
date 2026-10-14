@@ -59,7 +59,7 @@ export function BudgetGoalsProgress({ goals }: BudgetGoalsProgressProps) {
               />
 
               {/* Subtext (Amounts & Warning Status) */}
-              <div className="flex items-center justify-between text-[11px] text-on-surface-variant/80 font-mono">
+              <div className="flex items-center justify-between text-xs text-on-surface-variant/80 font-mono">
                 <span>
                   {formatNumber(g.savedAmount)} / {formatNumber(g.targetAmount)}{' '}
                   VND

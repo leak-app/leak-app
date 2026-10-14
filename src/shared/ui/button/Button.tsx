@@ -1,7 +1,8 @@
 import { clsx } from 'clsx';
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+export type ButtonVariant =
+  'primary' | 'secondary' | 'ghost' | 'tint' | 'danger' | 'dangerGhost';
 export type ButtonSize = 'lg' | 'md';
 
 interface ButtonStyleOptions {
@@ -17,11 +18,15 @@ const VARIANT_CLASS: Record<ButtonVariant, string> = {
   primary: 'border-transparent bg-primary text-on-primary hover:brightness-110',
   secondary: 'border-border bg-surface text-text hover:bg-surface-elevated',
   ghost: 'border-transparent bg-transparent text-muted hover:text-text',
+  tint: 'border-primary bg-primary-tint text-primary',
+  danger: 'border-danger bg-danger-tint text-danger hover:brightness-110',
+  dangerGhost:
+    'border-transparent bg-transparent text-danger hover:brightness-110',
 };
 
 const SIZE_CLASS: Record<ButtonSize, string> = {
   lg: 'h-button-lg px-6 text-base',
-  md: 'h-touch px-5 text-[15px]',
+  md: 'h-touch px-5 text-base',
 };
 
 /** Class names of a button, so a router `Link` or an anchor can look like one. */

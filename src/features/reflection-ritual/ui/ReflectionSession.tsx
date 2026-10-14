@@ -1,13 +1,21 @@
+import { useState } from 'react';
+
 import {
-  OutcomePicker,
+  LEAK_REASON_OPTIONS,
   useReviewTransaction,
   type LeakReason,
   type ReviewableOutcome,
   type TransactionModel,
 } from '@/entities/transaction';
+import { Button, Card, Chip, Choice } from '@/shared/ui';
 
-import { formatProgress, formatSessionSummary } from '../lib/deserialize';
+import { deserializeReflectionItem } from '../lib/deserialize';
+import { nextLabel } from '../lib/session';
+import { REFLECTION_CHOICES, REFLECTION_COPY } from '../model/choices';
 import { useReflectionSession } from '../model/useReflectionSession';
+import { ReflectionItemCard } from './ReflectionItemCard';
+import { ReflectionProgress } from './ReflectionProgress';
+import { ReflectionSummary } from './ReflectionSummary';
 
 interface ReflectionSessionProps {
   items: TransactionModel[];
@@ -17,35 +25,43 @@ interface ReflectionSessionProps {
 export function ReflectionSession({ items, onClose }: ReflectionSessionProps) {
   const session = useReflectionSession(items);
   const review = useReviewTransaction();
+  const [outcome, setOutcome] = useState<ReviewableOutcome | null>(null);
+  const [reason, setReason] = useState<LeakReason | null>(null);
 
   if (session.isDone || !session.current) {
     return (
-      <div className="flex flex-col items-center gap-4 py-2 text-center">
-        <p className="text-base font-bold text-on-surface">
-          {formatSessionSummary(session.tally)}
-        </p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="btn btn-primary w-full min-h-11"
-        >
-          Đóng
-        </button>
-      </div>
+      <ReflectionSummary
+        tally={session.tally}
+        onClose={onClose}
+      />
     );
   }
 
   const item = session.current;
+  const isLeak = outcome === 'LEAK';
 
-  const handleSelect = (
-    outcome: ReviewableOutcome,
-    leakReason?: LeakReason
-  ) => {
+  const resetStep = () => {
+    review.reset();
+    setOutcome(null);
+    setReason(null);
+  };
+
+  const handleChoose = (value: ReviewableOutcome) => {
+    setOutcome(value);
+    if (value !== 'LEAK') setReason(null);
+  };
+
+  const handleNext = () => {
+    if (!outcome) return;
     review.mutate(
-      { transactionId: item.id, outcome, leakReason },
+      {
+        transactionId: item.id,
+        outcome,
+        leakReason: isLeak ? (reason ?? undefined) : undefined,
+      },
       {
         onSuccess: () => {
-          review.reset();
+          resetStep();
           session.record(item, outcome);
         },
       }
@@ -53,60 +69,93 @@ export function ReflectionSession({ items, onClose }: ReflectionSessionProps) {
   };
 
   const handleSkip = () => {
-    review.reset();
+    resetStep();
     session.skip();
   };
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex items-center justify-between text-xs text-on-surface-variant">
-        <span>Nhìn lại khi cảm xúc đã lắng xuống</span>
-        <span className="tabular-nums">
-          {formatProgress(session.index, session.total)}
-        </span>
+    <div className="flex flex-1 flex-col gap-5">
+      <ReflectionProgress
+        index={session.index}
+        total={session.total}
+      />
+
+      <ReflectionItemCard item={deserializeReflectionItem(item)} />
+
+      <div className="flex flex-col gap-2">
+        <p className="mb-1 text-center text-base font-medium text-text">
+          {REFLECTION_COPY.question}
+        </p>
+        {REFLECTION_CHOICES.map((choice) => (
+          <Choice
+            key={choice.value}
+            tone={choice.tone}
+            label={choice.label}
+            hint={choice.hint}
+            selected={outcome === choice.value}
+            disabled={review.isPending}
+            onSelect={() => handleChoose(choice.value)}
+          />
+        ))}
       </div>
 
-      <div className="card bg-surface-bright/50 border border-outline/10 p-4 flex flex-row items-center gap-3">
-        <span
-          className="text-2xl"
-          aria-hidden="true"
-        >
-          {item.category?.emoji}
-        </span>
-        <div className="flex-1 min-w-0">
-          <p className="font-semibold text-on-surface truncate">
-            {item.description}
-          </p>
-          <p className="text-xs text-on-surface-variant">{item.dateText}</p>
-        </div>
-        <span className="font-bold text-on-surface tabular-nums">
-          {item.amountText}
-        </span>
-      </div>
-
-      {review.isError && (
-        <div
-          role="alert"
-          className="alert alert-error alert-soft text-xs"
-        >
-          Không thể lưu đánh giá. Vui lòng thử lại.
+      {isLeak && (
+        <div className="flex flex-col gap-2.5">
+          <span className="text-sm text-muted">
+            {REFLECTION_COPY.reasonPrompt}
+          </span>
+          <div
+            role="group"
+            aria-label={REFLECTION_COPY.reasonsLabel}
+            className="flex flex-wrap gap-2"
+          >
+            {LEAK_REASON_OPTIONS.map((option) => (
+              <Chip
+                key={option.value}
+                compact
+                tone="danger"
+                selected={reason === option.value}
+                disabled={review.isPending}
+                onClick={() =>
+                  setReason(reason === option.value ? null : option.value)
+                }
+              >
+                {option.label}
+              </Chip>
+            ))}
+          </div>
         </div>
       )}
 
-      <OutcomePicker
-        key={item.id}
-        isSaving={review.isPending}
-        onSelect={handleSelect}
-      />
+      {review.isError && (
+        <Card
+          variant="danger"
+          role="alert"
+          className="py-3 text-description text-text"
+        >
+          {REFLECTION_COPY.saveError}
+        </Card>
+      )}
 
-      <button
-        type="button"
-        disabled={review.isPending}
-        onClick={handleSkip}
-        className="btn btn-ghost btn-sm min-h-11 self-center"
-      >
-        Bỏ qua
-      </button>
+      <div className="mt-auto flex flex-col gap-1 pt-2 pb-8">
+        <Button
+          size="lg"
+          fullWidth
+          loading={review.isPending}
+          disabled={!outcome}
+          onClick={handleNext}
+        >
+          {nextLabel(session.index, session.total)}
+        </Button>
+        <Button
+          variant="ghost"
+          fullWidth
+          disabled={review.isPending}
+          onClick={handleSkip}
+        >
+          {REFLECTION_COPY.skip}
+        </Button>
+      </div>
     </div>
   );
 }

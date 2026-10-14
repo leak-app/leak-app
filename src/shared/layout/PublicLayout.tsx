@@ -7,7 +7,7 @@ import { PUBLIC_PATHS } from '@/shared/routing';
 import { buttonStyles } from '@/shared/ui';
 
 const FOOTER_LINK_CLASS =
-  'inline-flex min-h-touch items-center text-[13px] text-muted hover:text-text';
+  'inline-flex min-h-touch items-center text-sm text-muted hover:text-text';
 
 interface PublicLayoutProps {
   children: ReactNode;
@@ -71,7 +71,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
             {CONTACT_EMAIL}
           </a>
         </nav>
-        <p className="mt-2 text-[13px] text-subtle">{APP_NAME}</p>
+        <p className="mt-2 text-sm text-subtle">{APP_NAME}</p>
       </footer>
     </div>
   );

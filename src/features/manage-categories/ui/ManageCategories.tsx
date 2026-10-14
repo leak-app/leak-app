@@ -123,7 +123,7 @@ export function ManageCategories() {
       </div>
 
       {/* Category List */}
-      <div className="flex-1 min-h-[300px]">
+      <div className="flex-1 min-h-75">
         <CategoryList
           categories={filteredCategories}
           isLoading={isLoading}

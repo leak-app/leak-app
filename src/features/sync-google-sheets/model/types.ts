@@ -1,4 +1,5 @@
 export type SheetsRunStatus = 'RUNNING' | 'SUCCESS' | 'FAILED';
+export type SheetsRunTrigger = 'CRON' | 'MANUAL' | 'CONNECT';
 
 /** Shape returned by GET /sync/google-sheets (inside the response envelope). */
 export interface RawGoogleSheetsStatusModel {
@@ -10,7 +11,7 @@ export interface RawGoogleSheetsStatusModel {
   spreadsheetUrl: string | null;
   lastRun: {
     status: SheetsRunStatus;
-    trigger: 'CRON' | 'MANUAL' | 'CONNECT';
+    trigger: SheetsRunTrigger;
     startedAt: string;
     finishedAt: string | null;
     transactionCount: number;
@@ -18,7 +19,11 @@ export interface RawGoogleSheetsStatusModel {
   } | null;
 }
 
-export type SheetsRunTone = 'none' | 'running' | 'success' | 'error';
+/** Which panel the card shows: the pitch, a live run, a problem, or the calm status. */
+export type SheetsPanel = 'connect' | 'running' | 'problem' | 'status';
+
+/** What the problem panel's primary button does. */
+export type SheetsProblemAction = 'reconnect' | 'retry';
 
 /** Status plus every display string and flag the UI needs, prepared in deserialize.ts. */
 export interface GoogleSheetsStatusModel extends RawGoogleSheetsStatusModel {
@@ -26,12 +31,33 @@ export interface GoogleSheetsStatusModel extends RawGoogleSheetsStatusModel {
   isEnabled: boolean;
   isRunning: boolean;
   canRunNow: boolean;
-  showReconnect: boolean;
-  accountText: string;
-  runTone: SheetsRunTone;
-  runBadgeClass: string;
-  runBadgeLabel: string;
-  runText: string;
+  panel: SheetsPanel;
+  accountEmail: string;
+
+  /** The "auto sync" row. */
+  switchNote: string;
+  switchDisabled: boolean;
+  showReports: boolean;
+
+  /** Status panel. */
+  badgeLabel: string;
+  badgeTextClass: string;
+  badgeDotClass: string;
+  headline: string;
+  subline: string;
+  nextRunLabel: string;
+  nextRunValue: string;
+
+  /** Running panel. */
+  runningKicker: string;
+  runningNote: string;
+
+  /** Problem panel. */
+  problemAction: SheetsProblemAction;
+  problemActionLabel: string;
+  problemKicker: string;
+  problemTitle: string;
+  problemBody: string;
 }
 
 export interface SheetsReturnMessageModel {

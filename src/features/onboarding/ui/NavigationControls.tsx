@@ -19,7 +19,7 @@ export function NavigationControls({
         <button
           type="button"
           onClick={onBack}
-          className="btn btn-ghost min-h-[48px] min-w-[48px] px-4 text-hint font-medium text-sm hover:text-default"
+          className="btn btn-ghost min-h-12 min-w-12 px-4 text-hint font-medium text-sm hover:text-default"
           aria-label="Quay lại slide trước"
         >
           Quay lại
@@ -29,7 +29,7 @@ export function NavigationControls({
       <button
         type="button"
         onClick={onNext}
-        className={`btn min-h-[48px] flex-1 text-base font-semibold shadow-lg transition-transform active:scale-[0.98] ${
+        className={`btn min-h-12 flex-1 text-base font-semibold shadow-lg transition-transform active:scale-[0.98] ${
           isFinalStep
             ? 'btn-primary shadow-primary/20 text-on-primary'
             : 'btn-primary shadow-primary/15 text-on-primary'

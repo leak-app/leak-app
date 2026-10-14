@@ -50,17 +50,17 @@ export function WeeklyExpenseChart({ weeklyExpense }: WeeklyExpenseChartProps) {
               >
                 {/* Value Badge above bar */}
                 {day.isPeak ? (
-                  <div className="badge badge-sm bg-primary/20 text-primary border border-primary/30 font-bold text-[10px] px-2 py-0.5 shadow-sm mb-1">
+                  <div className="badge badge-sm bg-primary/20 text-primary border border-primary/30 font-bold text-[0.625rem] px-2 py-0.5 shadow-sm mb-1">
                     {day.formattedAmount}
                   </div>
                 ) : (
-                  <div className="text-[10px] text-on-surface-variant/0 group-hover:text-on-surface-variant transition-opacity mb-1 font-mono">
+                  <div className="text-[0.625rem] text-on-surface-variant/0 group-hover:text-on-surface-variant transition-opacity mb-1 font-mono">
                     {day.amount > 0 ? day.formattedAmount : ''}
                   </div>
                 )}
 
                 {/* Bar Fill */}
-                <div className="w-full max-w-[28px] bg-surface-bright/50 border border-outline/5 rounded-xl overflow-hidden flex items-end h-32 p-0.5">
+                <div className="w-full max-w-7 bg-surface-bright/50 border border-outline/5 rounded-xl overflow-hidden flex items-end h-32 p-0.5">
                   <div
                     style={{
                       height: `${
@@ -77,7 +77,7 @@ export function WeeklyExpenseChart({ weeklyExpense }: WeeklyExpenseChartProps) {
 
                 {/* Day Label */}
                 {day.isPeak ? (
-                  <span className="badge badge-primary badge-sm font-extrabold text-[11px] px-1.5 py-0.5">
+                  <span className="badge badge-primary badge-sm font-extrabold text-xs px-1.5 py-0.5">
                     {day.dayLabel}
                   </span>
                 ) : (

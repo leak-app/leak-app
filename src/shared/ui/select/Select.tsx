@@ -85,7 +85,7 @@ export function Select<T extends string | number>({
         className={clsx(
           'flex w-full items-center justify-between gap-2 border text-left transition-colors duration-200 ease-out focus-visible:border-primary focus-visible:shadow-focus focus-visible:outline-none disabled:opacity-50',
           variant === 'field'
-            ? 'h-button-lg rounded-full border-border bg-surface-elevated pr-4 pl-[18px] text-base'
+            ? 'h-button-lg rounded-full border-border bg-surface-elevated pr-4 pl-4.5 text-base'
             : 'h-11 rounded-full border-border bg-surface px-4 text-label hover:text-text',
           selected ? 'text-text' : 'text-subtle'
         )}

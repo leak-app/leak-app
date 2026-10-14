@@ -53,7 +53,7 @@ export function RecentExpensesList({ expenses }: RecentExpensesListProps) {
                 <span className="text-sm font-bold text-error">
                   -{item.formattedAmount}
                 </span>
-                <span className="text-[11px] text-on-surface-variant/70 mt-0.5">
+                <span className="text-xs text-on-surface-variant/70 mt-0.5">
                   Ví Tiền mặt
                 </span>
               </div>

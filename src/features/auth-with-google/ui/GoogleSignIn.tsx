@@ -63,7 +63,7 @@ export function GoogleSignIn({ onAuthError }: GoogleSignInProps) {
   return (
     <div
       ref={containerRef}
-      className="flex min-h-[40px] w-full justify-center [color-scheme:light]"
+      className="flex min-h-10 w-full justify-center [color-scheme:light]"
     >
       {loading ? (
         <span className="loading loading-spinner loading-md text-primary"></span>

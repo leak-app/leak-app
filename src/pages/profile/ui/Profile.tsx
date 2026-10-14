@@ -2,7 +2,11 @@ import {
   GoogleSheetsSyncCard,
   SheetsReturnAlert,
 } from '@/features/sync-google-sheets';
-import { UserProfile } from '@/features/user-profile';
+import {
+  LogoutButton,
+  ProfileSettingsList,
+  UserIdentity,
+} from '@/features/user-profile';
 import { BackButton, MainLayout, Screen, ScreenHeader } from '@/shared/layout';
 
 export default function Profile() {
@@ -16,10 +20,12 @@ export default function Profile() {
           />
         }
       >
-        <UserProfile />
-        <div className="mt-6 flex flex-col gap-3 pb-6">
+        <div className="flex flex-col gap-5 pb-8">
           <SheetsReturnAlert />
+          <UserIdentity />
           <GoogleSheetsSyncCard />
+          <ProfileSettingsList />
+          <LogoutButton />
         </div>
       </Screen>
     </MainLayout>

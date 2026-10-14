@@ -61,10 +61,10 @@ export default function HomePage() {
             aria-hidden="true"
           />
         </span>
-        <h1 className="text-[32px] font-semibold leading-tight text-text">
+        <h1 className="text-[2rem] font-semibold leading-tight text-text">
           {HOME_HERO.heading}
         </h1>
-        <p className="max-w-xl text-[17px] leading-relaxed text-soft">
+        <p className="max-w-xl text-base leading-relaxed text-soft">
           {HOME_HERO.description}
         </p>
         <div className="flex flex-wrap gap-3">
@@ -96,7 +96,7 @@ export default function HomePage() {
         {HOME_PURPOSE.paragraphs.map((paragraph) => (
           <p
             key={paragraph}
-            className="text-[15px] leading-relaxed text-soft"
+            className="text-base leading-relaxed text-soft"
           >
             {paragraph}
           </p>
@@ -124,10 +124,10 @@ export default function HomePage() {
                     className="text-primary"
                     aria-hidden="true"
                   />
-                  <h3 className="text-[17px] font-semibold text-text">
+                  <h3 className="text-base font-semibold text-text">
                     {feature.title}
                   </h3>
-                  <p className="text-[15px] leading-relaxed text-soft">
+                  <p className="text-base leading-relaxed text-soft">
                     {feature.description}
                   </p>
                 </Card>
@@ -147,12 +147,12 @@ export default function HomePage() {
         >
           {HOME_GOOGLE_DATA.heading}
         </h2>
-        <p className="text-[15px] leading-relaxed text-soft">
+        <p className="text-base leading-relaxed text-soft">
           {HOME_GOOGLE_DATA.text}
         </p>
       </section>
 
-      <p className="py-6 text-[15px] leading-relaxed text-soft">
+      <p className="py-6 text-base leading-relaxed text-soft">
         {HOME_PRIVACY_NOTE.text}{' '}
         <Link
           to={PUBLIC_PATHS.privacy}

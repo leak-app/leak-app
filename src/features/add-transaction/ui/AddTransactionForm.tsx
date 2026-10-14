@@ -27,14 +27,14 @@ export function AddTransactionForm() {
           <span className="text-xs font-bold text-on-surface-variant uppercase tracking-widest font-mono">
             {form.amountLabel}
           </span>
-          <div className="mt-4 flex items-baseline border-b border-outline-variant pb-2 px-6 w-full max-w-[280px] justify-center relative">
+          <div className="mt-4 flex items-baseline border-b border-outline-variant pb-2 px-6 w-full max-w-70 justify-center relative">
             <span className="text-display-currency font-semibold text-primary tabular-nums">
               {form.amountText}
             </span>
             <span className="text-headline-md text-on-surface-variant font-medium ml-1.5">
               đ
             </span>
-            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary" />
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
           </div>
         </div>
 
@@ -73,7 +73,7 @@ export function AddTransactionForm() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-6 mt-6 bg-surface/20 border-t border-outline/5 pt-6 pb-6 rounded-t-[40px]">
+      <div className="flex flex-col gap-6 mt-6 bg-surface/20 border-t border-outline/5 pt-6 pb-6 rounded-t-[2.5rem]">
         <CategorySelector
           categories={form.categories}
           selectedId={form.activeCategoryId}

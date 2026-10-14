@@ -42,7 +42,7 @@ export function CategoryTabs({
               {count !== undefined && (
                 <span
                   className={`
-                    badge badge-xs border-0 px-1.5 font-bold text-[10px]
+                    badge badge-xs border-0 px-1.5 font-bold text-[0.625rem]
                     ${
                       isActive
                         ? 'bg-on-primary/20 text-on-primary'

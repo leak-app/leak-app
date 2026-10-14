@@ -24,4 +24,5 @@ export {
   type OutcomeTone,
 } from './outcome-badge/OutcomeBadge';
 export { Select, type SelectOption } from './select/Select';
+export { Switch } from './switch/Switch';
 export { TransactionRow } from './transaction-row/TransactionRow';

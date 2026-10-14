@@ -4,6 +4,8 @@ interface BottomSheetProps {
   open: boolean;
   onClose: () => void;
   title?: string;
+  /** Spoken name of the dialog when it has no visible `title`. */
+  ariaLabel?: string;
   children: ReactNode;
 }
 
@@ -12,6 +14,7 @@ export function BottomSheet({
   open,
   onClose,
   title,
+  ariaLabel,
   children,
 }: BottomSheetProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -27,7 +30,7 @@ export function BottomSheet({
     <dialog
       ref={dialogRef}
       className="modal modal-bottom"
-      aria-label={title}
+      aria-label={title ?? ariaLabel}
       onClose={onClose}
     >
       <div className="modal-box rounded-t-sheet border-t border-border bg-sheet px-6 pt-4 pb-[max(2rem,env(safe-area-inset-bottom))]">

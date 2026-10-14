@@ -10,8 +10,8 @@ export default function ForgotPassword() {
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center bg-default overflow-hidden px-4 py-12">
       {/* Blur Background Highlights */}
-      <div className="absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-primary opacity-[0.04] blur-[120px]"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-secondary opacity-[0.04] blur-[120px]"></div>
+      <div className="absolute top-[-10%] left-[-10%] h-125 w-125 rounded-full bg-primary opacity-[0.04] blur-[7.5rem]"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] h-125 w-125 rounded-full bg-secondary opacity-[0.04] blur-[7.5rem]"></div>
 
       {/* Main Container */}
       <div className="w-full max-w-md flex flex-col items-center">
