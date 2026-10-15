@@ -2,7 +2,13 @@ import { clsx } from 'clsx';
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
 export type ButtonVariant =
-  'primary' | 'secondary' | 'ghost' | 'tint' | 'danger' | 'dangerGhost';
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'tint'
+  | 'reminder'
+  | 'danger'
+  | 'dangerGhost';
 export type ButtonSize = 'lg' | 'md';
 
 interface ButtonStyleOptions {
@@ -19,6 +25,9 @@ const VARIANT_CLASS: Record<ButtonVariant, string> = {
   secondary: 'border-border bg-surface text-text hover:bg-surface-elevated',
   ghost: 'border-transparent bg-transparent text-muted hover:text-text',
   tint: 'border-primary bg-primary-tint text-primary',
+  /** A gentle lavender nudge, for example "update this month's balance". */
+  reminder:
+    'border-secondary/35 bg-secondary-tint text-secondary hover:brightness-110',
   danger: 'border-danger bg-danger-tint text-danger hover:brightness-110',
   dangerGhost:
     'border-transparent bg-transparent text-danger hover:brightness-110',

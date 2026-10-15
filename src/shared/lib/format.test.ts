@@ -6,6 +6,8 @@ import {
   formatCompactVnd,
   formatIncomeVnd,
   formatNumber,
+  formatSignedPercent,
+  formatSignedVnd,
   formatVnd,
   formatVndParts,
 } from './format.ts';
@@ -61,4 +63,18 @@ test('formatCompactVnd shows 0 for amounts that are not finite', () => {
   assert.equal(formatCompactVnd(Number.POSITIVE_INFINITY), '0₫');
   assert.equal(formatCompactVnd(Number.NEGATIVE_INFINITY), '0₫');
   assert.equal(formatCompactVnd(Number.NaN), '0₫');
+});
+
+test('formatSignedVnd marks gains and losses and leaves zero bare', () => {
+  assert.equal(formatSignedVnd(2000000), '+2,000,000₫');
+  assert.equal(formatSignedVnd(-500000), '−500,000₫');
+  assert.equal(formatSignedVnd(0), '0₫');
+  assert.equal(formatSignedVnd(-0.2), '0₫');
+});
+
+test('formatSignedPercent keeps one decimal', () => {
+  assert.equal(formatSignedPercent(4), '+4.0%');
+  assert.equal(formatSignedPercent(-1.66), '−1.7%');
+  assert.equal(formatSignedPercent(0), '0.0%');
+  assert.equal(formatSignedPercent(Number.NaN), '0.0%');
 });

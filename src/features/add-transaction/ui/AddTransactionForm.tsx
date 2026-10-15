@@ -6,6 +6,7 @@ import { Numpad } from '@/shared/ui';
 import { EMPTY_CATEGORY_TEXT } from '../lib/deserialize';
 import { useAddTransactionForm } from '../model/useAddTransactionForm';
 import { CategorySelector } from './CategorySelector';
+import { DateChips } from './DateChips';
 import { TransactionTypeToggle } from './TransactionTypeToggle';
 import { WalletChip } from './WalletChip';
 import { WalletPickerSheet } from './WalletPickerSheet';
@@ -44,6 +45,12 @@ export function AddTransactionForm() {
             onClick={() => setPickerOpen(true)}
           />
         )}
+
+        <DateChips
+          value={form.occurredOn}
+          choice={form.dateChoice}
+          onChange={form.setOccurredOn}
+        />
 
         <div className="w-full px-2">
           <div className="relative w-full rounded-2xl bg-surface/50 border border-outline/10 px-4 py-3.5 flex items-center gap-3 shadow-inner focus-within:border-primary/30 transition-colors">

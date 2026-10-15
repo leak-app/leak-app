@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import { usePortfolio } from '@/entities/valuation';
 import { ChevronRightIcon, ICON } from '@/shared/icons';
 
 interface SettingsItem {
@@ -15,6 +16,12 @@ const ITEMS: SettingsItem[] = [
     label: 'Ví & tài khoản',
     desc: 'Quản lý ví tiền mặt, tài khoản ngân hàng và đầu tư',
     to: '/wallets',
+  },
+  {
+    id: 'investment',
+    label: 'Đầu tư',
+    desc: 'Cập nhật số dư mỗi tháng và xem lãi lỗ',
+    to: '/investment',
   },
   {
     id: 'categories',
@@ -44,6 +51,8 @@ const ITEMS: SettingsItem[] = [
 /** Account settings as one glass card of rows. */
 export function ProfileSettingsList() {
   const navigate = useNavigate();
+  const { data: portfolio } = usePortfolio();
+  const investmentNeedsUpdate = (portfolio?.entry.staleCount ?? 0) > 0;
 
   return (
     <section
@@ -68,6 +77,13 @@ export function ProfileSettingsList() {
               <span className="text-body text-text">{item.label}</span>
               <span className="text-caption text-muted">{item.desc}</span>
             </span>
+            {item.id === 'investment' && investmentNeedsUpdate && (
+              <span
+                role="img"
+                aria-label="Có ví cần cập nhật"
+                className="size-2 shrink-0 rounded-full bg-secondary"
+              />
+            )}
             <ChevronRightIcon
               size={ICON.size.row}
               strokeWidth={ICON.stroke.active}

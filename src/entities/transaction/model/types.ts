@@ -50,6 +50,8 @@ export interface CreateTransactionParamsModel {
   categoryId: string;
   accountId?: string;
   description?: string;
+  /** The day it happened, "YYYY-MM-DD"; today when left out. */
+  occurredOn?: string;
 }
 
 export interface GetTransactionsQueryParamsModel {

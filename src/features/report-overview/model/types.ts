@@ -4,6 +4,7 @@ export interface WeeklyExpenseDayModel {
   isPeak: boolean;
   percentage?: number;
   // Added for UI only
+  totalBalanceText?: string;
   formattedAmount?: string;
 }
 
@@ -22,6 +23,7 @@ export interface RecentExpenseItemModel {
     emoji?: string;
   };
   // Added for UI only
+  totalBalanceText?: string;
   formattedAmount?: string;
   formattedTimestamp?: string;
 }
@@ -40,6 +42,7 @@ export interface ReportOverviewModel {
   walletsBalance: number;
   goalsBalance: number;
   // Added for UI only
+  totalBalanceText?: string;
   balanceSplitText?: string | null;
   growthPercentage: number;
   accountsCount: number;

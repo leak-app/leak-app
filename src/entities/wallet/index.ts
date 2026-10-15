@@ -13,8 +13,10 @@ export type {
   AccountType,
   CreateWalletParamsModel,
   RawWalletModel,
+  RawWalletValuationModel,
   UpdateWalletParamsModel,
   WalletGroupModel,
   WalletModel,
   WalletSummaryModel,
+  WalletValuationModel,
 } from './model/types';

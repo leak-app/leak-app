@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { formatCompactVnd, formatVnd } from '@/shared/lib';
+import { formatCompactVnd, formatNumber, formatVnd } from '@/shared/lib';
 
 import type { ReportOverviewModel } from '../model/types';
 
@@ -33,6 +33,7 @@ export function deserializeReportOverview(
 ): ReportOverviewModel {
   return {
     totalBalance: raw.totalBalance,
+    totalBalanceText: formatNumber(raw.totalBalance),
     walletsBalance: raw.walletsBalance,
     goalsBalance: raw.goalsBalance,
     balanceSplitText:

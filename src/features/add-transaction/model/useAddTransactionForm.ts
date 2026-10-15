@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useMemo, useState } from 'react';
 
 import { useCategories, type CategoryModel } from '@/entities/category';
@@ -15,6 +16,7 @@ import {
 import { getApiErrorMessage } from '@/shared/api';
 import { applyNumpadKey } from '@/shared/lib';
 
+import { describeDateChoice, type DateChoiceModel } from '../lib/dateChoice';
 import {
   AMOUNT_LABELS,
   categoriesForType,
@@ -29,6 +31,10 @@ export interface AddTransactionFormState {
   canSave: boolean;
   description: string;
   setDescription: (value: string) => void;
+  /** The day of the transaction, "YYYY-MM-DD". */
+  occurredOn: string;
+  setOccurredOn: (value: string) => void;
+  dateChoice: DateChoiceModel;
   categories: CategoryModel[];
   categoriesLoading: boolean;
   activeCategoryId: string;
@@ -46,6 +52,9 @@ export function useAddTransactionForm(): AddTransactionFormState {
   const [type, setTypeState] = useState<TransactionType>('EXPENSE');
   const [amount, setAmount] = useState('0');
   const [description, setDescription] = useState('');
+  const [occurredOn, setOccurredOn] = useState(() =>
+    dayjs().format('YYYY-MM-DD')
+  );
   const [categoryId, setCategoryId] = useState('');
   const [walletId, setWalletId] = useState<string | null>(readLastWalletId);
 
@@ -65,6 +74,7 @@ export function useAddTransactionForm(): AddTransactionFormState {
   const selectedWallet = pickDefaultWallet(wallets, walletId);
 
   const numericAmount = parseInt(amount, 10) || 0;
+  const dateChoice = describeDateChoice(occurredOn);
 
   const setType = (next: TransactionType) => {
     setTypeState(next);
@@ -80,6 +90,8 @@ export function useAddTransactionForm(): AddTransactionFormState {
         categoryId: activeCategoryId,
         accountId: selectedWallet?.id,
         description: description.trim() || undefined,
+        // Today is left to the server, so a wrong phone clock cannot move it.
+        occurredOn: dateChoice.isToday ? undefined : occurredOn,
       },
       {
         onSuccess: () => {
@@ -98,6 +110,10 @@ export function useAddTransactionForm(): AddTransactionFormState {
     canSave: numericAmount > 0 && !!activeCategoryId && !isPending,
     description,
     setDescription,
+    occurredOn,
+    // An emptied date input is ignored; the last valid day stays.
+    setOccurredOn: (value) => value && setOccurredOn(value),
+    dateChoice,
     categories,
     categoriesLoading,
     activeCategoryId,

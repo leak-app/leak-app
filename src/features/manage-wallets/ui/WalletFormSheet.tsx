@@ -83,33 +83,40 @@ function WalletForm({
         )}
       </div>
 
-      <label className="flex flex-col gap-1">
-        <span className="text-xs font-semibold text-on-surface-variant">
-          Số dư ban đầu
-        </span>
-        <div className="join w-full">
-          <button
-            type="button"
-            aria-pressed={form.negative}
-            aria-label="Số âm"
-            onClick={form.toggleNegative}
-            className="join-item btn min-h-11 min-w-11 aria-pressed:btn-secondary"
-          >
-            −
-          </button>
-          <input
-            className="join-item input w-full tabular-nums"
-            inputMode="numeric"
-            value={form.amountText}
-            onChange={(e) => form.setAmount(e.target.value)}
-          />
-        </div>
-        <span className="text-xs text-on-surface-variant">
-          {editing
-            ? `Số dư hiện tại: ${editing.balanceText}. Số dư hiện tại sẽ thay đổi tương ứng.`
-            : 'Số tiền đang có trong ví lúc bắt đầu theo dõi.'}
-        </span>
-      </label>
+      {editing?.valuation?.hasUpdates ? (
+        <p className="text-xs text-on-surface-variant">
+          Số dư hiện tại: {editing.balanceText}. Để đổi số dư, hãy dùng “Cập
+          nhật số dư” ở ví này.
+        </p>
+      ) : (
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-semibold text-on-surface-variant">
+            Số dư ban đầu
+          </span>
+          <div className="join w-full">
+            <button
+              type="button"
+              aria-pressed={form.negative}
+              aria-label="Số âm"
+              onClick={form.toggleNegative}
+              className="join-item btn min-h-11 min-w-11 aria-pressed:btn-secondary"
+            >
+              −
+            </button>
+            <input
+              className="join-item input w-full tabular-nums"
+              inputMode="numeric"
+              value={form.amountText}
+              onChange={(e) => form.setAmount(e.target.value)}
+            />
+          </div>
+          <span className="text-xs text-on-surface-variant">
+            {editing
+              ? `Số dư hiện tại: ${editing.balanceText}. Số dư hiện tại sẽ thay đổi tương ứng.`
+              : 'Số tiền đang có trong ví lúc bắt đầu theo dõi.'}
+          </span>
+        </label>
+      )}
 
       {form.errorText && (
         <div

@@ -20,6 +20,7 @@ import ResetPassword from '@/pages/reset-password';
 import SavingsGoals from '@/pages/savings-goals';
 import TermsPage from '@/pages/terms';
 import Transaction from '@/pages/transaction';
+import Transfer from '@/pages/transfer';
 import Wallet from '@/pages/wallet';
 import { PUBLIC_PATHS, type RouteConfig } from '@/shared/routing';
 
@@ -44,6 +45,7 @@ export const routes: RouteConfig[] = [
   { path: '/leaks', Component: LeakReportPage, protected: true },
   { path: '/reflect', Component: Reflect, protected: true },
   { path: '/investment', Component: Investment, protected: true },
+  { path: '/transfer', Component: Transfer, protected: true },
   { path: '/profile', Component: Profile, protected: true },
   { path: '/profile/security', Component: ProfileSecurity, protected: true },
   {

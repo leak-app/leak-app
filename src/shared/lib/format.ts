@@ -26,6 +26,20 @@ export function formatIncomeVnd(amount: number): string {
   return value > 0 ? `+${formatVnd(value)}` : formatVnd(value);
 }
 
+/** Profit and loss: 2000000 → "+2,000,000₫", -500000 → "−500,000₫", 0 → "0₫". */
+export function formatSignedVnd(amount: number): string {
+  const value = whole(amount);
+  if (value === 0) return formatVnd(0);
+  return `${value > 0 ? '+' : '−'}${formatVnd(Math.abs(value))}`;
+}
+
+/** 4 → "+4.0%", -1.66 → "−1.7%", 0 → "0.0%". */
+export function formatSignedPercent(percent: number): string {
+  const value = Number.isFinite(percent) ? Math.round(percent * 10) / 10 : 0;
+  const sign = value > 0 ? '+' : value < 0 ? '−' : '';
+  return `${sign}${Math.abs(value).toFixed(1)}%`;
+}
+
 /** 285000 → { value: "285,000", symbol: "₫" }, so the Amount component can style the symbol. */
 export function formatVndParts(amount: number): {
   value: string;

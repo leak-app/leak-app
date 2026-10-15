@@ -4,6 +4,9 @@ import { BottomSheet } from '@/shared/ui';
 interface Props {
   wallet: WalletModel | null;
   canArchive: boolean;
+  canTransfer: boolean;
+  onTransfer: (wallet: WalletModel) => void;
+  onUpdateBalance: (wallet: WalletModel) => void;
   onEdit: (wallet: WalletModel) => void;
   onArchive: (wallet: WalletModel) => void;
   onClose: () => void;
@@ -12,6 +15,9 @@ interface Props {
 export function WalletActionsSheet({
   wallet,
   canArchive,
+  canTransfer,
+  onTransfer,
+  onUpdateBalance,
   onEdit,
   onArchive,
   onClose,
@@ -24,6 +30,24 @@ export function WalletActionsSheet({
     >
       {wallet && (
         <div className="flex flex-col gap-2">
+          {wallet.valuation && (
+            <button
+              type="button"
+              className="btn btn-ghost min-h-12 justify-start"
+              onClick={() => onUpdateBalance(wallet)}
+            >
+              Cập nhật số dư
+            </button>
+          )}
+          {canTransfer && (
+            <button
+              type="button"
+              className="btn btn-ghost min-h-12 justify-start"
+              onClick={() => onTransfer(wallet)}
+            >
+              Chuyển tiền từ ví này
+            </button>
+          )}
           <button
             type="button"
             className="btn btn-ghost min-h-12 justify-start"

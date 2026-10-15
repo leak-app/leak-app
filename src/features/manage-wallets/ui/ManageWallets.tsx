@@ -7,13 +7,28 @@ import {
   type WalletModel,
 } from '@/entities/wallet';
 
+import { ArrowLeftRightIcon } from '@/shared/icons';
+import { Button } from '@/shared/ui';
+
 import { ArchiveWalletDialog } from './ArchiveWalletDialog';
 import { WalletActionsSheet } from './WalletActionsSheet';
 import { WalletFormSheet } from './WalletFormSheet';
 import { WalletGroup } from './WalletGroup';
 import { WalletTotalCard } from './WalletTotalCard';
 
-export function ManageWallets({ addRequested }: { addRequested: number }) {
+interface ManageWalletsProps {
+  addRequested: number;
+  /** Opens the balance update for an investment wallet; the page owns that sheet. */
+  onUpdateBalance: (wallet: WalletModel) => void;
+  /** Opens the transfer sheet, from `wallet` when given; the page owns it. */
+  onTransfer: (wallet?: WalletModel) => void;
+}
+
+export function ManageWallets({
+  addRequested,
+  onUpdateBalance,
+  onTransfer,
+}: ManageWalletsProps) {
   const navigate = useNavigate();
   const { data: wallets = [], isLoading, isError, refetch } = useWallets();
   const [formOpen, setFormOpen] = useState(false);
@@ -69,12 +84,29 @@ export function ManageWallets({ addRequested }: { addRequested: number }) {
         totalText={summary.totalText}
         countTexts={summary.countTexts}
       />
+      {wallets.length > 1 && (
+        <Button
+          variant="secondary"
+          size="lg"
+          leadingIcon={
+            <ArrowLeftRightIcon
+              size={17}
+              strokeWidth={1.8}
+              aria-hidden="true"
+            />
+          }
+          onClick={() => onTransfer()}
+        >
+          Chuyển tiền giữa các ví
+        </Button>
+      )}
       {summary.groups.map((group) => (
         <WalletGroup
           key={group.type}
           group={group}
           onOpen={openHistory}
           onMore={setActionsFor}
+          onUpdateBalance={onUpdateBalance}
         />
       ))}
 
@@ -82,6 +114,15 @@ export function ManageWallets({ addRequested }: { addRequested: number }) {
         wallet={actionsFor}
         canArchive={summary.canArchive}
         onClose={() => setActionsFor(null)}
+        canTransfer={wallets.length > 1}
+        onTransfer={(w) => {
+          setActionsFor(null);
+          onTransfer(w);
+        }}
+        onUpdateBalance={(w) => {
+          setActionsFor(null);
+          onUpdateBalance(w);
+        }}
         onEdit={(w) => {
           setActionsFor(null);
           setEditing(w);

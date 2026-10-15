@@ -9,6 +9,8 @@ export interface SelectOption<T extends string | number> {
   value: T;
   /** Already formatted text, for example "Tháng 10" or "Ví tiền mặt · 1.2tr₫". */
   label: string;
+  /** Secondary text on the right, for example a wallet balance. */
+  meta?: string;
 }
 
 interface SelectProps<T extends string | number> {
@@ -23,8 +25,11 @@ interface SelectProps<T extends string | number> {
   title?: string;
   /** Shown while `value` matches no option. */
   placeholder?: string;
-  /** `field` is a 56px form field with a label; `pill` is a compact 44px filter. */
-  variant?: 'field' | 'pill';
+  /**
+   * `field` is a 56px form field with a label; `pill` is a compact 44px filter;
+   * `tile` is a two-line card (label above the choice, its `meta` on the right).
+   */
+  variant?: 'field' | 'pill' | 'tile';
   disabled?: boolean;
   /** Applied to the wrapper. */
   className?: string;
@@ -84,15 +89,32 @@ export function Select<T extends string | number>({
         onClick={() => setOpen(true)}
         className={clsx(
           'flex w-full items-center justify-between gap-2 border text-left transition-colors duration-200 ease-out focus-visible:border-primary focus-visible:shadow-focus focus-visible:outline-none disabled:opacity-50',
-          variant === 'field'
-            ? 'h-button-lg rounded-full border-border bg-surface-elevated pr-4 pl-4.5 text-base'
-            : 'h-11 rounded-full border-border bg-surface px-4 text-label hover:text-text',
+          variant === 'field' &&
+            'h-button-lg rounded-full border-border bg-surface-elevated pr-4 pl-4.5 text-base',
+          variant === 'pill' &&
+            'h-11 rounded-full border-border bg-surface px-4 text-label hover:text-text',
+          variant === 'tile' &&
+            'min-h-17 gap-3.5 rounded-choice border-border bg-surface px-4.5',
           selected ? 'text-text' : 'text-subtle'
         )}
       >
-        <span className="min-w-0 truncate">
-          {selected?.label ?? placeholder}
-        </span>
+        {variant === 'tile' ? (
+          <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="text-caption text-muted">{label}</span>
+            <span className="truncate text-heading">
+              {selected?.label ?? placeholder}
+            </span>
+          </span>
+        ) : (
+          <span className="min-w-0 truncate">
+            {selected?.label ?? placeholder}
+          </span>
+        )}
+        {variant === 'tile' && selected?.meta && (
+          <span className="shrink-0 text-label tabular-nums text-muted">
+            {selected.meta}
+          </span>
+        )}
         <ChevronDownIcon
           size={ICON.size.row}
           strokeWidth={ICON.stroke.idle}
@@ -131,7 +153,12 @@ export function Select<T extends string | number>({
                       : 'text-soft hover:bg-surface'
                   )}
                 >
-                  <span className="min-w-0">{option.label}</span>
+                  <span className="min-w-0 flex-1">{option.label}</span>
+                  {option.meta && (
+                    <span className="shrink-0 text-label tabular-nums text-muted">
+                      {option.meta}
+                    </span>
+                  )}
                   {isSelected && (
                     <CheckIcon
                       size={ICON.size.ui}
