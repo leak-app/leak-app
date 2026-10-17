@@ -2,13 +2,14 @@ import {
   APP_NAME,
   APP_URL,
   CONTACT_EMAIL,
-  LEGAL_UPDATED_LABEL,
 } from '@/shared/configs/app-info.config';
 import type { LegalDocumentModel } from '@/shared/ui';
 
+const PRIVACY_UPDATED_LABEL = 'Cập nhật lần cuối: 17 tháng 10, 2026';
+
 export const PRIVACY_DOCUMENT: LegalDocumentModel = {
   title: 'Chính sách quyền riêng tư',
-  updatedAtLabel: LEGAL_UPDATED_LABEL,
+  updatedAtLabel: PRIVACY_UPDATED_LABEL,
   intro: `${APP_NAME} (“chúng tôi”) là ứng dụng quản lý chi tiêu cá nhân tại ${APP_URL}. Chính sách này giải thích chúng tôi thu thập những dữ liệu nào, dùng vào việc gì, chia sẻ với ai và bạn có những quyền gì đối với dữ liệu của mình.`,
   sections: [
     {
@@ -62,20 +63,35 @@ export const PRIVACY_DOCUMENT: LegalDocumentModel = {
       ],
     },
     {
+      id: 'quick-log-ai',
+      heading: '5. Nhập nhanh giao dịch và Gemini của Google',
+      paragraphs: [
+        'Ô nhập nhanh cho phép bạn gõ một câu như "hai lăm nghìn xe ôm" để điền sẵn biểu mẫu giao dịch. Phần lớn câu được ứng dụng tự đọc ngay trên máy chủ của chúng tôi. Chỉ khi ứng dụng không tự xác định được số tiền hoặc danh mục, chúng tôi mới nhờ Gemini API của Google đọc giúp câu đó.',
+      ],
+      items: [
+        'Dữ liệu được gửi đi: chính câu bạn vừa gõ và tên các danh mục của bạn. Chúng tôi không gửi ví, số dư, email, lịch sử giao dịch hay bất kỳ thông tin nào khác.',
+        'Gemini chỉ trả về số tiền, loại giao dịch và tên một danh mục có sẵn của bạn. Kết quả chỉ điền sẵn vào biểu mẫu để bạn xem lại; không có giao dịch nào được lưu cho tới khi bạn bấm lưu.',
+        'Google lưu lời nhắc và phản hồi trong một thời gian giới hạn để phát hiện lạm dụng và có thể xử lý chúng ở các quốc gia khác. Chúng tôi dùng khóa API của gói trả phí, theo đó Google cho biết không dùng nội dung này để huấn luyện mô hình của họ.',
+        'Chúng tôi không ghi câu bạn gõ vào nhật ký máy chủ khi gọi Gemini, và giới hạn số lần gọi của mỗi tài khoản.',
+        'Bạn có thể tránh việc này hoàn toàn bằng cách không dùng ô nhập nhanh và điền biểu mẫu thủ công. Vì câu được gửi đi nguyên văn, đừng gõ tên người, số tài khoản hay thông tin nhạy cảm vào ô nhập nhanh.',
+      ],
+    },
+    {
       id: 'sharing',
-      heading: '5. Chia sẻ dữ liệu',
+      heading: '6. Chia sẻ dữ liệu',
       paragraphs: [
         'Chúng tôi không bán hay cho thuê dữ liệu cá nhân. Dữ liệu chỉ được xử lý bởi các bên sau khi thật sự cần thiết:',
       ],
       items: [
         'Google: cung cấp đăng nhập bằng Google và, nếu bạn bật, tính năng xuất sang Google Sheets. Phông chữ của ứng dụng được tải từ Google Fonts, nên trình duyệt của bạn gửi yêu cầu (gồm địa chỉ IP) tới Google khi mở trang.',
+        'Google (Gemini API): đọc giúp câu nhập nhanh mà ứng dụng không tự hiểu được, như mô tả ở mục 5.',
         'Nhà cung cấp dịch vụ gửi email: chỉ để gửi thư đặt lại mật khẩu và thông báo tài khoản.',
         'Cơ quan nhà nước có thẩm quyền, khi pháp luật yêu cầu.',
       ],
     },
     {
       id: 'security',
-      heading: '6. Lưu trữ và bảo mật',
+      heading: '7. Lưu trữ và bảo mật',
       items: [
         'Dữ liệu được truyền qua kết nối HTTPS.',
         'Mật khẩu được băm một chiều; phiên đăng nhập có thời hạn và bạn có thể thu hồi từng thiết bị trong phần Hồ sơ.',
@@ -87,7 +103,7 @@ export const PRIVACY_DOCUMENT: LegalDocumentModel = {
     },
     {
       id: 'retention',
-      heading: '7. Thời gian lưu giữ và xóa dữ liệu',
+      heading: '8. Thời gian lưu giữ và xóa dữ liệu',
       items: [
         'Chúng tôi lưu dữ liệu trong thời gian tài khoản của bạn còn hoạt động.',
         'Khi bạn xóa giao dịch, ví hoặc danh mục trong ứng dụng, mục đó được đánh dấu là đã xóa và ẩn khỏi giao diện, nhưng vẫn được lưu để số dư và báo cáo luôn nhất quán.',
@@ -98,28 +114,28 @@ export const PRIVACY_DOCUMENT: LegalDocumentModel = {
     },
     {
       id: 'rights',
-      heading: '8. Quyền của bạn',
+      heading: '9. Quyền của bạn',
       paragraphs: [
         `Bạn có quyền truy cập và nhận bản sao dữ liệu, chỉnh sửa dữ liệu không chính xác, yêu cầu xóa dữ liệu, rút lại sự đồng ý, và phản đối hoặc hạn chế việc xử lý dữ liệu. Hãy gửi yêu cầu tới ${CONTACT_EMAIL}; chúng tôi có thể cần xác minh danh tính của bạn trước khi thực hiện.`,
       ],
     },
     {
       id: 'children',
-      heading: '9. Trẻ em',
+      heading: '10. Trẻ em',
       paragraphs: [
         `${APP_NAME} không dành cho người dưới 16 tuổi và chúng tôi không cố ý thu thập dữ liệu của trẻ em. Nếu bạn cho rằng một trẻ em đã tạo tài khoản, hãy liên hệ để chúng tôi xóa dữ liệu đó.`,
       ],
     },
     {
       id: 'changes',
-      heading: '10. Thay đổi chính sách',
+      heading: '11. Thay đổi chính sách',
       paragraphs: [
         'Khi chính sách thay đổi, chúng tôi cập nhật ngày ở đầu trang. Với thay đổi quan trọng, chúng tôi sẽ thông báo trong ứng dụng hoặc qua email.',
       ],
     },
     {
       id: 'contact',
-      heading: '11. Liên hệ',
+      heading: '12. Liên hệ',
       paragraphs: [
         `Mọi câu hỏi về quyền riêng tư, vui lòng gửi email tới ${CONTACT_EMAIL}.`,
       ],
@@ -128,6 +144,6 @@ export const PRIVACY_DOCUMENT: LegalDocumentModel = {
 };
 
 export const PRIVACY_PAGE_DESCRIPTION =
-  'Chính sách quyền riêng tư của Leak App: dữ liệu chúng tôi thu thập, cách sử dụng, chia sẻ, lưu giữ và các quyền của bạn, gồm cả dữ liệu từ đăng nhập Google.';
+  'Chính sách quyền riêng tư của Leak App: dữ liệu chúng tôi thu thập, cách sử dụng, chia sẻ, lưu giữ và các quyền của bạn, gồm cả dữ liệu từ đăng nhập Google và nhập nhanh bằng Gemini.';
 
 export const PRIVACY_PAGE_TITLE = `${PRIVACY_DOCUMENT.title} | ${APP_NAME}`;

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import type { QuickLogDraftModel } from '@/entities/transaction';
 import { Numpad } from '@/shared/ui';
 
 import { EMPTY_CATEGORY_TEXT } from '../lib/deserialize';
@@ -11,9 +12,14 @@ import { TransactionTypeToggle } from './TransactionTypeToggle';
 import { WalletChip } from './WalletChip';
 import { WalletPickerSheet } from './WalletPickerSheet';
 
-export function AddTransactionForm() {
+interface Props {
+  /** Pre-fills the form; pass a new `key` to apply a different draft. */
+  draft?: QuickLogDraftModel;
+}
+
+export function AddTransactionForm({ draft }: Props) {
   const navigate = useNavigate();
-  const form = useAddTransactionForm();
+  const form = useAddTransactionForm(draft);
   const [pickerOpen, setPickerOpen] = useState(false);
 
   return (
@@ -87,7 +93,17 @@ export function AddTransactionForm() {
           onSelect={form.setCategoryId}
           isLoading={form.categoriesLoading}
           emptyText={EMPTY_CATEGORY_TEXT[form.type]}
+          highlight={form.categoryUnresolved}
         />
+
+        {form.unresolvedText && (
+          <p
+            role="status"
+            className="px-6 text-center text-xs text-primary font-medium"
+          >
+            {form.unresolvedText}
+          </p>
+        )}
 
         {form.errorText && (
           <div

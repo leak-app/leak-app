@@ -14,6 +14,7 @@ import { deserialize } from '../lib/deserialize';
 import type {
   CreateTransactionParamsModel,
   GetTransactionsQueryParamsModel,
+  QuickLogDraftModel,
   TransactionListResponseModel,
   TransactionModel,
 } from '../model/types';
@@ -77,6 +78,20 @@ export function useAddTransaction() {
       queryClient.invalidateQueries({ queryKey: ['wallets'] });
       queryClient.invalidateQueries({ queryKey: ['report-overview'] });
       queryClient.invalidateQueries({ queryKey: ['reclaim-offer'] });
+    },
+  });
+}
+
+export function useParseTransaction() {
+  return useMutation<QuickLogDraftModel, Error, string>({
+    mutationFn: async (text) => {
+      const response = await apiClient
+        .post<BaseResponseModel<QuickLogDraftModel>>('/transactions/parse', {
+          text,
+        })
+        .then((res) => res.data);
+      if (!response.data) throw new Error('Empty parse response');
+      return response.data;
     },
   });
 }

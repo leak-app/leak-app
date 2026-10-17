@@ -6,6 +6,7 @@ export {
 export {
   useAddTransaction,
   useInfiniteTransactions,
+  useParseTransaction,
 } from './api/transactions.api';
 export {
   LEAK_REASON_LABELS,
@@ -14,11 +15,13 @@ export {
   OUTCOME_OPTIONS,
   parseSpendOutcome,
 } from './lib/outcome';
+export { describeUnresolved } from './lib/quickLogDraft';
 export type {
   CreateTransactionParamsModel,
   GetTransactionsQueryParamsModel,
   LeakReason,
   OutcomeIconName,
+  QuickLogDraftModel,
   ReflectionQueueModel,
   ReviewOutcomeParamsModel,
   ReviewableOutcome,

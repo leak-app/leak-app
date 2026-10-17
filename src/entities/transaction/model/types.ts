@@ -54,6 +54,17 @@ export interface CreateTransactionParamsModel {
   occurredOn?: string;
 }
 
+/** What the parser could read out of a typed phrase; nothing is saved. */
+export interface QuickLogDraftModel {
+  amount: number | null;
+  type: TransactionType;
+  categoryId: string | null;
+  accountId: string | null;
+  description: string;
+  /** Fields the parser would not guess; the form leaves them for the user. */
+  unresolved: Array<'amount' | 'category'>;
+}
+
 export interface GetTransactionsQueryParamsModel {
   search?: string;
   page?: number;

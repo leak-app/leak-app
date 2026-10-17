@@ -9,6 +9,8 @@ interface Props {
   onSelect: (id: string) => void;
   isLoading: boolean;
   emptyText: string;
+  /** The quick-log draft left the category open: mark the choices. */
+  highlight?: boolean;
 }
 
 function Wrapper({ children }: { children: React.ReactNode }) {
@@ -25,6 +27,7 @@ export function CategorySelector({
   onSelect,
   isLoading,
   emptyText,
+  highlight = false,
 }: Props) {
   if (isLoading) {
     return (
@@ -64,7 +67,9 @@ export function CategorySelector({
               'px-5 py-2.5 rounded-full flex items-center gap-2 text-sm font-semibold transition-all border whitespace-nowrap active:scale-95 duration-200',
               isSelected
                 ? 'bg-primary/10 border-primary text-primary shadow-[0_0_0.75rem] shadow-primary/10'
-                : 'bg-surface border-outline/10 text-on-surface-variant hover:bg-surface-bright'
+                : highlight
+                  ? 'bg-surface border-dashed border-primary/60 text-on-surface-variant hover:bg-surface-bright'
+                  : 'bg-surface border-outline/10 text-on-surface-variant hover:bg-surface-bright'
             )}
           >
             {cat.emoji && <span className="text-base">{cat.emoji}</span>}

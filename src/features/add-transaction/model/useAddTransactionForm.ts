@@ -3,7 +3,9 @@ import { useMemo, useState } from 'react';
 
 import { useCategories, type CategoryModel } from '@/entities/category';
 import {
+  describeUnresolved,
   useAddTransaction,
+  type QuickLogDraftModel,
   type TransactionType,
 } from '@/entities/transaction';
 import {
@@ -22,6 +24,7 @@ import {
   categoriesForType,
   formatAmountDisplay,
 } from '../lib/deserialize';
+import { initialFormState } from '../lib/draftState';
 
 export interface AddTransactionFormState {
   type: TransactionType;
@@ -38,6 +41,9 @@ export interface AddTransactionFormState {
   categories: CategoryModel[];
   categoriesLoading: boolean;
   activeCategoryId: string;
+  /** "Chưa xác định: ..." while a field from the quick-log draft is still open. */
+  unresolvedText: string | null;
+  categoryUnresolved: boolean;
   setCategoryId: (id: string) => void;
   wallets: WalletModel[];
   selectedWallet?: WalletModel;
@@ -48,15 +54,25 @@ export interface AddTransactionFormState {
   errorText: string | null;
 }
 
-export function useAddTransactionForm(): AddTransactionFormState {
-  const [type, setTypeState] = useState<TransactionType>('EXPENSE');
-  const [amount, setAmount] = useState('0');
-  const [description, setDescription] = useState('');
+export function useAddTransactionForm(
+  draft?: QuickLogDraftModel
+): AddTransactionFormState {
+  // Read once: the page re-mounts the form (new key) for every new draft.
+  const [initial] = useState(() => initialFormState(draft));
+  const [type, setTypeState] = useState<TransactionType>(initial.type);
+  const [amount, setAmount] = useState(initial.amount);
+  const [description, setDescription] = useState(initial.description);
   const [occurredOn, setOccurredOn] = useState(() =>
     dayjs().format('YYYY-MM-DD')
   );
-  const [categoryId, setCategoryId] = useState('');
-  const [walletId, setWalletId] = useState<string | null>(readLastWalletId);
+  const [categoryId, setCategoryIdState] = useState(initial.categoryId);
+  // True until the user picks a category themselves: no first-category guess.
+  const [categoryUnresolved, setCategoryUnresolved] = useState(
+    initial.categoryUnresolved
+  );
+  const [walletId, setWalletId] = useState<string | null>(
+    () => initial.walletId ?? readLastWalletId()
+  );
 
   const { data: allCategories = [], isLoading: categoriesLoading } =
     useCategories();
@@ -68,18 +84,34 @@ export function useAddTransactionForm(): AddTransactionFormState {
     [allCategories, type]
   );
   // A stale selection (other type, deleted) falls back to the first listed category.
-  const activeCategoryId = categories.some((c) => c.id === categoryId)
-    ? categoryId
-    : (categories[0]?.id ?? '');
+  const activeCategoryId = categoryUnresolved
+    ? ''
+    : categories.some((c) => c.id === categoryId)
+      ? categoryId
+      : (categories[0]?.id ?? '');
   const selectedWallet = pickDefaultWallet(wallets, walletId);
 
   const numericAmount = parseInt(amount, 10) || 0;
   const dateChoice = describeDateChoice(occurredOn);
 
+  const setCategoryId = (id: string) => {
+    setCategoryIdState(id);
+    setCategoryUnresolved(false);
+  };
+
   const setType = (next: TransactionType) => {
     setTypeState(next);
     setCategoryId('');
   };
+
+  const unresolvedText = describeUnresolved({
+    unresolved: [
+      ...(draft?.unresolved.includes('amount') && numericAmount === 0
+        ? (['amount'] as const)
+        : []),
+      ...(categoryUnresolved ? (['category'] as const) : []),
+    ],
+  });
 
   const save = (onSaved: () => void) => {
     if (numericAmount <= 0 || !activeCategoryId) return;
@@ -117,6 +149,8 @@ export function useAddTransactionForm(): AddTransactionFormState {
     categories,
     categoriesLoading,
     activeCategoryId,
+    unresolvedText,
+    categoryUnresolved,
     setCategoryId,
     wallets,
     selectedWallet,
