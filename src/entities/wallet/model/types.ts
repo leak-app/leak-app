@@ -56,6 +56,8 @@ export interface WalletModel {
   compactBalanceText: string;
   typeLabel: string;
   isNegative: boolean;
+  /** "Cập nhật số dư" for investment wallets, "Điều chỉnh số dư" for liquid ones. */
+  balanceActionLabel: string;
   /** null for wallets that are not investment wallets. */
   valuation: WalletValuationModel | null;
 }

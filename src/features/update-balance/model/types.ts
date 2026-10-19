@@ -41,6 +41,13 @@ export interface BalancePreviewContextModel {
   lastDayText: string | null;
 }
 
+/** What saving would do to a liquid wallet; there is no profit to show. */
+export interface LiquidAdjustmentViewModel {
+  /** "+200.000₫" or "−300.000₫", the change to the wallet balance. */
+  differenceText: string;
+  toneClass: string;
+}
+
 /** Texts and classes of the preview card. */
 export interface BalancePreviewViewModel {
   /** "Lãi", "Lỗ", "Không đổi" or "Số dư mốc". */

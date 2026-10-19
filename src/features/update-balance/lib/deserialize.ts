@@ -4,6 +4,7 @@ import type {
   BalancePreviewContextModel,
   BalancePreviewModel,
   BalancePreviewViewModel,
+  LiquidAdjustmentViewModel,
 } from '../model/types';
 
 const GAIN_CLASS = 'text-primary';
@@ -62,5 +63,15 @@ export function deserializeBalancePreview(
         ? `${returnText} · ước tính, tính từ lúc mở ví.`
         : 'Tính từ lúc mở ví.'
       : null,
+  };
+}
+
+export function deserializeLiquidAdjustment(
+  adjustment: number
+): LiquidAdjustmentViewModel {
+  return {
+    differenceText: formatSignedVnd(adjustment),
+    toneClass:
+      adjustment > 0 ? GAIN_CLASS : adjustment < 0 ? LOSS_CLASS : FLAT_CLASS,
   };
 }

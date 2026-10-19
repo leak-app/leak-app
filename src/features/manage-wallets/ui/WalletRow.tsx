@@ -1,4 +1,5 @@
 import type { WalletModel } from '@/entities/wallet';
+import { useBalanceVisibility } from '@/shared/hooks';
 import {
   EllipsisVerticalIcon,
   TrendingUpIcon,
@@ -16,6 +17,7 @@ interface Props {
 export function WalletRow({ wallet, onOpen, onMore, onUpdateBalance }: Props) {
   const Icon = wallet.type === 'INVESTMENT' ? TrendingUpIcon : WalletIcon;
   const { valuation } = wallet;
+  const { mask } = useBalanceVisibility();
   return (
     <li className="rounded-2xl bg-surface/60 border border-outline/10">
       <div className="flex items-center gap-1">
@@ -33,7 +35,7 @@ export function WalletRow({ wallet, onOpen, onMore, onUpdateBalance }: Props) {
             {wallet.name}
           </span>
           <span className="text-sm font-bold text-on-surface tabular-nums">
-            {wallet.balanceText}
+            {mask(wallet.balanceText)}
           </span>
         </button>
         <button
@@ -51,7 +53,7 @@ export function WalletRow({ wallet, onOpen, onMore, onUpdateBalance }: Props) {
             {valuation.hasUpdates && (
               <>
                 <span className={`font-semibold ${valuation.toneClass}`}>
-                  {valuation.profitWord} {valuation.profitText}
+                  {valuation.profitWord} {mask(valuation.profitText)}
                 </span>
                 {valuation.returnText && ` · ${valuation.returnText}`}
                 {' · '}

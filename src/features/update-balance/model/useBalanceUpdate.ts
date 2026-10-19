@@ -10,12 +10,17 @@ import {
 } from '@/shared/lib';
 
 import { useCreateValuation } from '../api/valuations.api';
-import { deserializeBalancePreview } from '../lib/deserialize';
-import { computeBalancePreview } from '../lib/preview';
+import {
+  deserializeBalancePreview,
+  deserializeLiquidAdjustment,
+} from '../lib/deserialize';
+import { computeBalancePreview, computeLiquidAdjustment } from '../lib/preview';
 
 export function useBalanceUpdate(wallet: WalletModel, onDone: () => void) {
+  // A liquid wallet has no profit: the entered balance becomes its new starting point.
+  const isLiquid = wallet.type === 'LIQUID';
   const lastBalance = wallet.valuation?.lastBalance ?? null;
-  const isFirstUpdate = lastBalance === null;
+  const isFirstUpdate = !isLiquid && lastBalance === null;
 
   const [amountText, setAmountText] = useState('');
   // The first update defaults to a baseline: the wallet may have been stale for months.
@@ -23,13 +28,19 @@ export function useBalanceUpdate(wallet: WalletModel, onDone: () => void) {
   const mutation = useCreateValuation();
 
   const entered = parseAmountInput(amountText);
-  const preview = computeBalancePreview({
-    currentBalance: wallet.currentBalance,
-    initialBalance: wallet.initialBalance,
-    lastBalance,
-    entered: entered === null ? null : Math.abs(entered),
-    asBaseline: isFirstUpdate && asBaseline,
-  });
+  const absEntered = entered === null ? null : Math.abs(entered);
+  const preview = isLiquid
+    ? null
+    : computeBalancePreview({
+        currentBalance: wallet.currentBalance,
+        initialBalance: wallet.initialBalance,
+        lastBalance,
+        entered: absEntered,
+        asBaseline: isFirstUpdate && asBaseline,
+      });
+  const liquidAdjustment = isLiquid
+    ? computeLiquidAdjustment(wallet.currentBalance, absEntered)
+    : null;
 
   const setAmount = (text: string) => {
     const parsed = parseAmountInput(text);
@@ -53,7 +64,7 @@ export function useBalanceUpdate(wallet: WalletModel, onDone: () => void) {
         walletId: wallet.id,
         balance: Math.abs(entered),
         expectedBalance: wallet.currentBalance,
-        asBaseline: isFirstUpdate && asBaseline,
+        asBaseline: isLiquid || (isFirstUpdate && asBaseline),
       },
       { onSuccess: onDone }
     );
@@ -63,6 +74,7 @@ export function useBalanceUpdate(wallet: WalletModel, onDone: () => void) {
     amountText,
     setAmount,
     pressKey,
+    isLiquid,
     isFirstUpdate,
     asBaseline,
     setAsBaseline,
@@ -77,6 +89,11 @@ export function useBalanceUpdate(wallet: WalletModel, onDone: () => void) {
           lastDayText: wallet.valuation?.lastDayText ?? null,
         })
       : null,
+    /** Liquid wallets only: how far the typed balance is from what the app holds. */
+    liquidAdjustment:
+      liquidAdjustment === null
+        ? null
+        : deserializeLiquidAdjustment(liquidAdjustment),
     canSubmit: entered !== null && !mutation.isPending,
     isSaving: mutation.isPending,
     submit,

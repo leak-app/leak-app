@@ -30,3 +30,11 @@ export function computeBalancePreview(
     isBaseline,
   };
 }
+
+/** A liquid wallet has no profit: the entered balance is the new starting point. */
+export function computeLiquidAdjustment(
+  currentBalance: number,
+  entered: number | null
+): number | null {
+  return entered === null ? null : entered - currentBalance;
+}

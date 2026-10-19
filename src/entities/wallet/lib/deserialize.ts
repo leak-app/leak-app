@@ -73,6 +73,8 @@ export function deserializeWallet(raw: RawWalletModel): WalletModel {
     compactBalanceText: signed(formatCompactVnd, currentBalance),
     typeLabel: WALLET_TYPE_LABELS[raw.type],
     isNegative: currentBalance < 0,
+    balanceActionLabel:
+      raw.type === 'LIQUID' ? 'Điều chỉnh số dư' : 'Cập nhật số dư',
     valuation: raw.valuation ? deserializeValuation(raw.valuation) : null,
   };
 }

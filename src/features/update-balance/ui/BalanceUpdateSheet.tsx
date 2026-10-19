@@ -8,12 +8,15 @@ import { BalancePreviewCard } from './BalancePreviewCard';
 import { ModeChoice } from './ModeChoice';
 
 interface BalanceUpdateSheetProps {
-  /** The investment wallet being updated; the sheet is open while it is set. */
+  /** The wallet being updated; the sheet is open while it is set. */
   wallet: WalletModel | null;
   onClose: () => void;
 }
 
-/** Asks for the wallet's new total and shows the profit it implies before saving. */
+/**
+ * Asks for the wallet's new total. An investment wallet shows the profit it implies;
+ * a liquid wallet just takes the number as its new starting point.
+ */
 export function BalanceUpdateSheet({
   wallet,
   onClose,
@@ -22,8 +25,10 @@ export function BalanceUpdateSheet({
     <BottomSheet
       open={!!wallet}
       onClose={onClose}
-      title={wallet ? `Cập nhật số dư · ${wallet.name}` : undefined}
-      ariaLabel="Cập nhật số dư"
+      title={
+        wallet ? `${wallet.balanceActionLabel} · ${wallet.name}` : undefined
+      }
+      ariaLabel={wallet?.balanceActionLabel ?? 'Cập nhật số dư'}
       size="tall"
     >
       {/* Keyed so the form resets when switching between wallets. */}
@@ -59,7 +64,12 @@ function BalanceUpdateForm({
         form.submit();
       }}
     >
-      {form.isFirstUpdate ? (
+      {form.isLiquid ? (
+        <p className="text-label leading-normal font-normal text-muted">
+          Nhập số dư {wallet.name} đang có thực tế. Leak sẽ lấy con số này làm
+          mốc mới và tính các khoản thu chi từ đây.
+        </p>
+      ) : form.isFirstUpdate ? (
         <span className="self-start rounded-full bg-secondary-tint px-2.5 py-1 text-tab font-semibold text-secondary">
           Lần đầu cho ví này
         </span>
@@ -108,6 +118,15 @@ function BalanceUpdateForm({
       )}
 
       {form.preview && <BalancePreviewCard preview={form.preview} />}
+
+      {form.liquidAdjustment && (
+        <Card className="flex items-center justify-between text-description">
+          <span className="text-muted">Chênh lệch so với trong ứng dụng</span>
+          <span className={`font-semibold ${form.liquidAdjustment.toneClass}`}>
+            {form.liquidAdjustment.differenceText}
+          </span>
+        </Card>
+      )}
 
       {form.errorText && (
         <Card

@@ -1,6 +1,8 @@
 import { clsx } from 'clsx';
 import { useEffect, useRef, type ReactNode } from 'react';
 
+import { useSheetDrag } from './useSheetDrag';
+
 interface BottomSheetProps {
   open: boolean;
   onClose: () => void;
@@ -16,7 +18,10 @@ interface BottomSheetProps {
   children: ReactNode;
 }
 
-/** DaisyUI bottom modal driven by the `open` prop. Children mount only while open. */
+/**
+ * DaisyUI bottom modal driven by the `open` prop. Children mount only while open.
+ * Dragging the handle down dismisses it, like Escape or a tap on the backdrop.
+ */
 export function BottomSheet({
   open,
   onClose,
@@ -26,6 +31,8 @@ export function BottomSheet({
   children,
 }: BottomSheetProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const handleDrag = useSheetDrag(boxRef, () => dialogRef.current?.close());
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -50,16 +57,21 @@ export function BottomSheet({
       }}
     >
       <div
+        ref={boxRef}
         className={clsx(
           'modal-box rounded-t-sheet border-t border-border bg-sheet px-6 pt-4 pb-[max(2rem,env(safe-area-inset-bottom))]',
           size === 'tall' &&
             'flex h-[calc(100dvh-5.75rem)] max-h-[calc(100dvh-5.75rem)] flex-col'
         )}
       >
+        {/* The grab area is 44px tall; only the bar inside it is drawn. */}
         <div
-          className="mx-auto mb-4 h-1 w-10 rounded-full bg-white/20"
+          className="-mt-4 -mb-2 flex h-11 cursor-grab touch-none items-start justify-center pt-4 active:cursor-grabbing"
           aria-hidden="true"
-        />
+          {...handleDrag}
+        >
+          <div className="h-1 w-10 rounded-full bg-white/20" />
+        </div>
         {title && (
           <h3 className="mb-4 text-section-title text-text">{title}</h3>
         )}

@@ -30,15 +30,13 @@ export function WalletActionsSheet({
     >
       {wallet && (
         <div className="flex flex-col gap-2">
-          {wallet.valuation && (
-            <button
-              type="button"
-              className="btn btn-ghost min-h-12 justify-start"
-              onClick={() => onUpdateBalance(wallet)}
-            >
-              Cập nhật số dư
-            </button>
-          )}
+          <button
+            type="button"
+            className="btn btn-ghost min-h-12 justify-start"
+            onClick={() => onUpdateBalance(wallet)}
+          >
+            {wallet.balanceActionLabel}
+          </button>
           {canTransfer && (
             <button
               type="button"

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import type { WalletGroupModel, WalletModel } from '@/entities/wallet';
+import { useBalanceVisibility } from '@/shared/hooks';
 
 import { WalletRow } from './WalletRow';
 
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export function WalletGroup({ group, onOpen, onMore, onUpdateBalance }: Props) {
+  const { mask } = useBalanceVisibility();
   return (
     <section className="flex flex-col gap-2">
       <div className="flex items-baseline justify-between px-1">
@@ -25,7 +27,7 @@ export function WalletGroup({ group, onOpen, onMore, onUpdateBalance }: Props) {
           </Link>
         ) : (
           <span className="text-xs text-on-surface-variant tabular-nums">
-            {group.totalText}
+            {mask(group.totalText)}
           </span>
         )}
       </div>

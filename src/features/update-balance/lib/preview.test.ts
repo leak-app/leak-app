@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { computeBalancePreview } from './preview.ts';
+import { computeBalancePreview, computeLiquidAdjustment } from './preview.ts';
 
 const first = {
   currentBalance: 50_000_000, // 45M opening + 5M deposited
@@ -79,4 +79,10 @@ test('no return when there is nothing to divide by', () => {
     asBaseline: false,
   });
   assert.equal(preview?.returnPercent, null);
+});
+
+test('a liquid wallet shows only the change to its balance', () => {
+  assert.equal(computeLiquidAdjustment(1_200_000, null), null);
+  assert.equal(computeLiquidAdjustment(1_200_000, 900_000), -300_000);
+  assert.equal(computeLiquidAdjustment(1_200_000, 1_200_000), 0);
 });
