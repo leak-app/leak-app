@@ -11,6 +11,7 @@ export {
 export { Card } from './card/Card';
 export { Chip } from './chip/Chip';
 export { Choice, type ChoiceTone } from './choice/Choice';
+export { DateChips } from './date-chips/DateChips';
 export { DatePicker } from './date-picker/DatePicker';
 export { EmptyState } from './empty-state/EmptyState';
 export { Input } from './input/Input';
@@ -28,4 +29,5 @@ export {
 } from './outcome-badge/OutcomeBadge';
 export { Select, type SelectOption } from './select/Select';
 export { Switch } from './switch/Switch';
+export { ToastProvider, useToast } from './toast/ToastProvider';
 export { TransactionRow } from './transaction-row/TransactionRow';

@@ -16,7 +16,12 @@ import { GroupedTransactionList } from './GroupedTransactionList';
 import { OutcomeReviewSheet } from './OutcomeReviewSheet';
 import { TransactionFilter } from './TransactionFilter';
 
-export function TransactionList() {
+interface TransactionListProps {
+  /** Called when a row is tapped to be edited; the page decides what opens. */
+  onEditTransaction?: (transaction: TransactionModel) => void;
+}
+
+export function TransactionList({ onEditTransaction }: TransactionListProps) {
   // Filter States
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState<TransactionType | undefined>();
@@ -151,6 +156,7 @@ export function TransactionList() {
         onFetchNextPage={fetchNextPage}
         loadMoreRef={loadMoreRef}
         onOutcomeClick={setReviewTarget}
+        onEdit={onEditTransaction}
       />
     );
   };

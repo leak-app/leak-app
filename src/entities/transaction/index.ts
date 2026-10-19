@@ -4,9 +4,11 @@ export {
   useReviewTransaction,
 } from './api/outcomes.api';
 export {
+  invalidateTransactionQueries,
   useAddTransaction,
   useInfiniteTransactions,
   useParseTransaction,
+  useUpdateTransaction,
 } from './api/transactions.api';
 export {
   LEAK_REASON_LABELS,
@@ -29,6 +31,8 @@ export type {
   TransactionListResponseModel,
   TransactionModel,
   TransactionType,
+  UpdateTransactionParamsModel,
 } from './model/types';
 export { OutcomeIcon } from './ui/OutcomeIcon';
 export { OutcomePicker } from './ui/OutcomePicker';
+export { TransactionTypeToggle } from './ui/TransactionTypeToggle';

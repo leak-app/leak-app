@@ -19,6 +19,8 @@ export interface TransactionModel {
   amount: number;
   type: TransactionType;
   description?: string;
+  /** The stored note, empty when there is none. `description` falls back to the category name for display. */
+  note: string;
   categoryId: string;
   category?: CategoryModel;
   accountId: string;
@@ -26,6 +28,8 @@ export interface TransactionModel {
   userId: string;
   createdAt: string;
   updatedAt: string;
+  /** The local day of `createdAt`, "YYYY-MM-DD"; what the edit form starts from. */
+  occurredOn: string;
   outcome: SpendOutcome;
   leakReason: LeakReason | null;
   reviewedAt: string | null;
@@ -51,6 +55,18 @@ export interface CreateTransactionParamsModel {
   accountId?: string;
   description?: string;
   /** The day it happened, "YYYY-MM-DD"; today when left out. */
+  occurredOn?: string;
+}
+
+export interface UpdateTransactionParamsModel {
+  id: string;
+  amount?: number;
+  type?: TransactionType;
+  categoryId?: string;
+  accountId?: string;
+  /** A blank note clears it. */
+  description?: string;
+  /** "YYYY-MM-DD"; send only when the day changed. */
   occurredOn?: string;
 }
 

@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import type { QuickLogDraftModel } from '@/entities/transaction';
-import { Numpad } from '@/shared/ui';
+import { CategoryChips, EMPTY_CATEGORY_TEXT } from '@/entities/category';
+import {
+  TransactionTypeToggle,
+  type QuickLogDraftModel,
+} from '@/entities/transaction';
+import { WalletChip, WalletPickerSheet } from '@/entities/wallet';
+import { DateChips, Numpad } from '@/shared/ui';
 
-import { EMPTY_CATEGORY_TEXT } from '../lib/deserialize';
 import { useAddTransactionForm } from '../model/useAddTransactionForm';
-import { CategorySelector } from './CategorySelector';
-import { DateChips } from './DateChips';
-import { TransactionTypeToggle } from './TransactionTypeToggle';
-import { WalletChip } from './WalletChip';
-import { WalletPickerSheet } from './WalletPickerSheet';
 
 interface Props {
   /** Pre-fills the form; pass a new `key` to apply a different draft. */
@@ -47,7 +46,7 @@ export function AddTransactionForm({ draft }: Props) {
 
         {form.wallets.length > 1 && (
           <WalletChip
-            wallet={form.selectedWallet}
+            name={form.selectedWallet?.name}
             onClick={() => setPickerOpen(true)}
           />
         )}
@@ -87,7 +86,7 @@ export function AddTransactionForm({ draft }: Props) {
       </div>
 
       <div className="flex flex-col gap-6 mt-6 bg-surface/20 border-t border-outline/5 pt-6 pb-6 rounded-t-[2.5rem]">
-        <CategorySelector
+        <CategoryChips
           categories={form.categories}
           selectedId={form.activeCategoryId}
           onSelect={form.setCategoryId}

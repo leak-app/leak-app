@@ -1,4 +1,4 @@
-import type { TransactionType } from '@/entities/transaction';
+import type { TransactionType } from '../model/types';
 
 const OPTIONS: { value: TransactionType; label: string }[] = [
   { value: 'EXPENSE', label: 'Chi tiêu' },

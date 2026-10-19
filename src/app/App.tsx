@@ -11,6 +11,7 @@ import { GoogleOAuthProvider } from '@/features/auth-with-google';
 import { OnboardingGuard } from '@/features/onboarding';
 import { appConfig } from '@/shared/configs/runtime.config';
 import { RedirectWithSearch } from '@/shared/routing';
+import { ToastProvider } from '@/shared/ui';
 
 const googleClientId = appConfig.googleClientId;
 
@@ -42,14 +43,16 @@ export default function App() {
 
   return (
     <QueryProvider>
-      <AuthProvider>
-        <GoogleOAuthProvider
-          clientId={googleClientId}
-          locale="vi"
-        >
-          <GoogleAccessTokenProvider>{routing}</GoogleAccessTokenProvider>
-        </GoogleOAuthProvider>
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <GoogleOAuthProvider
+            clientId={googleClientId}
+            locale="vi"
+          >
+            <GoogleAccessTokenProvider>{routing}</GoogleAccessTokenProvider>
+          </GoogleOAuthProvider>
+        </AuthProvider>
+      </ToastProvider>
     </QueryProvider>
   );
 }

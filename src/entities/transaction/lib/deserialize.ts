@@ -11,6 +11,7 @@ export function deserialize(raw: TransactionModel): TransactionModel {
     raw.category.emoji = isExpense ? '💸' : '💵';
   }
 
+  raw.note = raw.note ?? raw.description ?? '';
   if (!raw.description) {
     raw.description = raw.category?.name;
   }
@@ -26,6 +27,7 @@ export function deserialize(raw: TransactionModel): TransactionModel {
   raw.isExpense = isExpense;
   raw.amountText = formatVnd(raw.amount);
   raw.signedAmountText = `${isExpense ? '−' : '+'} ${raw.amountText}`;
+  raw.occurredOn = dayjs(raw.createdAt).format('YYYY-MM-DD');
   raw.timeText = dayjs(raw.createdAt).format('HH:mm');
   raw.walletName = raw.account?.name ?? '';
   raw.metaText = raw.walletName

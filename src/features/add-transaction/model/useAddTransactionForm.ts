@@ -1,7 +1,11 @@
 import dayjs from 'dayjs';
 import { useMemo, useState } from 'react';
 
-import { useCategories, type CategoryModel } from '@/entities/category';
+import {
+  categoriesForType,
+  useCategories,
+  type CategoryModel,
+} from '@/entities/category';
 import {
   describeUnresolved,
   useAddTransaction,
@@ -16,14 +20,13 @@ import {
   type WalletModel,
 } from '@/entities/wallet';
 import { getApiErrorMessage } from '@/shared/api';
-import { applyNumpadKey } from '@/shared/lib';
-
-import { describeDateChoice, type DateChoiceModel } from '../lib/dateChoice';
 import {
-  AMOUNT_LABELS,
-  categoriesForType,
-  formatAmountDisplay,
-} from '../lib/deserialize';
+  applyNumpadKey,
+  describeDateChoice,
+  type DateChoiceModel,
+} from '@/shared/lib';
+
+import { AMOUNT_LABELS, formatAmountDisplay } from '../lib/deserialize';
 import { initialFormState } from '../lib/draftState';
 
 export interface AddTransactionFormState {

@@ -43,7 +43,11 @@ export function BottomSheet({
       ref={dialogRef}
       className="modal modal-bottom"
       aria-label={title ?? ariaLabel}
-      onClose={onClose}
+      // React's onClose bubbles, unlike the browser's: a sheet opened inside
+      // another one must not close its parent when it closes itself.
+      onClose={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
     >
       <div
         className={clsx(

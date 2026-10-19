@@ -20,3 +20,5 @@ export type {
   WalletSummaryModel,
   WalletValuationModel,
 } from './model/types';
+export { WalletChip } from './ui/WalletChip';
+export { WalletPickerSheet } from './ui/WalletPickerSheet';

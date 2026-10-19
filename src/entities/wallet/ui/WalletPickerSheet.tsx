@@ -1,6 +1,7 @@
-import type { WalletModel } from '@/entities/wallet';
 import { CheckIcon } from '@/shared/icons';
 import { BottomSheet } from '@/shared/ui';
+
+import type { WalletModel } from '../model/types';
 
 interface Props {
   open: boolean;

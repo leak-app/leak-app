@@ -2,6 +2,7 @@ import {
   useInfiniteQuery,
   useMutation,
   useQueryClient,
+  type QueryClient,
 } from '@tanstack/react-query';
 
 import {
@@ -17,8 +18,24 @@ import type {
   QuickLogDraftModel,
   TransactionListResponseModel,
   TransactionModel,
+  UpdateTransactionParamsModel,
 } from '../model/types';
 import { REFLECTION_QUEUE_KEY } from './outcomes.api';
+
+/**
+ * Everything computed from transactions. A change to a transaction must refresh
+ * all of it: lists, wallet balances, reports, the leak rate, budgets and reclaim.
+ */
+export function invalidateTransactionQueries(queryClient: QueryClient) {
+  queryClient.invalidateQueries({ queryKey: ['transactions'] });
+  queryClient.invalidateQueries({ queryKey: ['leak-rate'] });
+  queryClient.invalidateQueries({ queryKey: REFLECTION_QUEUE_KEY });
+  queryClient.invalidateQueries({ queryKey: ['wallets'] });
+  queryClient.invalidateQueries({ queryKey: ['report-overview'] });
+  queryClient.invalidateQueries({ queryKey: ['reclaim-offer'] });
+  queryClient.invalidateQueries({ queryKey: ['budgets'] });
+  queryClient.invalidateQueries({ queryKey: ['budget-report'] });
+}
 
 export function useInfiniteTransactions(
   params: Omit<GetTransactionsQueryParamsModel, 'page'> = {}
@@ -71,14 +88,28 @@ export function useAddTransaction() {
         .post<BaseResponseModel<TransactionModel>>('/transactions', params)
         .then((res) => res.data);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      queryClient.invalidateQueries({ queryKey: ['leak-rate'] });
-      queryClient.invalidateQueries({ queryKey: REFLECTION_QUEUE_KEY });
-      queryClient.invalidateQueries({ queryKey: ['wallets'] });
-      queryClient.invalidateQueries({ queryKey: ['report-overview'] });
-      queryClient.invalidateQueries({ queryKey: ['reclaim-offer'] });
+    onSuccess: () => invalidateTransactionQueries(queryClient),
+  });
+}
+
+export function useUpdateTransaction() {
+  const queryClient = useQueryClient();
+
+  return useMutation<TransactionModel, Error, UpdateTransactionParamsModel>({
+    mutationFn: async ({ id, ...changes }) => {
+      const response = await apiClient
+        .patch<BaseResponseModel<TransactionModel>>(
+          `/transactions/${id}`,
+          changes
+        )
+        .then((res) => res.data);
+      if (!response.data) throw new Error('Empty update response');
+      return deserialize(response.data);
     },
+    onSuccess: () => invalidateTransactionQueries(queryClient),
+    // A 404 means it was deleted elsewhere: show the list as it really is.
+    onError: () =>
+      queryClient.invalidateQueries({ queryKey: ['transactions'] }),
   });
 }
 

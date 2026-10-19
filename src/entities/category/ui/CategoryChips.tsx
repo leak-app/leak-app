@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { Link } from 'react-router-dom';
 
-import type { CategoryModel } from '@/entities/category';
+import type { CategoryModel } from '../model/types';
 
 interface Props {
   categories: CategoryModel[];
@@ -11,27 +11,41 @@ interface Props {
   emptyText: string;
   /** The quick-log draft left the category open: mark the choices. */
   highlight?: boolean;
+  /** No side padding, for a container that already has its own. */
+  flush?: boolean;
 }
 
-function Wrapper({ children }: { children: React.ReactNode }) {
+function Wrapper({
+  children,
+  flush,
+}: {
+  children: React.ReactNode;
+  flush: boolean;
+}) {
   return (
-    <div className="w-full overflow-x-auto no-scrollbar scroll-smooth px-6 select-none">
+    <div
+      className={clsx(
+        'w-full overflow-x-auto no-scrollbar scroll-smooth select-none',
+        !flush && 'px-6'
+      )}
+    >
       <div className="flex items-center gap-3">{children}</div>
     </div>
   );
 }
 
-export function CategorySelector({
+export function CategoryChips({
   categories,
   selectedId,
   onSelect,
   isLoading,
   emptyText,
   highlight = false,
+  flush = false,
 }: Props) {
   if (isLoading) {
     return (
-      <Wrapper>
+      <Wrapper flush={flush}>
         <span className="text-xs text-on-surface-variant animate-pulse py-2">
           Đang tải danh mục...
         </span>
@@ -41,7 +55,7 @@ export function CategorySelector({
 
   if (categories.length === 0) {
     return (
-      <Wrapper>
+      <Wrapper flush={flush}>
         <span className="text-xs text-on-surface-variant py-2">
           {emptyText}
         </span>
@@ -56,7 +70,7 @@ export function CategorySelector({
   }
 
   return (
-    <Wrapper>
+    <Wrapper flush={flush}>
       {categories.map((cat: CategoryModel) => {
         const isSelected = selectedId === cat.id;
         return (
