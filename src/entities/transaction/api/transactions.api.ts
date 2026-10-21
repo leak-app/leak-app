@@ -12,6 +12,7 @@ import {
 } from '@/shared/api';
 
 import { deserialize } from '../lib/deserialize';
+import { useBuddyWatch } from '../model/buddyWatch';
 import type {
   CreateTransactionParamsModel,
   GetTransactionsQueryParamsModel,
@@ -35,6 +36,11 @@ export function invalidateTransactionQueries(queryClient: QueryClient) {
   queryClient.invalidateQueries({ queryKey: ['reclaim-offer'] });
   queryClient.invalidateQueries({ queryKey: ['budgets'] });
   queryClient.invalidateQueries({ queryKey: ['budget-report'] });
+}
+
+/** Only the history list: a comment arrived, nothing else changed. */
+export function refreshTransactionList(queryClient: QueryClient) {
+  queryClient.invalidateQueries({ queryKey: ['transactions'] });
 }
 
 export function useInfiniteTransactions(
@@ -88,7 +94,12 @@ export function useAddTransaction() {
         .post<BaseResponseModel<TransactionModel>>('/transactions', params)
         .then((res) => res.data);
     },
-    onSuccess: () => invalidateTransactionQueries(queryClient),
+    onSuccess: (response) => {
+      invalidateTransactionQueries(queryClient);
+      if (response.data?.type === 'EXPENSE') {
+        useBuddyWatch.getState().startWatching(response.data.id);
+      }
+    },
   });
 }
 

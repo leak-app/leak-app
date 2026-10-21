@@ -1,3 +1,4 @@
+import { BuddySettingsCard } from '@/features/buddy-settings';
 import {
   GoogleSheetsSyncCard,
   SheetsReturnAlert,
@@ -24,6 +25,7 @@ export default function Profile() {
           <SheetsReturnAlert />
           <UserIdentity />
           <GoogleSheetsSyncCard />
+          <BuddySettingsCard />
           <ProfileSettingsList />
           <LogoutButton />
         </div>

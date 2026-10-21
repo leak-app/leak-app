@@ -116,7 +116,7 @@ app/
 │   │                             #   reflection-ritual, category-leak-rate, leak-reclaim, report-overview,
 │   │                             #   manage-budget, manage-goals, manage-wallets, manage-categories,
 │   │                             #   transfer-funds, update-balance, investment-overview,
-│   │                             #   sync-google-sheets, manage-sessions, user-profile,
+│   │                             #   sync-google-sheets, manage-sessions, user-profile, buddy-settings, buddy-reaction,
 │   │                             #   auth-by-email, auth-with-google, onboarding
 │   ├── entities/                 # auth, session, user, wallet, category, transaction, transfer,
 │   │                             #   budget, goal, valuation, notification
@@ -151,7 +151,7 @@ Inside a slice, code is split by segment: `ui/` (presentational), `model/` (type
 | Goals      | `/goals`                                                     | Savings goals with deposit, withdraw and history                                        |
 | Investment | `/investment`, `/transfer`                                   | Update an investment wallet's value, see capital vs. profit, move money between wallets |
 | Categories | `/categories`                                                | Manage income, expense and investment categories                                        |
-| Profile    | `/profile`, `/profile/security`, `/profile/sheets-report`    | Account, session list, Google Sheets sync, report template                              |
+| Profile    | `/profile`, `/profile/security`, `/profile/sheets-report`    | Account, session list, Google Sheets sync, AI Buddy mode, report template               |
 
 Old paths such as `/wallet`, `/budget` and `/savings-goals` redirect to the plural routes. In dev only, `/dev/kit` shows every UI kit component in its states.
 
@@ -163,24 +163,25 @@ Version **0.0.5**, in active development. The core loop is complete. The open it
 
 ### Shipped
 
-| Feature                                                           |         State         |
-| :---------------------------------------------------------------- | :-------------------: |
-| Email and Google sign-in, password reset, session list and revoke |          ✅           |
-| Onboarding                                                        |          ✅           |
-| Wallets (liquid and investment) with ledger-backed balances       |          ✅           |
-| Categories with emoji                                             |          ✅           |
-| Transactions: add, edit, delete, filters, infinite scroll         |          ✅           |
-| Quick-log phrase input (`55k phở bò ví tiền mặt` fills the form)  | 🟡 acceptance pending |
-| Reflection ritual (worth it, neutral, leak and reason)            |          ✅           |
-| Leak report: leak rate per category                               |          ✅           |
-| Plug the leak: transfer saved leak money to a goal                |          ✅           |
-| Budgets with threshold progress and setup flow                    |          ✅           |
-| Savings goals with deposit, withdraw, history                     |          ✅           |
-| Transfers between wallets                                         |          ✅           |
-| Investment wallets: balance updates, profit/loss, portfolio view  |       🟢 basic        |
-| Google Sheets sync card and report template                       | 🟡 acceptance pending |
-| Pre-rendered public pages (landing, privacy, terms)               |          ✅           |
-| Docker image with runtime configuration                           |          ✅           |
+| Feature                                                                                                                     |          State           |
+| :-------------------------------------------------------------------------------------------------------------------------- | :----------------------: |
+| Email and Google sign-in, password reset, session list and revoke                                                           |            ✅            |
+| Onboarding                                                                                                                  |            ✅            |
+| Wallets (liquid and investment) with ledger-backed balances                                                                 |            ✅            |
+| Categories with emoji                                                                                                       |            ✅            |
+| Transactions: add, edit, delete, filters, infinite scroll                                                                   |            ✅            |
+| Quick-log phrase input (`55k phở bò ví tiền mặt` fills the form)                                                            |  🟡 acceptance pending   |
+| Reflection ritual (worth it, neutral, leak and reason)                                                                      |            ✅            |
+| Leak report: leak rate per category                                                                                         |            ✅            |
+| Plug the leak: transfer saved leak money to a goal                                                                          |            ✅            |
+| Budgets with threshold progress and setup flow                                                                              |            ✅            |
+| Savings goals with deposit, withdraw, history                                                                               |            ✅            |
+| Transfers between wallets                                                                                                   |            ✅            |
+| Investment wallets: balance updates, profit/loss, portfolio view                                                            |         🟢 basic         |
+| AI Buddy comments under transactions, mode setting (off until the privacy page is live and the API sets `AI_BUDDY_ENABLED`) | 🟡 built, off by default |
+| Google Sheets sync card and report template                                                                                 |  🟡 acceptance pending   |
+| Pre-rendered public pages (landing, privacy, terms)                                                                         |            ✅            |
+| Docker image with runtime configuration                                                                                     |            ✅            |
 
 ✅ shipped · 🟢 working, basic · 🟡 built, still to be accepted in the running app
 
@@ -209,6 +210,7 @@ flowchart LR
 **Upcoming**
 
 - Quick-log acceptance run and the under-5-seconds time-to-log check.
+- AI Buddy acceptance on a scratch API, then switch it on in production (privacy page first, paid-tier Gemini key).
 - Google Sheets sync acceptance against a real Google account.
 - **Stealth subscription detector:** surface recurring charges, ask "still using it?" in the monthly review, flag unused ones as leaks with the yearly cost.
 - **Investment cockpit:** asset classes (deposits, gold, stocks, real estate, crypto), cost basis, allocation chart.
@@ -218,7 +220,7 @@ flowchart LR
 
 ### Known issues
 
-- `yarn test`: `src/shared/configs/navigation.config.test.ts` fails because the Node test runner cannot resolve the `@/` import alias. The other 108 tests pass.
+- `yarn test`: `src/shared/configs/navigation.config.test.ts` fails because the Node test runner cannot resolve the `@/` import alias. The other tests pass.
 - Overview: the "Còn lại" (remaining) figure in the cash-flow card is cut off at 390 px width when the number has eight digits or more.
 - CI builds and publishes the image but does not run lint or tests.
 

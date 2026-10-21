@@ -8,6 +8,7 @@ import {
 import { routes } from '@/app/routes';
 import { wrapWithProtected } from '@/entities/auth';
 import { GoogleOAuthProvider } from '@/features/auth-with-google';
+import { BuddyReactionHost } from '@/features/buddy-reaction';
 import { OnboardingGuard } from '@/features/onboarding';
 import { appConfig } from '@/shared/configs/runtime.config';
 import { RedirectWithSearch } from '@/shared/routing';
@@ -49,7 +50,10 @@ export default function App() {
             clientId={googleClientId}
             locale="vi"
           >
-            <GoogleAccessTokenProvider>{routing}</GoogleAccessTokenProvider>
+            <GoogleAccessTokenProvider>
+              {routing}
+              <BuddyReactionHost />
+            </GoogleAccessTokenProvider>
           </GoogleOAuthProvider>
         </AuthProvider>
       </ToastProvider>

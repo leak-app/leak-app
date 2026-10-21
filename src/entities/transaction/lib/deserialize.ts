@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { formatRelativeDateTime, formatVnd } from '@/shared/lib';
 
 import type { TransactionModel } from '../model/types';
+import { deserializeBuddy } from './buddy';
 import { LEAK_REASON_LABELS, OUTCOME_META } from './outcome';
 
 export function deserialize(raw: TransactionModel): TransactionModel {
@@ -40,6 +41,10 @@ export function deserialize(raw: TransactionModel): TransactionModel {
   raw.leakReasonLabel = raw.leakReason
     ? LEAK_REASON_LABELS[raw.leakReason]
     : null;
+
+  raw.aiComment = raw.aiComment ?? null;
+  raw.aiSentiment = raw.aiSentiment ?? null;
+  raw.buddy = deserializeBuddy(raw.aiComment, raw.aiSentiment);
 
   return raw;
 }

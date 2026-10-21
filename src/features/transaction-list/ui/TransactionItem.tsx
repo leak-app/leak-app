@@ -1,4 +1,8 @@
-import { OutcomeIcon, type TransactionModel } from '@/entities/transaction';
+import {
+  BuddyBubble,
+  OutcomeIcon,
+  type TransactionModel,
+} from '@/entities/transaction';
 
 interface TransactionItemProps {
   transaction: TransactionModel;
@@ -30,41 +34,44 @@ export function TransactionItem({
   );
 
   return (
-    <div className="bg-surface/60 hover:bg-surface border border-outline/10 rounded-2xl p-3.5 flex items-center justify-between gap-3 transition-all duration-200 group">
-      {onEdit ? (
-        <button
-          type="button"
-          onClick={() => onEdit(transaction)}
-          aria-label={`Chỉnh sửa giao dịch: ${transaction.description}`}
-          className="-my-1 flex min-h-11 min-w-0 items-center gap-3.5 text-left"
-        >
-          {body}
-        </button>
-      ) : (
-        <div className="flex min-w-0 items-center gap-3.5">{body}</div>
-      )}
-
-      <div className="flex shrink-0 flex-col items-end">
-        <span className="text-sm font-bold text-on-surface tabular-nums">
-          {transaction.signedAmountText}
-        </span>
-        {transaction.isExpense && (
+    <div className="bg-surface/60 hover:bg-surface border border-outline/10 rounded-2xl p-3.5 flex flex-col gap-2.5 transition-all duration-200 group">
+      <div className="flex items-center justify-between gap-3">
+        {onEdit ? (
           <button
             type="button"
-            onClick={() => onOutcomeClick?.(transaction)}
-            aria-label={`${transaction.outcomeLabel}. Nhấn để đánh giá`}
-            className="-my-1 flex min-h-11 items-center"
+            onClick={() => onEdit(transaction)}
+            aria-label={`Chỉnh sửa giao dịch: ${transaction.description}`}
+            className="-my-1 flex min-h-11 min-w-0 items-center gap-3.5 text-left"
           >
-            <span className={`${transaction.outcomeBadgeClass} gap-1`}>
-              <OutcomeIcon
-                name={transaction.outcomeIcon}
-                size={12}
-              />
-              {transaction.outcomeLabel}
-            </span>
+            {body}
           </button>
+        ) : (
+          <div className="flex min-w-0 items-center gap-3.5">{body}</div>
         )}
+
+        <div className="flex shrink-0 flex-col items-end">
+          <span className="text-sm font-bold text-on-surface tabular-nums">
+            {transaction.signedAmountText}
+          </span>
+          {transaction.isExpense && (
+            <button
+              type="button"
+              onClick={() => onOutcomeClick?.(transaction)}
+              aria-label={`${transaction.outcomeLabel}. Nhấn để đánh giá`}
+              className="-my-1 flex min-h-11 items-center"
+            >
+              <span className={`${transaction.outcomeBadgeClass} gap-1`}>
+                <OutcomeIcon
+                  name={transaction.outcomeIcon}
+                  size={12}
+                />
+                {transaction.outcomeLabel}
+              </span>
+            </button>
+          )}
+        </div>
       </div>
+      {transaction.buddy && <BuddyBubble buddy={transaction.buddy} />}
     </div>
   );
 }

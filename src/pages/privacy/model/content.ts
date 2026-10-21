@@ -5,7 +5,7 @@ import {
 } from '@/shared/configs/app-info.config';
 import type { LegalDocumentModel } from '@/shared/ui';
 
-const PRIVACY_UPDATED_LABEL = 'Cập nhật lần cuối: 17 tháng 10, 2026';
+const PRIVACY_UPDATED_LABEL = 'Cập nhật lần cuối: 21 tháng 10, 2026';
 
 export const PRIVACY_DOCUMENT: LegalDocumentModel = {
   title: 'Chính sách quyền riêng tư',
@@ -64,9 +64,10 @@ export const PRIVACY_DOCUMENT: LegalDocumentModel = {
     },
     {
       id: 'quick-log-ai',
-      heading: '5. Nhập nhanh giao dịch và Gemini của Google',
+      heading: '5. Nhập nhanh, Bạn thân AI và Gemini của Google',
       paragraphs: [
         'Ô nhập nhanh cho phép bạn gõ một câu như "hai lăm nghìn xe ôm" để điền sẵn biểu mẫu giao dịch. Phần lớn câu được ứng dụng tự đọc ngay trên máy chủ của chúng tôi. Chỉ khi ứng dụng không tự xác định được số tiền hoặc danh mục, chúng tôi mới nhờ Gemini API của Google đọc giúp câu đó.',
+        'Tính năng "Bạn thân AI" thỉnh thoảng nhờ Gemini viết một câu nhận xét ngắn về một khoản chi bạn vừa ghi. Việc này chạy nền, chỉ với một số ít khoản chi (ví dụ chi vượt ngân sách, chi vào đêm muộn hoặc chi lớn bất thường), tối đa vài lần mỗi ngày.',
       ],
       items: [
         'Dữ liệu được gửi đi: chính câu bạn vừa gõ và tên các danh mục của bạn. Chúng tôi không gửi ví, số dư, email, lịch sử giao dịch hay bất kỳ thông tin nào khác.',
@@ -74,6 +75,9 @@ export const PRIVACY_DOCUMENT: LegalDocumentModel = {
         'Google lưu lời nhắc và phản hồi trong một thời gian giới hạn để phát hiện lạm dụng và có thể xử lý chúng ở các quốc gia khác. Chúng tôi dùng khóa API của gói trả phí, theo đó Google cho biết không dùng nội dung này để huấn luyện mô hình của họ.',
         'Chúng tôi không ghi câu bạn gõ vào nhật ký máy chủ khi gọi Gemini, và giới hạn số lần gọi của mỗi tài khoản.',
         'Bạn có thể tránh việc này hoàn toàn bằng cách không dùng ô nhập nhanh và điền biểu mẫu thủ công. Vì câu được gửi đi nguyên văn, đừng gõ tên người, số tài khoản hay thông tin nhạy cảm vào ô nhập nhanh.',
+        'Dữ liệu gửi đi cho nhận xét này: số tiền, tên danh mục, ghi chú của khoản chi (tối đa 80 ký tự đầu), giờ ghi và mức đã dùng của ngân sách danh mục. Chúng tôi không gửi tên, email, ví hay số dư.',
+        'Nhận xét được lưu cùng giao dịch và chỉ hiển thị cho bạn. Trong Hồ sơ cá nhân, bạn có thể chuyển sang "Tích cực nhẹ nhàng" hoặc chọn "Tắt"; khi tắt, không có dữ liệu nào được gửi đi cho tính năng này.',
+        'Vì ghi chú được gửi đi nguyên văn, đừng ghi tên người, số tài khoản hay thông tin nhạy cảm vào ghi chú giao dịch. Chúng tôi không ghi ghi chú hay nhận xét vào nhật ký máy chủ.',
       ],
     },
     {
@@ -84,7 +88,7 @@ export const PRIVACY_DOCUMENT: LegalDocumentModel = {
       ],
       items: [
         'Google: cung cấp đăng nhập bằng Google và, nếu bạn bật, tính năng xuất sang Google Sheets. Phông chữ của ứng dụng được tải từ Google Fonts, nên trình duyệt của bạn gửi yêu cầu (gồm địa chỉ IP) tới Google khi mở trang.',
-        'Google (Gemini API): đọc giúp câu nhập nhanh mà ứng dụng không tự hiểu được, như mô tả ở mục 5.',
+        'Google (Gemini API): đọc giúp câu nhập nhanh mà ứng dụng không tự hiểu được và viết nhận xét "Bạn thân AI", như mô tả ở mục 5.',
         'Nhà cung cấp dịch vụ gửi email: chỉ để gửi thư đặt lại mật khẩu và thông báo tài khoản.',
         'Cơ quan nhà nước có thẩm quyền, khi pháp luật yêu cầu.',
       ],

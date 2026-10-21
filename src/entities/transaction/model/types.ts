@@ -46,6 +46,36 @@ export interface TransactionModel {
   outcomeBadgeClass: string;
   outcomeIcon: OutcomeIconName;
   leakReasonLabel: string | null;
+  /** The Buddy's comment, null until one is written (see lib/buddy.ts). */
+  aiComment: string | null;
+  aiSentiment: BuddySentiment | null;
+  buddy: BuddyBubbleModel | null;
+}
+
+export type BuddyJobStatus = 'NONE' | 'PENDING' | 'DONE' | 'SKIPPED' | 'FAILED';
+
+export interface RawBuddyReactionModel {
+  status: BuddyJobStatus;
+  comment: string | null;
+  sentiment: string | null;
+}
+
+export interface BuddyReactionModel {
+  /** True while a comment may still arrive; the watch keeps checking. */
+  isPending: boolean;
+  buddy: BuddyBubbleModel | null;
+}
+
+export type BuddySentiment = 'ROAST' | 'PRAISE' | 'NUDGE';
+
+/** A Buddy comment ready to render: no formatting or class choices left for the component. */
+export interface BuddyBubbleModel {
+  text: string;
+  sentiment: BuddySentiment;
+  emoji: string;
+  /** Spoken to screen readers before the comment, for example "Bạn thân cà khịa". */
+  label: string;
+  containerClass: string;
 }
 
 export interface CreateTransactionParamsModel {
