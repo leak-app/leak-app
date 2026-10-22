@@ -36,7 +36,7 @@ const FEATURE_ICON: Record<HomeFeatureIcon, IconComponent> = {
   shield: ShieldCheckIcon,
 };
 
-/** Public landing page. Signed-in users go straight to the app. */
+/** Public intro page (/intro). Signed-in users go straight to the app. */
 export default function HomePage() {
   const user = useAuthStore((state) => state.user);
   usePageTitle(HOME_PAGE_TITLE);

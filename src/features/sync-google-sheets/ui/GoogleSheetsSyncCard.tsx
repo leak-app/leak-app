@@ -49,8 +49,14 @@ export function GoogleSheetsSyncCard() {
       </Card>
     );
   }
-  // The server is not configured for Google Sheets: the feature simply does not exist yet.
-  if (!status.available) return null;
+  // The server is not configured for Google Sheets: say so, the screen would be blank otherwise.
+  if (!status.available) {
+    return (
+      <Card>
+        <p className="text-description text-muted">{COPY.unavailable}</p>
+      </Card>
+    );
+  }
 
   const busy =
     connect.isPending ||

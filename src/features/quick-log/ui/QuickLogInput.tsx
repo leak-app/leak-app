@@ -9,9 +9,11 @@ import { useQuickLog } from '../model/useQuickLog';
 
 interface Props {
   onDraft: (draft: QuickLogDraftModel) => void;
+  /** Focus the field on mount, for a box the user just opened on purpose. */
+  autoFocus?: boolean;
 }
 
-export function QuickLogInput({ onDraft }: Props) {
+export function QuickLogInput({ onDraft, autoFocus = false }: Props) {
   const quickLog = useQuickLog(onDraft);
 
   return (
@@ -26,6 +28,7 @@ export function QuickLogInput({ onDraft }: Props) {
         <input
           type="text"
           inputMode="text"
+          autoFocus={autoFocus}
           enterKeyHint="go"
           autoComplete="off"
           maxLength={QUICK_LOG_MAX_LENGTH}

@@ -4,19 +4,22 @@ import { test } from 'node:test';
 
 import { isPublicPath, PUBLIC_PATHS } from './publicPaths.ts';
 
-test('the landing page, privacy policy and terms are public', () => {
-  assert.equal(isPublicPath(PUBLIC_PATHS.home), true);
+test('the intro page, privacy policy and terms are public', () => {
+  assert.equal(isPublicPath(PUBLIC_PATHS.intro), true);
+  assert.equal(PUBLIC_PATHS.intro, '/intro');
   assert.equal(isPublicPath(PUBLIC_PATHS.privacy), true);
   assert.equal(isPublicPath(PUBLIC_PATHS.terms), true);
 });
 
 test('a trailing slash does not change the answer', () => {
+  assert.equal(isPublicPath('/intro/'), true);
   assert.equal(isPublicPath('/privacy/'), true);
   assert.equal(isPublicPath('/terms//'), true);
 });
 
 test('app screens and look-alike paths are not public', () => {
   for (const path of [
+    '/',
     '/overview',
     '/login',
     '/onboarding',

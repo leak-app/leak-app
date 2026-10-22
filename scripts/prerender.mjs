@@ -1,9 +1,10 @@
-// Bakes the public pages (home, privacy, terms) into static HTML after `vite build`,
+// Bakes the public pages (intro, privacy, terms) into static HTML after `vite build`,
 // so crawlers that do not run JavaScript (for example Google's OAuth verification)
 // can read them. The SPA hydrates the same markup in the browser.
 //
-// Writes dist/index.html (home), dist/privacy/index.html, dist/terms/index.html and
-// dist/spa.html (the untouched shell for all other routes).
+// Writes dist/intro/index.html, dist/privacy/index.html, dist/terms/index.html and
+// dist/spa.html (the untouched shell for all other routes, including `/`, which redirects
+// into the app). dist/index.html stays that same shell.
 // Expects the SSR bundle at dist-ssr/entry-server.js (see the "build" script).
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
@@ -19,7 +20,7 @@ const { prerenderPublicPages } = await import(
 const template = await readFile(join(distDir, 'index.html'), 'utf8');
 
 // Every route that is not pre-rendered (login, overview, ...) falls back to this empty
-// shell, so it must not carry the home page's markup.
+// shell, so it must not carry the intro page's markup.
 await writeFile(join(distDir, 'spa.html'), template);
 
 const escapeAttribute = (value) =>
@@ -81,10 +82,7 @@ for (const page of prerenderPublicPages()) {
 
   assertHeadIsClean(html, page.path);
 
-  const target =
-    page.path === '/'
-      ? join(distDir, 'index.html')
-      : join(distDir, page.path, 'index.html');
+  const target = join(distDir, page.path, 'index.html');
   await mkdir(dirname(target), { recursive: true });
   await writeFile(target, html);
   console.log(`prerendered ${page.path} -> ${target.replace(root + '/', '')}`);

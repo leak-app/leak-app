@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type PointerEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CategoryChips, EMPTY_CATEGORY_TEXT } from '@/entities/category';
@@ -9,7 +9,9 @@ import {
 import { WalletChip, WalletPickerSheet } from '@/entities/wallet';
 import { DateChips, Numpad } from '@/shared/ui';
 
+import { isTextEntryField } from '../lib/keyboardDock';
 import { useAddTransactionForm } from '../model/useAddTransactionForm';
+import { useKeyboardDock } from '../model/useKeyboardDock';
 
 interface Props {
   /** Pre-fills the form; pass a new `key` to apply a different draft. */
@@ -20,10 +22,21 @@ export function AddTransactionForm({ draft }: Props) {
   const navigate = useNavigate();
   const form = useAddTransactionForm(draft);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const { isTyping, inset } = useKeyboardDock();
+
+  // Tapping anywhere but a text field puts the keyboard away and brings the number pad back.
+  const dismissKeyboard = (event: PointerEvent<HTMLElement>) => {
+    if (!isTextEntryField(event.target as HTMLElement)) {
+      (document.activeElement as HTMLElement | null)?.blur();
+    }
+  };
 
   return (
-    <div className="flex-1 flex flex-col justify-between mt-4">
-      <div className="flex flex-col items-center gap-5 px-1">
+    <div className="flex-1 flex flex-col mt-4">
+      <div
+        onPointerDown={dismissKeyboard}
+        className="flex flex-col items-center gap-5 px-1"
+      >
         <TransactionTypeToggle
           value={form.type}
           onChange={form.setType}
@@ -77,6 +90,10 @@ export function AddTransactionForm({ draft }: Props) {
               type="text"
               placeholder="Thêm ghi chú..."
               aria-label="Ghi chú"
+              enterKeyHint="done"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') e.currentTarget.blur();
+              }}
               value={form.description}
               onChange={(e) => form.setDescription(e.target.value)}
               className="flex-1 bg-transparent border-none outline-none text-on-surface placeholder:text-on-surface-variant/70 text-sm font-medium"
@@ -85,7 +102,10 @@ export function AddTransactionForm({ draft }: Props) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-6 mt-6 bg-surface/20 border-t border-outline/5 pt-6 pb-6 rounded-t-[2.5rem]">
+      <div
+        onPointerDown={dismissKeyboard}
+        className="mt-6 flex flex-col gap-4 pb-4"
+      >
         <CategoryChips
           categories={form.categories}
           selectedId={form.activeCategoryId}
@@ -103,7 +123,13 @@ export function AddTransactionForm({ draft }: Props) {
             {form.unresolvedText}
           </p>
         )}
+      </div>
 
+      {/* Stays at the bottom of the screen; the number pad steps aside for the system keyboard. */}
+      <div
+        style={inset ? { transform: `translateY(-${inset}px)` } : undefined}
+        className="sticky bottom-0 z-10 mt-auto flex flex-col gap-4 border-t border-outline/5 bg-bg/90 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] backdrop-blur-md"
+      >
         {form.errorText && (
           <div
             role="alert"
@@ -113,7 +139,7 @@ export function AddTransactionForm({ draft }: Props) {
           </div>
         )}
 
-        <Numpad onKeyPress={form.pressKey} />
+        {!isTyping && <Numpad onKeyPress={form.pressKey} />}
 
         <div className="px-6">
           <button

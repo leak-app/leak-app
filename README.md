@@ -109,7 +109,7 @@ app/
 │   │   └── styles/
 │   ├── pages/                    # home, overview, transaction, add-transaction, reflect, leak-report,
 │   │                             #   budget, budget-setup, wallet, savings-goals, investment, transfer,
-│   │                             #   categories, profile, profile-security, profile-sheets-report,
+│   │                             #   categories, profile, profile-buddy, profile-sync, profile-security, profile-sheets-report,
 │   │                             #   login, register, forgot-password, reset-password, onboarding,
 │   │                             #   privacy, terms, kit-gallery (dev only)
 │   ├── features/                 # add-transaction, edit-transaction, quick-log, transaction-list,
@@ -136,22 +136,22 @@ Inside a slice, code is split by segment: `ui/` (presentational), `model/` (type
 
 ## Screens and routes
 
-| Area       | Route                                                        | What it does                                                                            |
-| :--------- | :----------------------------------------------------------- | :-------------------------------------------------------------------------------------- |
-| Landing    | `/`, `/privacy`, `/terms`                                    | Public pages, pre-rendered to static HTML at build time                                 |
-| Onboarding | `/onboarding`                                                | Six-step intro, shown once before login                                                 |
-| Auth       | `/login`, `/register`, `/forgot-password`, `/reset-password` | Email and Google sign-in, password reset                                                |
-| Overview   | `/overview`                                                  | Balance, monthly cash flow, weekly chart, reflection prompt, plug-the-leak offer        |
-| Log        | `/log`, `/transactions/new`                                  | Quick-log phrase box, keypad, wallet, date, category                                    |
-| History    | `/transactions`                                              | Filterable, infinite-scroll list, edit and delete                                       |
-| Reflect    | `/reflect`                                                   | Card-by-card review of spends: worth it, neutral, or leak (with a reason)               |
-| Leaks      | `/leaks`                                                     | Leak rate and main trigger per category, by month                                       |
-| Budgets    | `/budgets`, `/budgets/setup`                                 | Monthly limit per category with progress                                                |
-| Wallets    | `/wallets`                                                   | Cash, bank, e-wallet and investment accounts                                            |
-| Goals      | `/goals`                                                     | Savings goals with deposit, withdraw and history                                        |
-| Investment | `/investment`, `/transfer`                                   | Update an investment wallet's value, see capital vs. profit, move money between wallets |
-| Categories | `/categories`                                                | Manage income, expense and investment categories                                        |
-| Profile    | `/profile`, `/profile/security`, `/profile/sheets-report`    | Account, session list, Google Sheets sync, AI Buddy mode, report template               |
+| Area       | Route                                                                                        | What it does                                                                                                          |
+| :--------- | :------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
+| Intro      | `/intro`, `/privacy`, `/terms`                                                               | Public pages, pre-rendered to static HTML at build time                                                               |
+| Onboarding | `/onboarding`                                                                                | Six-step intro, shown once before login                                                                               |
+| Auth       | `/login`, `/register`, `/forgot-password`, `/reset-password`                                 | Email and Google sign-in, password reset                                                                              |
+| Overview   | `/overview`                                                                                  | Balance, monthly cash flow, weekly chart, reflection prompt, plug-the-leak offer                                      |
+| Log        | `/log`, `/transactions/new`                                                                  | Quick-log phrase box, keypad, wallet, date, category                                                                  |
+| History    | `/transactions`                                                                              | Filterable, infinite-scroll list, edit and delete                                                                     |
+| Reflect    | `/reflect`                                                                                   | Card-by-card review of spends: worth it, neutral, or leak (with a reason)                                             |
+| Leaks      | `/leaks`                                                                                     | Leak rate and main trigger per category, by month                                                                     |
+| Budgets    | `/budgets`, `/budgets/setup`                                                                 | Monthly limit per category with progress                                                                              |
+| Wallets    | `/wallets`                                                                                   | Cash, bank, e-wallet and investment accounts                                                                          |
+| Goals      | `/goals`                                                                                     | Savings goals with deposit, withdraw and history                                                                      |
+| Investment | `/investment`, `/transfer`                                                                   | Update an investment wallet's value, see capital vs. profit, move money between wallets                               |
+| Categories | `/categories`                                                                                | Manage income, expense and investment categories                                                                      |
+| Profile    | `/profile`, `/profile/buddy`, `/profile/sync`, `/profile/security`, `/profile/sheets-report` | Account and settings list; AI Buddy mode, Google Sheets sync, session list and report template each on their own page |
 
 Old paths such as `/wallet`, `/budget` and `/savings-goals` redirect to the plural routes. In dev only, `/dev/kit` shows every UI kit component in its states.
 
@@ -180,7 +180,7 @@ Version **0.0.5**, in active development. The core loop is complete. The open it
 | Investment wallets: balance updates, profit/loss, portfolio view                                                            |         🟢 basic         |
 | AI Buddy comments under transactions, mode setting (off until the privacy page is live and the API sets `AI_BUDDY_ENABLED`) | 🟡 built, off by default |
 | Google Sheets sync card and report template                                                                                 |  🟡 acceptance pending   |
-| Pre-rendered public pages (landing, privacy, terms)                                                                         |            ✅            |
+| Pre-rendered public pages (intro, privacy, terms)                                                                           |            ✅            |
 | Docker image with runtime configuration                                                                                     |            ✅            |
 
 ✅ shipped · 🟢 working, basic · 🟡 built, still to be accepted in the running app
@@ -286,5 +286,5 @@ flowchart LR
 
 - The output is static, so any static host works. The supplied `Dockerfile` builds the bundle and serves it with nginx.
 - **Runtime configuration:** the image does not bake the API URL. On start, `docker/40-runtime-env.sh` writes `/env.js` from `API_BASE_URL` (default `/api`) and `GOOGLE_CLIENT_ID`, so one image works in every environment.
-- **Pre-rendering:** the landing, privacy and terms pages are written as real HTML so crawlers that do not run JavaScript (Google's OAuth verification, for one) can read them. Every other route falls back to `spa.html`.
+- **Pre-rendering:** the intro, privacy and terms pages are written as real HTML so crawlers that do not run JavaScript (Google's OAuth verification, for one) can read them. Every other route falls back to `spa.html`.
 - The GitHub workflow in `.github/workflows` publishes the image to GHCR.

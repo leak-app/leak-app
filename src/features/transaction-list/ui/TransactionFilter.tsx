@@ -1,3 +1,6 @@
+import dayjs from 'dayjs';
+import { useState } from 'react';
+
 import type { CategoryModel } from '@/entities/category';
 import {
   OUTCOME_FILTER_OPTIONS,
@@ -5,8 +8,15 @@ import {
   type TransactionType,
 } from '@/entities/transaction';
 import type { WalletModel } from '@/entities/wallet';
-import { MagnifyingGlassIcon, XMarkIcon } from '@/shared/icons';
-import { Select, type SelectOption } from '@/shared/ui';
+import { MagnifyingGlassIcon, SlidersIcon, XMarkIcon } from '@/shared/icons';
+import { Chip } from '@/shared/ui';
+
+import {
+  buildFilterSummary,
+  buildMonthOptions,
+  countActiveFilters,
+} from '../lib/filterSummary';
+import { TransactionFilterSheet } from './TransactionFilterSheet';
 
 interface TransactionFilterProps {
   search: string;
@@ -25,6 +35,13 @@ interface TransactionFilterProps {
   wallets: WalletModel[];
 }
 
+const TYPE_OPTIONS: { value?: TransactionType; label: string }[] = [
+  { value: undefined, label: 'Tất cả' },
+  { value: 'EXPENSE', label: 'Chi tiêu' },
+  { value: 'INCOME', label: 'Thu nhập' },
+];
+
+/** Search and the type on screen; month, outcome, category and wallet in one sheet. */
 export function TransactionFilter({
   search,
   onSearchChange,
@@ -41,128 +58,120 @@ export function TransactionFilter({
   onAccountChange,
   wallets,
 }: TransactionFilterProps) {
-  const categoryOptions: SelectOption<string>[] = [
-    { value: '', label: 'Tất cả danh mục' },
-    ...categories.map((cat) => ({
-      value: cat.id,
-      label: `${cat.emoji} ${cat.name}`,
-    })),
-  ];
-  const walletOptions: SelectOption<string>[] = [
-    { value: '', label: 'Tất cả ví' },
-    ...wallets.map((wallet) => ({ value: wallet.id, label: wallet.name })),
-  ];
+  const [sheetOpen, setSheetOpen] = useState(false);
+
+  const currentMonth = dayjs().format('YYYY-MM');
+  // Income has no outcome, so the list ignores it there and the filter must not count it.
+  const showOutcome = typeFilter !== 'INCOME';
+  const activeOutcome = showOutcome ? outcomeFilter : undefined;
+  const activeCount = countActiveFilters({
+    month: selectedMonth,
+    currentMonth,
+    categoryId: selectedCategoryId,
+    accountId: selectedAccountId,
+    outcome: activeOutcome,
+  });
+  const summary = buildFilterSummary({
+    month: selectedMonth,
+    categoryLabel: categories.find((cat) => cat.id === selectedCategoryId)
+      ?.name,
+    walletLabel: wallets.find((wallet) => wallet.id === selectedAccountId)
+      ?.name,
+    outcomeLabel: OUTCOME_FILTER_OPTIONS.find(
+      (option) => option.value === activeOutcome && option.value !== undefined
+    )?.label,
+  });
+  const filterLabel =
+    activeCount > 0 ? `Bộ lọc, đang dùng ${activeCount}` : 'Bộ lọc';
+
+  const resetFilters = () => {
+    onMonthChange(currentMonth);
+    onCategoryChange('');
+    onAccountChange('');
+    onOutcomeFilterChange(undefined);
+  };
 
   return (
-    <div className="flex flex-col gap-4">
-      <label className="input input-bordered rounded-full w-full flex items-center gap-2">
-        <MagnifyingGlassIcon
-          size={20}
-          className="text-on-surface-variant shrink-0"
-        />
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Tìm kiếm giao dịch..."
-          className="grow text-sm text-on-surface placeholder:text-on-surface-variant/60"
-        />
-        {search && (
-          <button
-            type="button"
-            onClick={() => onSearchChange('')}
-            className="btn btn-ghost btn-circle btn-xs text-on-surface-variant hover:text-on-surface"
-          >
-            <XMarkIcon size={16} />
-          </button>
-        )}
-      </label>
-
-      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-        <button
-          type="button"
-          onClick={() => onTypeFilterChange(undefined)}
-          className={`btn btn-sm rounded-full font-semibold transition-all whitespace-nowrap ${
-            typeFilter === undefined
-              ? 'btn-primary'
-              : 'bg-surface border-outline/10 text-on-surface-variant hover:text-on-surface'
-          }`}
-        >
-          ⚡ Tất cả
-        </button>
-        <button
-          type="button"
-          onClick={() => onTypeFilterChange('EXPENSE')}
-          className={`btn btn-sm rounded-full font-semibold transition-all whitespace-nowrap ${
-            typeFilter === 'EXPENSE'
-              ? 'btn-primary'
-              : 'bg-surface border-outline/10 text-on-surface-variant hover:text-on-surface'
-          }`}
-        >
-          Chi tiêu
-        </button>
-        <button
-          type="button"
-          onClick={() => onTypeFilterChange('INCOME')}
-          className={`btn btn-sm rounded-full font-semibold transition-all whitespace-nowrap ${
-            typeFilter === 'INCOME'
-              ? 'btn-primary'
-              : 'bg-surface border-outline/10 text-on-surface-variant hover:text-on-surface'
-          }`}
-        >
-          Thu nhập
-        </button>
-      </div>
-
-      {typeFilter !== 'INCOME' && (
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-          {OUTCOME_FILTER_OPTIONS.map((option) => (
-            <button
-              key={option.label}
-              type="button"
-              aria-pressed={outcomeFilter === option.value}
-              onClick={() => onOutcomeFilterChange(option.value)}
-              className="btn btn-sm min-h-11 rounded-full font-semibold whitespace-nowrap transition-all bg-surface border-outline/10 text-on-surface-variant hover:text-on-surface aria-pressed:btn-secondary aria-pressed:text-on-secondary"
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-      )}
-
-      <div className="flex flex-wrap items-center gap-3 w-full">
-        <div className="flex-1 bg-surface border border-outline/10 rounded-2xl px-3 py-1 flex items-center justify-between">
-          <span className="text-xs text-on-surface-variant font-medium shrink-0">
-            Tháng:
-          </span>
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center gap-2.5">
+        <label className="input input-bordered h-11 min-w-0 flex-1 items-center gap-2 rounded-full">
+          <MagnifyingGlassIcon
+            size={20}
+            className="text-on-surface-variant shrink-0"
+          />
           <input
-            type="month"
-            value={selectedMonth}
-            onChange={(e) => onMonthChange(e.target.value)}
-            className="input input-ghost input-xs font-semibold text-primary focus:bg-transparent cursor-pointer"
+            type="text"
+            value={search}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Tìm kiếm giao dịch..."
+            className="grow text-sm text-on-surface placeholder:text-on-surface-variant/60"
           />
-        </div>
+          {search && (
+            <button
+              type="button"
+              aria-label="Xóa tìm kiếm"
+              onClick={() => onSearchChange('')}
+              className="btn btn-ghost btn-circle btn-xs text-on-surface-variant hover:text-on-surface"
+            >
+              <XMarkIcon size={16} />
+            </button>
+          )}
+        </label>
 
-        <Select
-          variant="pill"
-          className="flex-1"
-          ariaLabel="Lọc theo danh mục"
-          value={selectedCategoryId}
-          options={categoryOptions}
-          onChange={onCategoryChange}
-        />
-
-        {wallets.length > 1 && (
-          <Select
-            variant="pill"
-            className="flex-1"
-            ariaLabel="Lọc theo ví"
-            value={selectedAccountId}
-            options={walletOptions}
-            onChange={onAccountChange}
+        <button
+          type="button"
+          aria-label={filterLabel}
+          aria-haspopup="dialog"
+          onClick={() => setSheetOpen(true)}
+          className="relative flex size-11 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-soft transition-colors duration-200 ease-out hover:text-text focus-visible:shadow-focus focus-visible:outline-none"
+        >
+          <SlidersIcon
+            size={20}
+            strokeWidth={1.75}
+            aria-hidden="true"
           />
-        )}
+          {activeCount > 0 && (
+            <span
+              aria-hidden="true"
+              className="absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full bg-primary text-xs font-semibold text-on-primary"
+            >
+              {activeCount}
+            </span>
+          )}
+        </button>
       </div>
+
+      <div className="grid grid-cols-3 gap-2">
+        {TYPE_OPTIONS.map((option) => (
+          <Chip
+            key={option.label}
+            selected={typeFilter === option.value}
+            onClick={() => onTypeFilterChange(option.value)}
+          >
+            {option.label}
+          </Chip>
+        ))}
+      </div>
+
+      <p className="truncate text-caption text-muted">{summary}</p>
+
+      <TransactionFilterSheet
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        onReset={resetFilters}
+        monthOptions={buildMonthOptions(selectedMonth, currentMonth)}
+        selectedMonth={selectedMonth}
+        onMonthChange={onMonthChange}
+        showOutcome={showOutcome}
+        outcomeFilter={outcomeFilter}
+        onOutcomeFilterChange={onOutcomeFilterChange}
+        categories={categories}
+        selectedCategoryId={selectedCategoryId}
+        onCategoryChange={onCategoryChange}
+        wallets={wallets}
+        selectedAccountId={selectedAccountId}
+        onAccountChange={onAccountChange}
+      />
     </div>
   );
 }

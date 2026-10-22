@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -14,6 +15,8 @@ interface HeaderIconButtonProps {
   /** Navigates when set, otherwise renders a button that calls `onClick`. */
   to?: string;
   onClick?: () => void;
+  /** For a button that opens something in place: tells screen readers, and tints the circle while open. */
+  expanded?: boolean;
 }
 
 /** A glass circle with one icon, for the right side of a screen header. */
@@ -22,6 +25,7 @@ export function HeaderIconButton({
   label,
   to,
   onClick,
+  expanded,
 }: HeaderIconButtonProps) {
   const icon = (
     <Icon
@@ -47,8 +51,12 @@ export function HeaderIconButton({
     <button
       type="button"
       aria-label={label}
+      aria-expanded={expanded}
       onClick={onClick}
-      className={HEADER_CIRCLE_CLASS}
+      className={clsx(
+        HEADER_CIRCLE_CLASS,
+        expanded && 'border-primary bg-primary-tint text-primary'
+      )}
     >
       {icon}
     </button>

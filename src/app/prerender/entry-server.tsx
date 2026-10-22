@@ -23,7 +23,7 @@ interface PrerenderedPage {
 
 const PAGES: PrerenderedPage[] = [
   {
-    path: PUBLIC_PATHS.home,
+    path: PUBLIC_PATHS.intro,
     Component: HomePage,
     title: HOME_PAGE_TITLE,
     description: HOME_PAGE_DESCRIPTION,
@@ -50,13 +50,13 @@ export interface PrerenderResult {
   canonicalUrl: string;
 }
 
-/** Renders the public pages (home, privacy, terms) to static HTML at build time. */
+/** Renders the public pages (intro, privacy, terms) to static HTML at build time. */
 export function prerenderPublicPages(): PrerenderResult[] {
   return PAGES.map(({ path, Component, title, description }) => ({
     path,
     title,
     description,
-    canonicalUrl: `${APP_URL}${path === '/' ? '/' : path}`,
+    canonicalUrl: `${APP_URL}${path}`,
     html: renderToString(
       <StaticRouter location={path}>
         <Component />

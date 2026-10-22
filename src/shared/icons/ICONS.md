@@ -52,60 +52,62 @@ Three families exist; know which one an icon belongs to before overriding color:
 
 Import every icon as `<Name>Icon` from `@/shared/icons`.
 
-| Icon                   | Shows                         | Used for                                            |
-| ---------------------- | ----------------------------- | --------------------------------------------------- |
-| `AlertCircleIcon`      | circle with exclamation       | form and auth error banners                         |
-| `AlertTriangleIcon`    | triangle with exclamation     | sync problem panel (reconnect, failed run)          |
-| `ArrowLeftIcon`        | arrow pointing left           | back affordances                                    |
-| `ArrowLeftRightIcon`   | two opposed horizontal arrows | transfer between wallets                            |
-| `ArrowRightIcon`       | arrow pointing right          | submit/next on primary buttons                      |
-| `ArrowUpDownIcon`      | two opposed vertical arrows   | swap the source and destination wallet              |
-| `BackspaceIcon`        | backspace key                 | legacy solid, prefer `DeleteIcon`                   |
-| `BellIcon`             | bell                          | notifications                                       |
-| `CalendarIcon`         | calendar page                 | pick the day of a transaction                       |
-| `ChartColumnIcon`      | bar chart with axes           | Leaks tab in the bottom navigation                  |
-| `CheckIcon`            | check mark                    | selected state in selects, choices, wallet picker   |
-| `ChevronDownIcon`      | chevron down                  | select and picker triggers                          |
-| `ChevronLeftIcon`      | chevron left                  | `BackButton`                                        |
-| `ChevronRightIcon`     | chevron right                 | row disclosure, "see all" links                     |
-| `CircleDashedIcon`     | dashed circle                 | "no data / not yet" outcome state                   |
-| `CopyIcon`             | two overlapping sheets        | copy the Apps Script                                |
-| `DeleteIcon`           | backspace key with an x       | `Numpad` delete key                                 |
-| `DollarIcon`           | dollar sign                   | money rows in the report                            |
-| `DownloadIcon`         | arrow into a tray             | download the .gs file                               |
-| `EllipsisVerticalIcon` | three vertical dots           | row overflow menus                                  |
-| `ExternalLinkIcon`     | arrow leaving a box           | open the spreadsheet, hand-off to Google            |
-| `EyeIcon`              | open eye                      | show the hidden total balance                       |
-| `EyeOffIcon`           | eye with a slash              | hide the total balance                              |
-| `FolderIcon`           | folder                        | "your file, in your Drive" in the sync pitch        |
-| `GearIcon`             | cog (Feather style)           | legacy settings glyph, prefer `SettingsIcon`        |
-| `HistoryIcon`          | counter-clockwise clock       | Reflect tab in the bottom navigation                |
-| `HomeIcon`             | house                         | legacy solid, prefer `HouseIcon`                    |
-| `HouseIcon`            | house outline                 | Today tab in the bottom navigation                  |
-| `InfoIcon`             | circle with an i              | quiet notes                                         |
-| `LeakLogoIcon`         | brand mark                    | auth screens                                        |
-| `LockIcon`             | padlock                       | password inputs                                     |
-| `MagnifyingGlassIcon`  | magnifier                     | search inputs                                       |
-| `MailIcon`             | envelope                      | email inputs                                        |
-| `MicIcon`              | microphone                    | voice quick-log button                              |
-| `MinusIcon`            | minus sign                    | "no change" outcome and delta                       |
-| `MonitorIcon`          | desktop monitor               | desktop session rows                                |
-| `MoonIcon`             | crescent moon                 | nightly sync                                        |
-| `PencilIcon`           | pencil                        | edit actions                                        |
-| `PlusIcon`             | plus sign                     | add actions, center action of the bottom navigation |
-| `ReceiptIcon`          | receipt                       | transaction rows                                    |
-| `RefreshIcon`          | two circular arrows           | sync now                                            |
-| `SettingsIcon`         | settings cog (Lucide)         | header button to Profile / Budget settings          |
-| `ShieldCheckIcon`      | shield with check             | leak reclaimed, security                            |
-| `SmartphoneIcon`       | phone                         | mobile session rows                                 |
-| `TableIcon`            | grid of cells                 | Google Sheets mark                                  |
-| `TargetIcon`           | concentric target             | Goals tab in the bottom navigation                  |
-| `TrashIcon`            | trash can                     | delete actions                                      |
-| `TrendingDownIcon`     | trend line down               | spending went down                                  |
-| `TrendingUpIcon`       | trend line up                 | spending went up                                    |
-| `WalletIcon`           | wallet                        | wallet chips and rows                               |
-| `UndoIcon`             | arrow curving back            | undo the latest balance update                      |
-| `XMarkIcon`            | cross                         | close and clear actions                             |
+| Icon                   | Shows                         | Used for                                                |
+| ---------------------- | ----------------------------- | ------------------------------------------------------- |
+| `AlertCircleIcon`      | circle with exclamation       | form and auth error banners                             |
+| `AlertTriangleIcon`    | triangle with exclamation     | sync problem panel (reconnect, failed run)              |
+| `ArrowLeftIcon`        | arrow pointing left           | back affordances                                        |
+| `ArrowLeftRightIcon`   | two opposed horizontal arrows | transfer between wallets                                |
+| `ArrowRightIcon`       | arrow pointing right          | submit/next on primary buttons                          |
+| `ArrowUpDownIcon`      | two opposed vertical arrows   | swap the source and destination wallet                  |
+| `BackspaceIcon`        | backspace key                 | legacy solid, prefer `DeleteIcon`                       |
+| `BellIcon`             | bell                          | notifications                                           |
+| `CalendarIcon`         | calendar page                 | pick the day of a transaction                           |
+| `ChartColumnIcon`      | bar chart with axes           | Leaks tab in the bottom navigation                      |
+| `CheckIcon`            | check mark                    | selected state in selects, choices, wallet picker       |
+| `ChevronDownIcon`      | chevron down                  | select and picker triggers                              |
+| `ChevronLeftIcon`      | chevron left                  | `BackButton`                                            |
+| `ChevronRightIcon`     | chevron right                 | row disclosure, "see all" links                         |
+| `CircleDashedIcon`     | dashed circle                 | "no data / not yet" outcome state                       |
+| `CopyIcon`             | two overlapping sheets        | copy the Apps Script                                    |
+| `DeleteIcon`           | backspace key with an x       | `Numpad` delete key                                     |
+| `DollarIcon`           | dollar sign                   | money rows in the report                                |
+| `DownloadIcon`         | arrow into a tray             | download the .gs file                                   |
+| `EllipsisVerticalIcon` | three vertical dots           | row overflow menus                                      |
+| `ExternalLinkIcon`     | arrow leaving a box           | open the spreadsheet, hand-off to Google                |
+| `EyeIcon`              | open eye                      | show the hidden total balance                           |
+| `EyeOffIcon`           | eye with a slash              | hide the total balance                                  |
+| `FolderIcon`           | folder                        | "your file, in your Drive" in the sync pitch            |
+| `GearIcon`             | cog (Feather style)           | legacy settings glyph, prefer `SettingsIcon`            |
+| `HistoryIcon`          | counter-clockwise clock       | Reflect tab in the bottom navigation                    |
+| `HomeIcon`             | house                         | legacy solid, prefer `HouseIcon`                        |
+| `HouseIcon`            | house outline                 | Today tab in the bottom navigation                      |
+| `InfoIcon`             | circle with an i              | quiet notes                                             |
+| `LeakLogoIcon`         | brand mark                    | auth screens                                            |
+| `LockIcon`             | padlock                       | password inputs                                         |
+| `MagnifyingGlassIcon`  | magnifier                     | search inputs                                           |
+| `MailIcon`             | envelope                      | email inputs                                            |
+| `MicIcon`              | microphone                    | voice quick-log button                                  |
+| `MinusIcon`            | minus sign                    | "no change" outcome and delta                           |
+| `MonitorIcon`          | desktop monitor               | desktop session rows                                    |
+| `MoonIcon`             | crescent moon                 | nightly sync                                            |
+| `PencilIcon`           | pencil                        | edit actions                                            |
+| `PlusIcon`             | plus sign                     | add actions, center action of the bottom navigation     |
+| `ReceiptIcon`          | receipt                       | transaction rows                                        |
+| `RefreshIcon`          | two circular arrows           | sync now                                                |
+| `SettingsIcon`         | settings cog (Lucide)         | header button to Profile / Budget settings              |
+| `ShieldCheckIcon`      | shield with check             | leak reclaimed, security                                |
+| `SlidersIcon`          | three horizontal sliders      | open the filter sheet of the history list               |
+| `SmartphoneIcon`       | phone                         | mobile session rows                                     |
+| `SparklesIcon`         | sparkles                      | open the quick-log text box on the new-transaction page |
+| `TableIcon`            | grid of cells                 | Google Sheets mark                                      |
+| `TargetIcon`           | concentric target             | Goals tab in the bottom navigation                      |
+| `TrashIcon`            | trash can                     | delete actions                                          |
+| `TrendingDownIcon`     | trend line down               | spending went down                                      |
+| `TrendingUpIcon`       | trend line up                 | spending went up                                        |
+| `WalletIcon`           | wallet                        | wallet chips and rows                                   |
+| `UndoIcon`             | arrow curving back            | undo the latest balance update                          |
+| `XMarkIcon`            | cross                         | close and clear actions                                 |
 
 Also exported: `ICON` (size and stroke tokens, in `tokens.ts`), `IconProps` and `IconComponent` (in `types.ts`).
 

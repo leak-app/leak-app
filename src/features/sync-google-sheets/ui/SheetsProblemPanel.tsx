@@ -43,9 +43,9 @@ export function SheetsProblemPanel({
         <p className="text-description text-muted">{status.problemBody}</p>
       </div>
 
-      <div className="flex gap-2.5">
+      <div className="flex flex-wrap gap-2.5">
         <Button
-          className="flex-1"
+          className="flex-auto whitespace-nowrap"
           loading={actionLoading}
           disabled={disabled}
           onClick={onAction}
@@ -57,7 +57,10 @@ export function SheetsProblemPanel({
             href={status.spreadsheetUrl}
             target="_blank"
             rel="noreferrer"
-            className={buttonStyles({ variant: 'secondary' }) + ' flex-1'}
+            className={
+              buttonStyles({ variant: 'secondary' }) +
+              ' flex-auto whitespace-nowrap'
+            }
           >
             {COPY.openSheet}
           </a>

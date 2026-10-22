@@ -10,7 +10,7 @@ interface SheetsActionRowProps {
   onRun: () => void;
 }
 
-/** "Đồng bộ ngay" and "Mở bảng tính", side by side. */
+/** "Đồng bộ ngay" and "Mở bảng tính": side by side when they fit, stacked on a narrow phone. */
 export function SheetsActionRow({
   canRun,
   runLoading,
@@ -18,9 +18,9 @@ export function SheetsActionRow({
   onRun,
 }: SheetsActionRowProps) {
   return (
-    <div className="flex gap-2.5">
+    <div className="flex flex-wrap gap-2.5">
       <Button
-        className="flex-1"
+        className="flex-auto whitespace-nowrap"
         loading={runLoading}
         disabled={!canRun}
         onClick={onRun}
@@ -39,7 +39,10 @@ export function SheetsActionRow({
           href={spreadsheetUrl}
           target="_blank"
           rel="noreferrer"
-          className={buttonStyles({ variant: 'secondary' }) + ' flex-1'}
+          className={
+            buttonStyles({ variant: 'secondary' }) +
+            ' flex-auto whitespace-nowrap'
+          }
         >
           {COPY.openSheet}
           <ExternalLinkIcon

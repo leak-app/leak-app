@@ -32,6 +32,7 @@ export const SHEETS_SYNC_COPY = {
   disconnect: 'Ngắt kết nối Google',
   runningHeadline: 'Đang đồng bộ…',
   loadError: 'Không tải được trạng thái đồng bộ',
+  unavailable: 'Đồng bộ Google Sheets chưa sẵn sàng. Bạn quay lại sau nhé.',
   retry: 'Thử lại',
   later: 'Để sau',
   dismiss: 'Đóng',

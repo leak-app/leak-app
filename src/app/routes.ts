@@ -12,8 +12,10 @@ import OnboardingPage from '@/pages/onboarding';
 import Overview from '@/pages/overview';
 import PrivacyPage from '@/pages/privacy';
 import Profile from '@/pages/profile';
+import ProfileBuddy from '@/pages/profile-buddy';
 import ProfileSecurity from '@/pages/profile-security';
 import ProfileSheetsReport from '@/pages/profile-sheets-report';
+import ProfileSync from '@/pages/profile-sync';
 import Reflect from '@/pages/reflect';
 import Register from '@/pages/register';
 import ResetPassword from '@/pages/reset-password';
@@ -25,7 +27,9 @@ import Wallet from '@/pages/wallet';
 import { PUBLIC_PATHS, type RouteConfig } from '@/shared/routing';
 
 export const routes: RouteConfig[] = [
-  { path: PUBLIC_PATHS.home, Component: HomePage, protected: false },
+  // The default route is the app itself; visitors without a session end up at login.
+  { path: '/', redirectTo: '/overview', protected: false },
+  { path: PUBLIC_PATHS.intro, Component: HomePage, protected: false },
   { path: PUBLIC_PATHS.privacy, Component: PrivacyPage, protected: false },
   { path: PUBLIC_PATHS.terms, Component: TermsPage, protected: false },
   { path: '/onboarding', Component: OnboardingPage, protected: false },
@@ -48,6 +52,8 @@ export const routes: RouteConfig[] = [
   { path: '/transfer', Component: Transfer, protected: true },
   { path: '/profile', Component: Profile, protected: true },
   { path: '/profile/security', Component: ProfileSecurity, protected: true },
+  { path: '/profile/buddy', Component: ProfileBuddy, protected: true },
+  { path: '/profile/sync', Component: ProfileSync, protected: true },
   {
     path: '/profile/sheets-report',
     Component: ProfileSheetsReport,

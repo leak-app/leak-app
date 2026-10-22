@@ -1,8 +1,6 @@
-import { BuddySettingsCard } from '@/features/buddy-settings';
-import {
-  GoogleSheetsSyncCard,
-  SheetsReturnAlert,
-} from '@/features/sync-google-sheets';
+import { Navigate, useLocation } from 'react-router-dom';
+
+import { parseSheetsReturn } from '@/features/sync-google-sheets';
 import {
   LogoutButton,
   ProfileSettingsList,
@@ -11,6 +9,18 @@ import {
 import { BackButton, MainLayout, Screen, ScreenHeader } from '@/shared/layout';
 
 export default function Profile() {
+  const { search } = useLocation();
+
+  // The API sends the Google consent result here; the sync screen shows it.
+  if (parseSheetsReturn(search)) {
+    return (
+      <Navigate
+        to={`/profile/sync${search}`}
+        replace
+      />
+    );
+  }
+
   return (
     <MainLayout showBottomNav={false}>
       <Screen
@@ -22,10 +32,7 @@ export default function Profile() {
         }
       >
         <div className="flex flex-col gap-5 pb-8">
-          <SheetsReturnAlert />
           <UserIdentity />
-          <GoogleSheetsSyncCard />
-          <BuddySettingsCard />
           <ProfileSettingsList />
           <LogoutButton />
         </div>

@@ -13,7 +13,7 @@ export function OnboardingGuard({ children }: OnboardingGuardProps) {
   const isCompleted = useOnboardingStore((s) => s.isCompleted);
   const hasHydrated = useOnboardingStore((s) => s.hasHydrated);
 
-  // Landing, privacy policy and terms are open to everyone (visitors, search engines,
+  // The intro page, privacy policy and terms are open to everyone (visitors, search engines,
   // Google's OAuth reviewers) and must not be redirected into onboarding.
   if (isPublicPath(location.pathname)) {
     return <>{children}</>;

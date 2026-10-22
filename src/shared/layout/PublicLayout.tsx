@@ -19,7 +19,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
     <div className="flex min-h-screen w-full flex-col bg-bg text-text">
       <header className="mx-auto flex h-nav w-full max-w-3xl items-center justify-between px-container-padding">
         <Link
-          to={PUBLIC_PATHS.home}
+          to={PUBLIC_PATHS.intro}
           aria-label={`${APP_NAME} - Trang chủ`}
           className="inline-flex min-h-touch items-center gap-2"
         >
@@ -47,7 +47,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
           className="flex flex-wrap gap-x-6"
         >
           <Link
-            to={PUBLIC_PATHS.home}
+            to={PUBLIC_PATHS.intro}
             className={FOOTER_LINK_CLASS}
           >
             Trang chủ

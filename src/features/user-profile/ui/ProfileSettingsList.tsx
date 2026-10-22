@@ -30,6 +30,18 @@ const ITEMS: SettingsItem[] = [
     to: '/categories',
   },
   {
+    id: 'buddy',
+    label: 'Bạn thân AI',
+    desc: 'Chọn mức độ cà khịa hay tắt hẳn',
+    to: '/profile/buddy',
+  },
+  {
+    id: 'sync',
+    label: 'Đồng bộ Google Sheets',
+    desc: 'Lưu giao dịch vào bảng tính của bạn mỗi đêm',
+    to: '/profile/sync',
+  },
+  {
     id: 'security',
     label: 'Bảo mật & Mật khẩu',
     desc: 'Thiết bị đang đăng nhập',
