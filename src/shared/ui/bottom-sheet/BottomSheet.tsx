@@ -59,7 +59,7 @@ export function BottomSheet({
       <div
         ref={boxRef}
         className={clsx(
-          'modal-box rounded-t-sheet border-t border-border bg-sheet px-6 pt-4 pb-[max(2rem,env(safe-area-inset-bottom))]',
+          'modal-box no-scrollbar rounded-t-sheet border-t border-border bg-sheet px-6 pt-4 pb-[max(2rem,env(safe-area-inset-bottom))]',
           size === 'tall' &&
             'flex h-[calc(100dvh-5.75rem)] max-h-[calc(100dvh-5.75rem)] flex-col'
         )}
@@ -77,7 +77,7 @@ export function BottomSheet({
         )}
         {open &&
           (size === 'tall' ? (
-            <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+            <div className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto">
               {children}
             </div>
           ) : (
