@@ -1,13 +1,30 @@
 import { useQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 
+import { useBudgetReport } from '@/entities/budget';
 import { apiClient, type BaseResponseModel } from '@/shared/api';
 
-import { deserializeCashFlow, deserializeReportOverview } from '../lib';
+import {
+  deserializeBudgetCard,
+  deserializeCashFlow,
+  deserializeReportOverview,
+} from '../lib';
 import type {
+  BudgetCardModel,
   CashFlowModel,
   RawMonthlyCashFlowModel,
   ReportOverviewModel,
 } from '../model';
+
+/** This month's budget report, shaped for the overview card. Saving a transaction refreshes it. */
+export function useBudgetCard() {
+  const { data, isLoading, isError } = useBudgetReport();
+  const card = useMemo<BudgetCardModel | undefined>(
+    () => (data ? deserializeBudgetCard(data) : undefined),
+    [data]
+  );
+  return { card, isLoading, isError };
+}
 
 export function useReportOverview() {
   return useQuery<ReportOverviewModel, Error>({

@@ -330,6 +330,15 @@
   );
 }
 
+/* The part of a budget bar that is past the limit: diagonal apricot stripes */
+@utility bg-overflow-stripes {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--danger) 0 3px,
+    color-mix(in srgb, var(--danger) 35%, transparent) 3px 6px
+  );
+}
+
 /* Currency Typography Utility */
 @utility font-currency {
   font-family: var(--font-family-mono);

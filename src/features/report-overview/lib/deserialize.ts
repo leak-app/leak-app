@@ -54,6 +54,5 @@ export function deserializeReportOverview(
       formattedAmount: formatVnd(Number(item.amount)),
       formattedTimestamp: formatTimestamp(item.createdAt),
     })),
-    budgetGoals: raw.budgetGoals || [],
   };
 }

@@ -14,7 +14,7 @@ import {
   Screen,
   ScreenHeader,
 } from '@/shared/layout';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export default function BudgetPage() {
@@ -47,8 +47,36 @@ export default function BudgetPage() {
   };
 
   const { data: report, isLoading, isError } = useBudgetReport(month, year);
-  const { data: budgets = [] } = useBudgets(month, year);
+  const { data: budgets = [], isLoading: isBudgetsLoading } = useBudgets(
+    month,
+    year
+  );
   const quickEdit = useBudgetQuickEdit(budgets);
+
+  // A link from the overview card (?category=<id>) opens that category's sheet once, then drops the param.
+  const linkedCategoryId = searchParams.get('category');
+  const linkHandled = useRef(false);
+  useEffect(() => {
+    if (!linkedCategoryId || linkHandled.current || !report || isBudgetsLoading)
+      return;
+    linkHandled.current = true;
+    const item = report.categories.find(
+      (c) => c.categoryId === linkedCategoryId
+    );
+    if (item) quickEdit.open(item, month, year);
+    setSearchParams(
+      { month: String(month), year: String(year) },
+      { replace: true }
+    );
+  }, [
+    linkedCategoryId,
+    report,
+    isBudgetsLoading,
+    month,
+    year,
+    quickEdit,
+    setSearchParams,
+  ]);
 
   return (
     <MainLayout showBottomNav={true}>

@@ -28,13 +28,42 @@ export interface RecentExpenseItemModel {
   formattedTimestamp?: string;
 }
 
-export interface BudgetGoalProgressModel {
-  id: string;
+/** One budgeted category on the overview card, ready to draw. */
+export interface BudgetCardRowModel {
+  categoryId: string;
   name: string;
-  targetAmount: number;
-  savedAmount: number;
-  percentage: number;
-  isWarning: boolean;
+  emoji: string;
+  /** Opens this category on the Budgets page. */
+  href: string;
+  statusText: string;
+  /** Near, full or over: apricot text with an icon. */
+  isAlert: boolean;
+  tone: 'primary' | 'danger';
+  fillPercent: number;
+  overflowStartPercent: number | null;
+  amountsText: string;
+  percentText: string;
+  ariaLabel: string;
+}
+
+/** The "Ngân sách" card on the overview page. */
+export interface BudgetCardModel {
+  isEmpty: boolean;
+  monthText: string;
+  heroLabel: string;
+  heroAmount: { value: string; symbol: string };
+  /** Spent more than the whole month's limit: the hero shows the excess in apricot. */
+  isHeroOver: boolean;
+  perDayText: string | null;
+  /** 0 to 100, for the meter. */
+  usedPercent: number;
+  todayPercent: number;
+  tone: 'primary' | 'danger';
+  spentOfLimitText: string;
+  paceText: string;
+  isPaceFast: boolean;
+  rows: BudgetCardRowModel[];
+  othersText: string | null;
 }
 
 export interface ReportOverviewModel {
@@ -48,7 +77,6 @@ export interface ReportOverviewModel {
   accountsCount: number;
   weeklyExpense: WeeklyExpenseSummaryModel;
   recentExpenses: RecentExpenseItemModel[];
-  budgetGoals: BudgetGoalProgressModel[];
 }
 
 /** GET /overview/monthly */
